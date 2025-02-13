@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+.mantine-TextInput-input{
+    height: 50px !important;
+    margin-top: 5px !important;
+    font-size: 16px !important;
+}
+.mantine-TextInput-label{
+    color: rgb(108, 106, 106) !important;
+}
