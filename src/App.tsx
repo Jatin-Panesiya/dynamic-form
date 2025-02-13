@@ -1,19 +1,21 @@
-import FullName from "./components/FullName";
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
+import Form from "./pages/Form";
+import { useState } from "react";
+import AppContext from "./context/AppContext";
 
 const App = () => {
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({});
+
   return (
-    <div>
-      <FullName />
-      <div className="bg-[#9dc83a] w-full py-3 font-semibold flex justify-between px-5">
-        <button className="flex items-center gap-1 cursor-pointer">
-          <FaArrowLeft className="mt-0.5 mx-1" /> <div>PREVIOUS</div>
-        </button>
-        <button className="flex items-center gap-1 cursor-pointer">
-          <div>NEXT</div> <FaArrowRight className="mt-0.5 mx-1" />
-        </button>
-      </div>
-    </div>
+    <AppContext.Provider value={{ step, setStep, formData, setFormData }}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Form />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </BrowserRouter>
+    </AppContext.Provider>
   );
 };
 
