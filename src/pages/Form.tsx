@@ -5,7 +5,7 @@ import useGetComponent from "../hooks/useGetComponent";
 
 const Form = () => {
   const { step, setStep } = useContext(AppContext);
-  const totalSteps = 3;
+  const totalSteps = 4;
   const component = useGetComponent();
 
   const handleNextStep = () => {
