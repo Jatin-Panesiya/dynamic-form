@@ -16,7 +16,7 @@ const EmailAddress = () => {
         <TextInput
           label="Email Address"
           type="email"
-          value={formData?.emailAddress}
+          value={formData?.email}
           placeholder="example@example.com"
           onChange={(e) => {
             handleInputChange("email", e.target.value);

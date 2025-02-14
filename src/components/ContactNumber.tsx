@@ -16,7 +16,7 @@ const ContactNumber = () => {
         <TextInput
           label="Phone Number"
           type="number"
-          value={formData?.phoneNumber}
+          value={formData?.phone}
           placeholder="Phone Number"
           onChange={(e) => {
             handleInputChange("phone", e.target.value);
