@@ -45,7 +45,13 @@ const AdditionalOwner = () => {
 
   useEffect(() => {
     if (owners.length === 0) {
-      addNewOwner();
+      const newOwner: IOwnerDetails = {
+        firstName: formData?.firstName || "",
+        lastName: formData?.lastName || "",
+        email: formData?.email || "",
+        phone: formData?.phone || "",
+      };
+      setFormData({ ...formData, owners: [...owners, newOwner] });
     }
   }, []);
 

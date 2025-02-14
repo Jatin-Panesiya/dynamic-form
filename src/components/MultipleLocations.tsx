@@ -54,7 +54,16 @@ const MultipleLocations = () => {
   // Ensure at least one location exists on component mount
   useEffect(() => {
     if (locations.length === 0) {
-      addNewLocation();
+      const newLocation: ILocationDetails = {
+        locationName: formData?.locationName || "",
+        locationIdentifier: formData?.locationIdentifier || "",
+        streetAddress: formData?.streetAddress || "",
+        streetAddressLine2: formData?.streetAddressLine2 || "",
+        city: formData?.city || "",
+        state: formData?.state || "",
+        zipCode: formData?.zipCode || "",
+      };
+      setFormData({ ...formData, locations: [...locations, newLocation] });
     }
   }, []);
 

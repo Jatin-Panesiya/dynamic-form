@@ -15,11 +15,11 @@ const EmailAddress = () => {
       <div className="my-5">
         <TextInput
           label="Email Address"
-          type="emailAddress"
+          type="email"
           value={formData?.emailAddress}
           placeholder="example@example.com"
           onChange={(e) => {
-            handleInputChange("emailAddress", e.target.value);
+            handleInputChange("email", e.target.value);
           }}
         />
       </div>

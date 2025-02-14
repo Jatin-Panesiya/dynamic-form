@@ -19,7 +19,7 @@ const ContactNumber = () => {
           value={formData?.phoneNumber}
           placeholder="Phone Number"
           onChange={(e) => {
-            handleInputChange("phoneNumber", e.target.value);
+            handleInputChange("phone", e.target.value);
           }}
         />
       </div>
