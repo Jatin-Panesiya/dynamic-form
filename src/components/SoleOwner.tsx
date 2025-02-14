@@ -45,7 +45,7 @@ const SoleOwner = () => {
           setStep(4);
         }}
         handlePreviousStep={() => {
-          setStep(2);
+          setStep(3);
         }}
       />
     </div>
