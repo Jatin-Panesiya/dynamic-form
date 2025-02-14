@@ -3,10 +3,11 @@ import Heading from "../common/Heading";
 import useInputChange from "../hooks/useInputChange";
 import AppContext from "../context/AppContext";
 import { useContext } from "react";
+import Footer from "../common/Footer";
 
 const ContactNumber = () => {
   const handleInputChange = useInputChange();
-  const { formData } = useContext(AppContext);
+  const { formData, setStep } = useContext(AppContext);
 
   return (
     <div>
@@ -22,6 +23,14 @@ const ContactNumber = () => {
           }}
         />
       </div>
+      <Footer
+        handleNextStep={() => {
+          setStep(3);
+        }}
+        handlePreviousStep={() => {
+          setStep(1);
+        }}
+      />
     </div>
   );
 };

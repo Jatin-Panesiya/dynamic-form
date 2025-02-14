@@ -3,10 +3,11 @@ import Heading from "../common/Heading";
 import useInputChange from "../hooks/useInputChange";
 import AppContext from "../context/AppContext";
 import { useContext } from "react";
+import Footer from "../common/Footer";
 
 const FullName = () => {
   const handleInputChange = useInputChange();
-  const { formData } = useContext(AppContext);
+  const { formData, setStep } = useContext(AppContext);
 
   return (
     <div>
@@ -31,6 +32,12 @@ const FullName = () => {
           placeholder="Last Name"
         />
       </div>
+      <Footer
+        handleNextStep={() => {
+          setStep(2);
+        }}
+        handlePreviousStep={() => {}}
+      />
     </div>
   );
 };

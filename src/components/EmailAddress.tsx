@@ -3,10 +3,11 @@ import useInputChange from "../hooks/useInputChange";
 import AppContext from "../context/AppContext";
 import Heading from "../common/Heading";
 import { TextInput } from "@mantine/core";
+import Footer from "../common/Footer";
 
 const EmailAddress = () => {
   const handleInputChange = useInputChange();
-  const { formData } = useContext(AppContext);
+  const { formData, setStep } = useContext(AppContext);
 
   return (
     <div>
@@ -22,6 +23,14 @@ const EmailAddress = () => {
           }}
         />
       </div>
+      <Footer
+        handleNextStep={() => {
+          setStep(4);
+        }}
+        handlePreviousStep={() => {
+          setStep(2);
+        }}
+      />
     </div>
   );
 };

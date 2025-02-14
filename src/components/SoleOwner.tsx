@@ -2,6 +2,7 @@ import { Button } from "@mantine/core";
 import useInputChange from "../hooks/useInputChange";
 import { useContext } from "react";
 import AppContext from "../context/AppContext";
+import Footer from "../common/Footer";
 
 const SoleOwner = () => {
   const handleInputChange = useInputChange();
@@ -30,6 +31,7 @@ const SoleOwner = () => {
         <Button
           onClick={() => {
             handleOwnerType(false);
+            setStep(6);
           }}
           variant="outline"
           className="!px-10 !text-lg !h-[52px]"
@@ -37,6 +39,15 @@ const SoleOwner = () => {
           More Than One Owner
         </Button>
       </div>
+
+      <Footer
+        handleNextStep={() => {
+          setStep(4);
+        }}
+        handlePreviousStep={() => {
+          setStep(2);
+        }}
+      />
     </div>
   );
 };

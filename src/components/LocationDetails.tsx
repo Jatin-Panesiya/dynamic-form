@@ -3,10 +3,11 @@ import useInputChange from "../hooks/useInputChange";
 import AppContext from "../context/AppContext";
 import Heading from "../common/Heading";
 import { Select, TextInput } from "@mantine/core";
+import Footer from "../common/Footer";
 
 const LocationDetails = () => {
   const handleInputChange = useInputChange();
-  const { formData } = useContext(AppContext);
+  const { formData, setStep, step } = useContext(AppContext);
 
   return (
     <div>
@@ -84,6 +85,20 @@ const LocationDetails = () => {
           }}
         />
       </div>
+
+      <Footer
+        handleNextStep={() => {
+          setStep(4);
+        }}
+        handlePreviousStep={() => {
+          if (step === 5) {
+            setStep(4);
+          }
+          if (step === 7) {
+            setStep(6);
+          }
+        }}
+      />
     </div>
   );
 };
