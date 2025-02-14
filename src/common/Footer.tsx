@@ -26,7 +26,7 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
         </div>
 
         <div>
-          {step !== totalSteps && step != 4 && (
+          {step !== totalSteps && step !== 4 && step !== 8 && (
             <button
               onClick={handleNextStep}
               className="flex items-center gap-1 cursor-pointer"

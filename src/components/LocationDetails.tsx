@@ -7,7 +7,7 @@ import Footer from "../common/Footer";
 
 const LocationDetails = () => {
   const handleInputChange = useInputChange();
-  const { formData, setStep, step } = useContext(AppContext);
+  const { formData, setStep } = useContext(AppContext);
 
   return (
     <div>
@@ -88,13 +88,12 @@ const LocationDetails = () => {
 
       <Footer
         handleNextStep={() => {
-          setStep(4);
+          setStep(8);
         }}
         handlePreviousStep={() => {
-          if (step === 5) {
+          if (formData?.isSoleOwner) {
             setStep(4);
-          }
-          if (step === 7) {
+          } else {
             setStep(6);
           }
         }}
