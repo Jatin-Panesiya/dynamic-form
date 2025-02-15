@@ -130,7 +130,7 @@ const MultipleProvider = () => {
       </Button>
 
       <Footer
-        handleNextStep={() => setStep(7)}
+        handleNextStep={() => setStep(15)}
         handlePreviousStep={() => setStep(13)}
       />
     </div>

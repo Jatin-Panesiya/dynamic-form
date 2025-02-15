@@ -32,6 +32,7 @@ const AskMoreThanOneProvider = () => {
           <Button
             onClick={() => {
               handleProvider(false);
+              setStep(15);
             }}
             variant="outline"
             className="!px-10 !text-lg !h-[52px]"

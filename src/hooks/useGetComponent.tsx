@@ -13,6 +13,7 @@ import ProviderEmail from "../components/ProviderEmail";
 import ProviderLocation from "../components/ProviderLocation";
 import AskMoreThanOneProvider from "../components/AskMoreThanOneProvider";
 import MultipleProvider from "../components/MultipleProvider";
+import OperationHubMessage from "../components/OperationHubMessage";
 
 export const components: { [key: number]: JSX.Element } = {
   1: <FullName />,
@@ -29,6 +30,7 @@ export const components: { [key: number]: JSX.Element } = {
   12: <ProviderLocation />,
   13: <AskMoreThanOneProvider />,
   14: <MultipleProvider />,
+  15: <OperationHubMessage />,
 };
 
 export const totalSteps = Object.keys(components).length;
