@@ -26,14 +26,18 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
         </div>
 
         <div>
-          {step !== totalSteps && step !== 4 && step !== 8 && step !== 13 && (
-            <button
-              onClick={handleNextStep}
-              className="flex items-center gap-1 cursor-pointer"
-            >
-              <div>NEXT</div> <FaArrowRight className="mt-0.5 mx-1" />
-            </button>
-          )}
+          {step !== totalSteps &&
+            step !== 4 &&
+            step !== 8 &&
+            step !== 13 &&
+            step !== 16 && (
+              <button
+                onClick={handleNextStep}
+                className="flex items-center gap-1 cursor-pointer"
+              >
+                <div>NEXT</div> <FaArrowRight className="mt-0.5 mx-1" />
+              </button>
+            )}
         </div>
       </div>
     </div>

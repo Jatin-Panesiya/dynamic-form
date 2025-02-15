@@ -14,6 +14,8 @@ import ProviderLocation from "../components/ProviderLocation";
 import AskMoreThanOneProvider from "../components/AskMoreThanOneProvider";
 import MultipleProvider from "../components/MultipleProvider";
 import OperationHubMessage from "../components/OperationHubMessage";
+import AskMoreThanOneMember from "../components/AskMoreThanOneMember";
+import AdditioanlMembers from "../components/AdditioanlMembers";
 
 export const components: { [key: number]: JSX.Element } = {
   1: <FullName />,
@@ -31,6 +33,8 @@ export const components: { [key: number]: JSX.Element } = {
   13: <AskMoreThanOneProvider />,
   14: <MultipleProvider />,
   15: <OperationHubMessage />,
+  16: <AskMoreThanOneMember />,
+  17: <AdditioanlMembers />,
 };
 
 export const totalSteps = Object.keys(components).length;

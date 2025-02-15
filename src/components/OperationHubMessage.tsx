@@ -33,7 +33,7 @@ const OperationHubMessage = () => {
         </div>
       </div>
       <Footer
-        handleNextStep={() => setStep(10)}
+        handleNextStep={() => setStep(16)}
         handlePreviousStep={() => {
           if (formData?.isMultipleProvider) {
             setStep(14);
