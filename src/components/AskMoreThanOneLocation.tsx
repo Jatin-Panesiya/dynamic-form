@@ -4,13 +4,30 @@ import AppContext from "../context/AppContext";
 import Heading from "../common/Heading";
 import { Button } from "@mantine/core";
 import useInputChange from "../hooks/useInputChange";
+import { ILocationDetails } from "./MultipleLocations";
 
 const AskMoreThanOneLocation = () => {
-  const { setStep } = useContext(AppContext);
+  const { setStep, formData, setFormData } = useContext(AppContext);
   const handleInputChange = useInputChange();
+  const locations = formData?.locations || [];
 
   const handleLocation = (isMultipleLocation: boolean) => {
     handleInputChange("isMultipleLocation", isMultipleLocation);
+  };
+
+  const handleNoClick = () => {
+    if (locations.length === 0) {
+      const newLocation: ILocationDetails = {
+        locationName: formData?.locationName || "",
+        locationIdentifier: formData?.locationIdentifier || "",
+        streetAddress: formData?.streetAddress || "",
+        streetAddressLine2: formData?.streetAddressLine2 || "",
+        city: formData?.city || "",
+        state: formData?.state || "",
+        zipCode: formData?.zipCode || "",
+      };
+      setFormData({ ...formData, locations: [...locations, newLocation] });
+    }
   };
 
   return (
@@ -32,6 +49,8 @@ const AskMoreThanOneLocation = () => {
           <Button
             onClick={() => {
               handleLocation(false);
+              setStep(10);
+              handleNoClick();
             }}
             variant="outline"
             className="!px-10 !text-lg !h-[52px]"

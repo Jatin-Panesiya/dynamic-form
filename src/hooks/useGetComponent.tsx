@@ -8,6 +8,9 @@ import LocationDetails from "../components/LocationDetails";
 import AdditionalOwner from "../components/AdditionalOwner";
 import AskMoreThanOneLocation from "../components/AskMoreThanOneLocation";
 import MultipleLocations from "../components/MultipleLocations";
+import ProviderName from "../components/ProviderName";
+import ProviderEmail from "../components/ProviderEmail";
+import ProviderLocation from "../components/ProviderLocation";
 
 export const components: { [key: number]: JSX.Element } = {
   1: <FullName />,
@@ -19,6 +22,9 @@ export const components: { [key: number]: JSX.Element } = {
   7: <LocationDetails />,
   8: <AskMoreThanOneLocation />,
   9: <MultipleLocations />,
+  10: <ProviderName />,
+  11: <ProviderEmail />,
+  12: <ProviderLocation />,
 };
 
 export const totalSteps = Object.keys(components).length;

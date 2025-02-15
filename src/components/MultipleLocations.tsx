@@ -4,7 +4,7 @@ import Heading from "../common/Heading";
 import AppContext from "../context/AppContext";
 import { Button, Select, TextInput } from "@mantine/core";
 
-interface ILocationDetails {
+export interface ILocationDetails {
   locationName: string;
   locationIdentifier: string;
   streetAddress: string;
