@@ -59,10 +59,10 @@ const AdditionalMembers = () => {
   useEffect(() => {
     if (members.length === 0) {
       const newMember = {
-        staffName: formData.staffName || "",
-        email: formData.email || "",
-        role: formData.role || "",
-        selectedLocations: formData.selectedLocations || [],
+        staffName: "",
+        email: "",
+        role: "",
+        selectedLocations: [],
         selectedFullLocations: [],
       };
       setFormData({ ...formData, members: [...members, newMember] });
