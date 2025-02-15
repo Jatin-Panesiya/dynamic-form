@@ -4,7 +4,7 @@ import { useState } from "react";
 import AppContext from "./context/AppContext";
 
 const App = () => {
-  const [step, setStep] = useState(12);
+  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
 
   return (
