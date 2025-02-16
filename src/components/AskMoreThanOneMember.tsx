@@ -18,13 +18,13 @@ const AskMoreThanOneMember = () => {
       <div className="px-10">
         <Heading text="Do you have Additional team members who need portal access?" />
 
-        <div className="grid grid-cols-2 items-center gap-x-5 my-7">
+        <div className="grid max-[450px]:grid-cols-1 grid-cols-2 items-center gap-5 my-7">
           <Button
             onClick={() => {
               handleMember(false);
             }}
             variant="outline"
-            className="!px-10 !text-lg !h-[52px]"
+            className="!px-10 max-[450px]:!px-5 !text-lg !h-[52px]"
           >
             It's just me
           </Button>
@@ -34,7 +34,7 @@ const AskMoreThanOneMember = () => {
               setStep(10);
             }}
             variant="outline"
-            className="!px-10 !text-lg !h-[52px]"
+            className="!px-10 max-[450px]:!px-5 !text-lg !h-[52px]"
           >
             I have team members
           </Button>

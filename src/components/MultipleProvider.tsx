@@ -103,7 +103,7 @@ const MultipleProvider = () => {
         <div className="max-h-[calc(100vh-400px)] overflow-auto">
           {providers.map((provider: any, index: number) => (
             <div key={index} className="p-3 rounded-md my-5">
-              <div className="grid grid-cols-4 gap-x-5">
+              <div className="grid grid-cols-4 max-[450px]:grid-cols-1 max-[600px]:grid-cols-2 gap-x-5">
                 <TextInput
                   label="First Name"
                   value={provider.providerFirstName}
@@ -186,10 +186,10 @@ const MultipleProvider = () => {
         </div>
 
         <Button
-          className="!px-10 !text-lg !h-[52px] !mb-5"
+          className="!px-10 !text-lg !h-[52px] !mb-5 max-[450px]:!px-5 mt-5 max-[450px]:!text-sm max-[450px]:!h-[40px]"
           onClick={addNewProvider}
         >
-          Add More Provider(s)
+          + Add More Provider(s)
         </Button>
       </div>
       <Footer

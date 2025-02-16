@@ -97,7 +97,7 @@ const AdditionalMembers = () => {
         <div className="max-h-[calc(100vh-400px)] overflow-auto">
           {(members as IMember[]).map((member, index) => (
             <div key={index} className="p-3 rounded-md my-5">
-              <div className="grid grid-cols-4 gap-x-5">
+              <div className="grid max-[450px]:grid-cols-1 max-[600px]:grid-cols-2 grid-cols-4 gap-x-5">
                 <TextInput
                   label="Staff Name"
                   value={member.staffName}
@@ -170,15 +170,15 @@ const AdditionalMembers = () => {
           ))}
         </div>
         <Button
-          className="!px-10 !text-lg !h-[52px] !mb-5"
+          className="!px-10 !text-lg !h-[52px] !mb-5 max-[450px]:!px-5 mt-5 max-[450px]:!text-sm max-[450px]:!h-[40px]"
           onClick={addNewMember}
         >
-          Add More Member(s)
+          + Add More Member(s)
         </Button>
       </div>
       <Footer
         handleNextStep={handleNextStep}
-        handlePreviousStep={() => setStep(6)}
+        handlePreviousStep={() => setStep(9)}
       />
     </div>
   );
