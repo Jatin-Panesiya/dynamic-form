@@ -108,7 +108,7 @@ const AdditionalOwner = () => {
           "Add More Owners" to include additional owners as needed.
         </div>
 
-        <div className="max-h-[calc(100vh-400px)] overflow-auto">
+        <div className="max-h-[calc(100vh-450px)] overflow-auto">
           {(owners as IOwnerDetails[]).map((owner, index) => (
             <div
               key={index}
