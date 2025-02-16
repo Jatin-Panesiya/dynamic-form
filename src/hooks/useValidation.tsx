@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 interface FormData {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   phone: string;
+  email: string;
 }
 
 type ValidationRule = {

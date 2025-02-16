@@ -4,14 +4,8 @@ import FullName from "../components/FullName";
 import ContactNumber from "../components/ContactNumber";
 import EmailAddress from "../components/EmailAddress";
 import SoleOwner from "../components/SoleOwner";
-import LocationDetails from "../components/LocationDetails";
 import AdditionalOwner from "../components/AdditionalOwner";
-import AskMoreThanOneLocation from "../components/AskMoreThanOneLocation";
 import MultipleLocations from "../components/MultipleLocations";
-import ProviderName from "../components/ProviderName";
-import ProviderEmail from "../components/ProviderEmail";
-import ProviderLocation from "../components/ProviderLocation";
-import AskMoreThanOneProvider from "../components/AskMoreThanOneProvider";
 import MultipleProvider from "../components/MultipleProvider";
 import OperationHubMessage from "../components/OperationHubMessage";
 import AskMoreThanOneMember from "../components/AskMoreThanOneMember";
@@ -22,25 +16,21 @@ export const components: { [key: number]: JSX.Element } = {
   2: <ContactNumber />,
   3: <EmailAddress />,
   4: <SoleOwner />,
-  5: <LocationDetails />,
-  6: <AdditionalOwner />,
-  7: <LocationDetails />,
-  8: <AskMoreThanOneLocation />,
-  9: <MultipleLocations />,
-  10: <ProviderName />,
-  11: <ProviderEmail />,
-  12: <ProviderLocation />,
-  13: <AskMoreThanOneProvider />,
-  14: <MultipleProvider />,
-  15: <OperationHubMessage />,
-  16: <AskMoreThanOneMember />,
-  17: <AdditioanlMembers />,
+  5: <AdditionalOwner />,
+  6: <MultipleLocations />,
+  7: <MultipleProvider />,
+  8: <OperationHubMessage />,
+  9: <AskMoreThanOneMember />,
+  10: <AdditioanlMembers />,
+  11: <AdditioanlMembers />,
 };
 
 export const totalSteps = Object.keys(components).length;
 
 const useGetComponent = () => {
-  const { step } = useContext(AppContext);
+  const { step, formData } = useContext(AppContext);
+  console.log(formData, "@@@@@@@@");
+
   return components[step] || null;
 };
 

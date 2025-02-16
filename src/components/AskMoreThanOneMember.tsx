@@ -14,21 +14,11 @@ const AskMoreThanOneMember = () => {
   };
 
   return (
-    <div>
-      <div>
+    <div className="container-home">
+      <div className="px-10">
         <Heading text="Do you have Additional team members who need portal access?" />
 
         <div className="grid grid-cols-2 items-center gap-x-5 my-7">
-          <Button
-            onClick={() => {
-              handleMember(true);
-              setStep(17);
-            }}
-            variant="outline"
-            className="!px-10 !text-lg !h-[52px]"
-          >
-            I have team members
-          </Button>
           <Button
             onClick={() => {
               handleMember(false);
@@ -38,12 +28,22 @@ const AskMoreThanOneMember = () => {
           >
             It's just me
           </Button>
+          <Button
+            onClick={() => {
+              handleMember(true);
+              setStep(10);
+            }}
+            variant="outline"
+            className="!px-10 !text-lg !h-[52px]"
+          >
+            I have team members
+          </Button>
         </div>
       </div>
       <Footer
         handleNextStep={() => {}}
         handlePreviousStep={() => {
-          setStep(15);
+          setStep(8);
         }}
       />
     </div>

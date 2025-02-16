@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, TextInput, MultiSelect, Select } from "@mantine/core";
 import Heading from "../common/Heading";
 import Footer from "../common/Footer";
@@ -16,6 +16,9 @@ interface IMember {
 const AdditionalMembers = () => {
   const { setStep, formData, setFormData } = useContext(AppContext);
   const members = formData?.members || [];
+  const [errors, setErrors] = useState<Record<number, Record<string, string>>>(
+    {}
+  );
 
   const locationOptions = (
     (formData.locations as ILocationDetails[]) || []
@@ -24,8 +27,28 @@ const AdditionalMembers = () => {
     label: `${location.locationName}, ${location.city}, ${location.state}`,
   }));
 
+  const validateFields = () => {
+    const newErrors: Record<number, Record<string, string>> = {};
+    (members as IMember[]).forEach((member, index) => {
+      const memberErrors: Record<string, string> = {};
+      if (!member.staffName.trim() || member.staffName.length < 3)
+        memberErrors.staffName = "Staff name is required";
+      if (
+        !member.email.trim() ||
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(member.email)
+      )
+        memberErrors.email = "Enter a valid email address";
+      if (!member.role) memberErrors.role = "Please select a role";
+      if (!member.selectedLocations.length)
+        memberErrors.selectedLocations = "Select at least one location";
+      if (Object.keys(memberErrors).length) newErrors[index] = memberErrors;
+    });
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const addNewMember = () => {
-    const newMember = {
+    const newMember: IMember = {
       staffName: "",
       email: "",
       role: "",
@@ -38,6 +61,9 @@ const AdditionalMembers = () => {
   const removeMember = (index: number) => {
     const updatedMembers = (members as IMember[]).filter((_, i) => i !== index);
     setFormData({ ...formData, members: updatedMembers });
+    const updatedErrors = { ...errors };
+    delete updatedErrors[index];
+    setErrors(updatedErrors);
   };
 
   const handleMemberChange = (index: number, field: string, value: any) => {
@@ -45,95 +71,114 @@ const AdditionalMembers = () => {
     updatedMembers[index] = { ...updatedMembers[index], [field]: value };
 
     if (field === "selectedLocations") {
-      const selectedLocationsDetails = value.map((selectedLocation: string) =>
-        formData.locations.find(
-          (location: any) => location.locationIdentifier === selectedLocation
-        )
+      updatedMembers[index].selectedFullLocations = value.map(
+        (selectedLocation: string) =>
+          formData.locations.find(
+            (location: any) => location.locationIdentifier === selectedLocation
+          )
       );
-      updatedMembers[index].selectedFullLocations = selectedLocationsDetails;
     }
 
     setFormData({ ...formData, members: updatedMembers });
   };
 
+  const handleNextStep = () => {
+    if (validateFields()) setStep(11);
+  };
+
   useEffect(() => {
-    if (members.length === 0) {
-      const newMember = {
-        staffName: "",
-        email: "",
-        role: "",
-        selectedLocations: [],
-        selectedFullLocations: [],
-      };
-      setFormData({ ...formData, members: [...members, newMember] });
-    }
+    if (members.length === 0) addNewMember();
   }, []);
 
   return (
-    <div>
-      <Heading text="Operation Hub: Team Member Access" />
-      {members.map((member: any, index: number) => (
-        <div
-          key={index}
-          className="border border-gray-300 shadow-md p-3 rounded-md my-5"
-        >
-          <div className="grid grid-cols-2 gap-x-5">
-            <TextInput
-              label="Staff Name"
-              value={member.staffName}
-              placeholder="Staff Name"
-              onChange={(e) =>
-                handleMemberChange(index, "staffName", e.target.value)
-              }
-            />
-            <TextInput
-              label="Email"
-              value={member.email}
-              placeholder="Email"
-              onChange={(e) =>
-                handleMemberChange(index, "email", e.target.value)
-              }
-            />
-          </div>
-          <Select
-            label="Role"
-            placeholder="Select Role"
-            value={member.role}
-            onChange={(value) => handleMemberChange(index, "role", value)}
-            data={["Admin", "Manager", "Staff"]}
-          />
-          <MultiSelect
-            label="Assigned Locations"
-            placeholder="Select one or multiple locations"
-            data={locationOptions}
-            value={member.selectedLocations}
-            onChange={(selectedValues) =>
-              handleMemberChange(index, "selectedLocations", selectedValues)
-            }
-          />
-          {members.length > 1 && (
-            <div className="flex justify-end w-full">
-              <Button
-                variant="outline"
-                color="red"
-                className="mt-3"
-                onClick={() => removeMember(index)}
-              >
-                Remove Member
-              </Button>
+    <div className="container-home">
+      <div className="px-10">
+        <Heading text="Operation Hub: Team Member Access" />
+        <div className="max-h-[calc(100vh-300px)] overflow-auto">
+          {(members as IMember[]).map((member, index) => (
+            <div key={index} className="p-3 rounded-md my-5">
+              <div className="grid grid-cols-4 gap-x-5">
+                <TextInput
+                  label="Staff Name"
+                  value={member.staffName}
+                  error={errors[index]?.staffName}
+                  onChange={(e) =>
+                    handleMemberChange(index, "staffName", e.target.value)
+                  }
+                />
+                <TextInput
+                  label="Email"
+                  value={member.email}
+                  error={errors[index]?.email}
+                  onChange={(e) =>
+                    handleMemberChange(index, "email", e.target.value)
+                  }
+                />
+                <Select
+                  label="Role"
+                  placeholder="Select role"
+                  data={["Admin", "Manager", "Staff"]}
+                  value={member.role}
+                  error={errors[index]?.role}
+                  onChange={(value) => handleMemberChange(index, "role", value)}
+                />
+                <MultiSelect
+                  label="Location(s)"
+                  placeholder="Select locations"
+                  data={locationOptions}
+                  value={member.selectedLocations}
+                  error={errors[index]?.selectedLocations}
+                  clearable
+                  searchable
+                  styles={{
+                    pill: {
+                      maxWidth: "100%",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    },
+                    input: {
+                      minHeight: "48px",
+                      overflow: "auto",
+                    },
+                    dropdown: {
+                      maxHeight: "200px",
+                      overflowY: "auto",
+                    },
+                  }}
+                  onChange={(selectedValues) =>
+                    handleMemberChange(
+                      index,
+                      "selectedLocations",
+                      selectedValues
+                    )
+                  }
+                />
+              </div>
+              {members.length > 1 && (
+                <div className="flex justify-end w-full">
+                  <Button
+                    variant="outline"
+                    color="red"
+                    className="mt-3"
+                    onClick={() => removeMember(index)}
+                  >
+                    Remove Member
+                  </Button>
+                </div>
+              )}
             </div>
-          )}
+          ))}
         </div>
-      ))}
-      <Button
-        className="!px-10 !text-lg !h-[52px] !mb-5"
-        onClick={addNewMember}
-      >
-        + Add More Member(s)
-      </Button>
+        <Button
+          className="!px-10 !text-lg !h-[52px] !mb-5"
+          onClick={addNewMember}
+        >
+          Add More Member(s)
+        </Button>
+      </div>
       <Footer
-        handleNextStep={() => setStep(15)}
-        handlePreviousStep={() => setStep(16)}
+        handleNextStep={handleNextStep}
+        handlePreviousStep={() => setStep(6)}
       />
     </div>
   );

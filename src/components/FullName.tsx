@@ -11,8 +11,7 @@ const FullName = () => {
   const { formData, setStep } = useContext(AppContext);
 
   const validationRules = {
-    firstName: { required: true, message: "First name is required" },
-    lastName: { required: true, message: "Last name is required" },
+    fullName: { required: true, message: "Full name is required" },
   };
 
   const { errors, validateFields, clearError } = useValidation(validationRules);
@@ -24,31 +23,19 @@ const FullName = () => {
   };
 
   return (
-    <div>
-      <Heading text="Owner's Full Name" />
-      <div className="grid grid-cols-2 gap-x-5 my-5">
-        <TextInput
-          name="firstName"
-          label="First Name"
-          value={formData?.firstName}
-          placeholder="First Name"
-          error={errors?.firstName}
-          onChange={(e) => {
-            handleInputChange("firstName", e.target.value);
-            clearError("firstName");
-          }}
-        />
-        <TextInput
-          value={formData?.lastName}
-          onChange={(e) => {
-            handleInputChange("lastName", e.target.value);
-            clearError("lastName");
-          }}
-          name="lastName"
-          label="Last Name"
-          error={errors?.lastName}
-          placeholder="Last Name"
-        />
+    <div className="container-home">
+      <div className="px-10">
+        <Heading text="Owner's Full Name" />
+        <div className="mb-5">
+          <TextInput
+            value={formData?.fullName}
+            error={errors?.fullName}
+            onChange={(e) => {
+              handleInputChange("fullName", e.target.value);
+              clearError("fullName");
+            }}
+          />
+        </div>
       </div>
       <Footer handleNextStep={handleNextStep} handlePreviousStep={() => {}} />
     </div>

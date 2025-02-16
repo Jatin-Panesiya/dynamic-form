@@ -3,11 +3,14 @@ import Footer from "../common/Footer";
 import AppContext from "../context/AppContext";
 
 const OperationHubMessage = () => {
-  const { setStep, formData } = useContext(AppContext);
+  const { setStep } = useContext(AppContext);
 
   return (
-    <div>
-      <div className="my-5 bg-blue-500 text-white rounded-md p-5 space-y-5">
+    <div className="container-home">
+      <div className="p-10 text-5xl text-center">
+        Operation Hub: Portal Access
+      </div>
+      <div className=" rounded-md space-y-5 px-10 mb-10 text-center">
         <div>
           <strong>The Operations Hub</strong> is your franchise’s centralized
           portal designed to streamline administrative tasks, patient
@@ -28,18 +31,14 @@ const OperationHubMessage = () => {
         <div>
           You can <strong>assign one or multiple roles</strong> to each team
           member, ensuring they only see the relevant sections of the portal.
-          Additionally, you can
+          Additionally, you can{" "}
           <strong>assign them to one or more locations</strong> as needed.
         </div>
       </div>
       <Footer
-        handleNextStep={() => setStep(16)}
+        handleNextStep={() => setStep(9)}
         handlePreviousStep={() => {
-          if (formData?.isMultipleProvider) {
-            setStep(14);
-          } else {
-            setStep(13);
-          }
+          setStep(7);
         }}
       />
     </div>

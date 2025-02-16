@@ -3,25 +3,29 @@ import useInputChange from "../hooks/useInputChange";
 import { useContext } from "react";
 import AppContext from "../context/AppContext";
 import Footer from "../common/Footer";
+import Heading from "../common/Heading";
 
 const SoleOwner = () => {
   const handleInputChange = useInputChange();
-  const { step, setStep } = useContext(AppContext);
+  const { setStep } = useContext(AppContext);
 
   const handleOwnerType = (isSoleOwner: boolean) => {
     handleInputChange("isSoleOwner", isSoleOwner);
   };
 
   return (
-    <div>
-      <div className="text-center text-2xl pt-5">
-        Are you the sole owner, or is there more than one owner?
-      </div>
-      <div className="flex items-center gap-x-5 my-11 justify-center">
+    <div className="container-home">
+      <img
+        src="./logo.png"
+        className="w-[100px] h-[100px] absolute top-10 left-10"
+        alt="Mantine logo"
+      />
+      <Heading text=" Are you the sole owner, or is there more than one owner?" />
+      <div className="flex items-center gap-x-5 my-5 justify-center">
         <Button
           onClick={() => {
             handleOwnerType(true);
-            setStep(step + 1);
+            setStep(6);
           }}
           variant="outline"
           className="!px-10 !text-lg !h-[52px]"
@@ -31,7 +35,7 @@ const SoleOwner = () => {
         <Button
           onClick={() => {
             handleOwnerType(false);
-            setStep(6);
+            setStep(5);
           }}
           variant="outline"
           className="!px-10 !text-lg !h-[52px]"
@@ -41,9 +45,7 @@ const SoleOwner = () => {
       </div>
 
       <Footer
-        handleNextStep={() => {
-          setStep(4);
-        }}
+        handleNextStep={() => {}}
         handlePreviousStep={() => {
           setStep(3);
         }}

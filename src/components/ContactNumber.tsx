@@ -11,7 +11,7 @@ const ContactNumber = () => {
   const { formData, setStep } = useContext(AppContext);
 
   const validationRules = {
-    phone: { required: true, message: "Phone Number is required" },
+    phone: { required: true, message: "Please enter a valid phone number." },
   };
 
   const { errors, validateFields, clearError } = useValidation(validationRules);
@@ -23,20 +23,21 @@ const ContactNumber = () => {
   };
 
   return (
-    <div>
-      <Heading text="Owner's Contact Number" />
-      <div className="my-5">
-        <TextInput
-          label="Phone Number"
-          type="number"
-          value={formData?.phone}
-          error={errors?.phone}
-          placeholder="Phone Number"
-          onChange={(e) => {
-            handleInputChange("phone", e.target.value);
-            clearError("phone");
-          }}
-        />
+    <div className="container-home">
+      <div className="px-10">
+        <Heading text="Owner's Phone Number" />
+        <div className="mb-5">
+          <TextInput
+            type="number"
+            value={formData?.phone}
+            error={errors?.phone}
+            placeholder="Please enter a valid phone number."
+            onChange={(e) => {
+              handleInputChange("phone", e.target.value);
+              clearError("phone");
+            }}
+          />
+        </div>
       </div>
       <Footer
         handleNextStep={handleNextStep}
