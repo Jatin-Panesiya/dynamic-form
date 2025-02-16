@@ -8,7 +8,7 @@ import AppContext from "../context/AppContext";
 
 const Form = () => {
   const component = useGetComponent();
-  const { step, setStep } = useContext(AppContext); // Get step and setStep
+  const { step, setStep, formData } = useContext(AppContext); // Get step and setStep
 
   return (
     <div className="root">
@@ -52,7 +52,12 @@ const Form = () => {
             <Step
               key={index}
               className="p-2 h-2"
-              onClick={() => setStep(index + 1)}
+              onClick={() => {
+                if (formData.isSoleOwner && index === 4) {
+                  return setStep(4);
+                }
+                setStep(index + 1);
+              }}
             ></Step>
           ))}
         </Stepper>
