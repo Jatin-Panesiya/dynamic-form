@@ -7,7 +7,7 @@ const OperationHubMessage = () => {
 
   return (
     <div className="container-home">
-      <div className="max-h-[calc(100vh-150px)] overflow-auto">
+      <div className="max-h-[calc(100vh-150px)] max-[450px]:max-h-[calc(100vh-250px)] overflow-auto">
         <div className="p-10 max-[450px]:!px-2 text-5xl text-center max-[450px]:text-2xl">
           Operation Hub: Portal Access
         </div>
