@@ -15,13 +15,8 @@ const SoleOwner = () => {
 
   return (
     <div className="container-home">
-      <img
-        src="./logo.png"
-        className="w-[100px] h-[100px] absolute top-10 left-10"
-        alt="Mantine logo"
-      />
       <Heading text=" Are you the sole owner, or is there more than one owner?" />
-      <div className="flex items-center gap-x-5 my-5 justify-center">
+      <div className="flex max-[450px]:grid gap-y-2 items-center gap-x-5 my-5 justify-center">
         <Button
           onClick={() => {
             handleOwnerType(true);

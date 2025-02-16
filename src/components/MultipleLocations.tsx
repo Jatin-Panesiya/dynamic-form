@@ -122,7 +122,7 @@ const MultipleLocations: React.FC = () => {
               key={index}
               className="border border-gray-300 shadow-md p-3 rounded-md my-5"
             >
-              <div className="grid grid-cols-2 gap-x-5">
+              <div className="grid max-[450px]:grid-cols-1 grid-cols-2 gap-x-5">
                 <TextInput
                   label="Location Name"
                   {...form.getInputProps(`locations.${index}.locationName`)}
@@ -158,7 +158,7 @@ const MultipleLocations: React.FC = () => {
                 {...form.getInputProps(`locations.${index}.streetAddressLine2`)}
               />
 
-              <div className="grid grid-cols-2 gap-x-5">
+              <div className="grid max-[450px]:grid-cols-1 grid-cols-2 gap-x-5">
                 <TextInput
                   label="City"
                   {...form.getInputProps(`locations.${index}.city`)}
