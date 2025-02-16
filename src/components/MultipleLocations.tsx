@@ -4,6 +4,7 @@ import Footer from "../common/Footer";
 import Heading from "../common/Heading";
 import AppContext from "../context/AppContext";
 import { Button, Select, TextInput } from "@mantine/core";
+import Autocomplete from "react-google-autocomplete";
 
 export interface ILocationDetails {
   locationName: string;
@@ -14,6 +15,8 @@ export interface ILocationDetails {
   state: string;
   zipCode: string;
 }
+
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 const MultipleLocations: React.FC = () => {
   const { setStep, formData, setFormData } = useContext(AppContext);
@@ -70,6 +73,41 @@ const MultipleLocations: React.FC = () => {
     form.removeListItem("locations", index);
   };
 
+  const handleAddressSelect = (place: any, index: number) => {
+    const addressComponents = place.address_components;
+
+    let streetAddress = "";
+    let city = "";
+    let state = "";
+    let zipCode = "";
+
+    addressComponents.forEach((component: any) => {
+      if (component.types.includes("street_number")) {
+        streetAddress = component.long_name;
+      }
+      if (component.types.includes("route")) {
+        streetAddress += ` ${component.long_name}`;
+      }
+      if (component.types.includes("locality")) {
+        city = component.long_name;
+      }
+      if (component.types.includes("administrative_area_level_1")) {
+        state = component.long_name;
+      }
+      if (component.types.includes("postal_code")) {
+        zipCode = component.long_name;
+      }
+    });
+
+    form.setFieldValue(
+      `locations.${index}.streetAddress`,
+      streetAddress.trim()
+    );
+    form.setFieldValue(`locations.${index}.city`, city);
+    form.setFieldValue(`locations.${index}.state`, state);
+    form.setFieldValue(`locations.${index}.zipCode`, zipCode);
+  };
+
   return (
     <div className="container-home">
       <div className="px-10">
@@ -96,14 +134,30 @@ const MultipleLocations: React.FC = () => {
                   )}
                 />
               </div>
-              <TextInput
-                label="Street Address"
-                {...form.getInputProps(`locations.${index}.streetAddress`)}
-              />
+
+              <div>
+                <div className="mantine-TextInput-label font-semibold text-sm">
+                  Street Address
+                </div>
+                <Autocomplete
+                  apiKey={GOOGLE_MAPS_API_KEY}
+                  onPlaceSelected={(place: any) =>
+                    handleAddressSelect(place, index)
+                  }
+                  options={{
+                    types: ["geocode"],
+                    componentRestrictions: { country: "us" },
+                  }}
+                  className="w-full p-2 border mantine-TextInput-input border-gray-300 rounded"
+                  placeholder=""
+                  {...form.getInputProps(`locations.${index}.streetAddress`)}
+                />
+              </div>
               <TextInput
                 label="Street Address Line 2"
                 {...form.getInputProps(`locations.${index}.streetAddressLine2`)}
               />
+
               <div className="grid grid-cols-2 gap-x-5">
                 <TextInput
                   label="City"
@@ -113,19 +167,65 @@ const MultipleLocations: React.FC = () => {
                   label="State"
                   {...form.getInputProps(`locations.${index}.state`)}
                   data={[
-                    "Gujarat",
-                    "Maharashtra",
-                    "Rajasthan",
-                    "Madhya Pradesh",
-                    "Uttar Pradesh",
-                    "Tamil Nadu",
+                    "Alabama",
+                    "Alaska",
+                    "Arizona",
+                    "Arkansas",
+                    "California",
+                    "Colorado",
+                    "Connecticut",
+                    "Delaware",
+                    "Florida",
+                    "Georgia",
+                    "Hawaii",
+                    "Idaho",
+                    "Illinois",
+                    "Indiana",
+                    "Iowa",
+                    "Kansas",
+                    "Kentucky",
+                    "Louisiana",
+                    "Maine",
+                    "Maryland",
+                    "Massachusetts",
+                    "Michigan",
+                    "Minnesota",
+                    "Mississippi",
+                    "Missouri",
+                    "Montana",
+                    "Nebraska",
+                    "Nevada",
+                    "New Hampshire",
+                    "New Jersey",
+                    "New Mexico",
+                    "New York",
+                    "North Carolina",
+                    "North Dakota",
+                    "Ohio",
+                    "Oklahoma",
+                    "Oregon",
+                    "Pennsylvania",
+                    "Rhode Island",
+                    "South Carolina",
+                    "South Dakota",
+                    "Tennessee",
+                    "Texas",
+                    "Utah",
+                    "Vermont",
+                    "Virginia",
+                    "Washington",
+                    "West Virginia",
+                    "Wisconsin",
+                    "Wyoming",
                   ]}
                 />
               </div>
+
               <TextInput
                 label="Zip Code"
                 {...form.getInputProps(`locations.${index}.zipCode`)}
               />
+
               {form.values.locations.length > 1 && (
                 <div className="flex justify-end w-full">
                   <Button
@@ -141,6 +241,7 @@ const MultipleLocations: React.FC = () => {
             </div>
           ))}
         </div>
+
         <Button
           className="!px-10 !text-lg !h-[52px] !mb-5"
           onClick={addNewLocation}
@@ -148,6 +249,7 @@ const MultipleLocations: React.FC = () => {
           + Add More Location(s)
         </Button>
       </div>
+
       <Footer
         handleNextStep={() => {
           if (form.validate().hasErrors) return;
