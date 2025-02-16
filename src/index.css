@@ -25,6 +25,13 @@
   justify-content: center;
 }
 
+@media (max-width: 450px) {
+  .root {
+    height: calc(100vh - 56px);
+
+  }
+}
+
 @keyframes jiggleLeft {
   0%,
   100% {
