@@ -40,9 +40,7 @@ export const components: { [key: number]: JSX.Element } = {
 export const totalSteps = Object.keys(components).length;
 
 const useGetComponent = () => {
-  const { step, formData } = useContext(AppContext);
-  console.log(step, formData, "@@@@@@step");
-
+  const { step } = useContext(AppContext);
   return components[step] || null;
 };
 
