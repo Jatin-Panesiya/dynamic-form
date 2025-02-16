@@ -15,7 +15,7 @@ const SoleOwner = () => {
 
   return (
     <div className="container-home">
-      <Heading text=" Are you the sole owner, or is there more than one owner?" />
+      <Heading text="Are you the sole owner, or is there more than one owner?" />
       <div className="flex max-[450px]:grid gap-y-2 items-center gap-x-5 my-5 justify-center">
         <Button
           onClick={() => {
