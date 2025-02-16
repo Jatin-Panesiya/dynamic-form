@@ -25,6 +25,13 @@
   justify-content: center;
 }
 
+@media (max-width: 450px) {
+  .root {
+    align-items: start;
+    padding-top: 50px;
+  }
+}
+
 @keyframes jiggleLeft {
   0%,
   100% {
@@ -67,17 +74,20 @@
 
 .grid-cols-auto-fit {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  ); /* Responsive columns */
   justify-items: center; /* Centers items that don't wrap */
   align-items: start; /* Ensures wrapped items start at the top */
 }
 
-.mantine-PillsInputField-field{
+.mantine-PillsInputField-field {
   padding-top: 6px !important;
 }
 
 .active {
-  color: #007BFF !important;
+  color: #007bff !important;
   border: solid 2px white;
   padding: 9px;
   border-radius: 50%;
