@@ -75,3 +75,14 @@
 .mantine-PillsInputField-field{
   padding-top: 6px !important;
 }
+
+.active {
+  color: #007BFF !important;
+  border: solid 2px white;
+  padding: 9px;
+  border-radius: 50%;
+}
+
+.completed {
+  color: black !important;
+}

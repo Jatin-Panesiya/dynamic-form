@@ -100,7 +100,7 @@ const MultipleProvider = () => {
           "Add Another Provider" to add additional providers as needed.
         </div>
 
-        <div className="max-h-[calc(100vh-300px)] overflow-auto">
+        <div className="max-h-[calc(100vh-400px)] overflow-auto">
           {providers.map((provider: any, index: number) => (
             <div key={index} className="p-3 rounded-md my-5">
               <div className="grid grid-cols-4 gap-x-5">

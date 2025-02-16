@@ -94,7 +94,7 @@ const AdditionalMembers = () => {
     <div className="container-home">
       <div className="px-10">
         <Heading text="Operation Hub: Team Member Access" />
-        <div className="max-h-[calc(100vh-300px)] overflow-auto">
+        <div className="max-h-[calc(100vh-400px)] overflow-auto">
           {(members as IMember[]).map((member, index) => (
             <div key={index} className="p-3 rounded-md my-5">
               <div className="grid grid-cols-4 gap-x-5">
