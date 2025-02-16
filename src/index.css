@@ -14,7 +14,7 @@
   margin-top: 10px;
 }
 
-#root {
+.root {
   background-image: url("/bg.jpg");
   background-size: cover; /* Ensure it covers the full area */
   background-position: center;
