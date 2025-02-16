@@ -149,10 +149,10 @@ const AdditionalOwner = () => {
         </div>
 
         <Button
-          className="!px-10 !text-lg !h-[52px] !mb-5"
+          className="!px-10 !text-lg !h-[52px] !mb-5 max-[450px]:!px-5 mt-5 max-[450px]:!text-sm max-[450px]:!h-[40px]"
           onClick={addNewOwner}
         >
-          Add More Owner(s)
+          + Add More Owner(s)
         </Button>
       </div>
       <Footer
