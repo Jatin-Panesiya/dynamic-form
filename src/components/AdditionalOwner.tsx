@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import AppContext from "../context/AppContext";
 import Heading from "../common/Heading";
 import { Button, TextInput } from "@mantine/core";
@@ -17,6 +17,7 @@ const AdditionalOwner = () => {
   const [errors, setErrors] = useState<Record<number, Partial<IOwnerDetails>>>(
     {}
   );
+  const ownerRefs = useRef<(HTMLDivElement | null)[]>([]); // Store references
 
   // Function to add a new owner
   const addNewOwner = () => {
@@ -27,6 +28,14 @@ const AdditionalOwner = () => {
       phone: "",
     };
     setFormData({ ...formData, owners: [...owners, newOwner] });
+
+    setTimeout(() => {
+      const lastIndex = owners.length; // Index of new owner
+      ownerRefs.current[lastIndex]?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 100); // Delay to ensure the DOM updates
   };
 
   const removeOwner = (index: number) => {
@@ -47,7 +56,6 @@ const AdditionalOwner = () => {
     const updatedOwners = [...owners];
     updatedOwners[index] = { ...updatedOwners[index], [field]: value };
     setFormData({ ...formData, owners: updatedOwners });
-
     validateField(index, field, value);
   };
 
@@ -112,6 +120,9 @@ const AdditionalOwner = () => {
           {(owners as IOwnerDetails[]).map((owner, index) => (
             <div
               key={index}
+              ref={(el) => {
+                ownerRefs.current[index] = el;
+              }}
               className="border border-gray-300 shadow-md p-2 rounded-md my-5"
             >
               <div className="grid grid-cols-auto-fit gap-x-5 w-full">
