@@ -1,15 +1,17 @@
 @import "tailwindcss";
 
 .mantine-TextInput-input,
-.mantine-Select-input
- {
+.mantine-Select-input {
   height: 50px !important;
   margin-top: 5px !important;
   font-size: 16px !important;
 }
 
-.mantine-MultiSelect-input{
+.mantine-MultiSelect-input {
   min-height: 50px !important;
+  max-height: 120px !important;
+  overflow: auto !important;
+  margin-top: 5px;
 }
 .mantine-TextInput-label,
 .mantine-Select-label,
@@ -32,7 +34,6 @@
 @media (max-width: 450px) {
   .root {
     height: calc(100vh - 56px);
-
   }
 }
 

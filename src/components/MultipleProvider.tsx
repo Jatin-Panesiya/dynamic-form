@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { Button, TextInput, MultiSelect } from "@mantine/core";
 import Footer from "../common/Footer";
 import Heading from "../common/Heading";
@@ -19,6 +19,7 @@ const MultipleProvider = () => {
   const [errors, setErrors] = useState<Record<number, Record<string, string>>>(
     {}
   );
+  const providerRefs = useRef<(HTMLDivElement | null)[]>([]); // Store refs for providers
 
   const locationOptions = (
     (formData.locations as ILocationDetails[]) || []
@@ -52,7 +53,16 @@ const MultipleProvider = () => {
       selectedLocations: [],
       selectedFullLocations: [],
     };
+
     setFormData({ ...formData, providers: [...providers, newProvider] });
+
+    setTimeout(() => {
+      const lastIndex = providers.length; // Get index of the newly added provider
+      providerRefs.current[lastIndex]?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 100); // Delay to ensure re-rendering completes
   };
 
   const removeProvider = (index: number) => {
@@ -102,7 +112,13 @@ const MultipleProvider = () => {
 
         <div className="max-h-[calc(100vh-450px)] overflow-auto">
           {providers.map((provider: any, index: number) => (
-            <div key={index} className="p-3 rounded-md my-5">
+            <div
+              key={index}
+              ref={(el) => {
+                providerRefs.current[index] = el;
+              }}
+              className="p-3 rounded-md my-5"
+            >
               <div className="grid grid-cols-4 max-[450px]:grid-cols-1 max-[600px]:grid-cols-2 gap-x-5">
                 <TextInput
                   label="First Name"

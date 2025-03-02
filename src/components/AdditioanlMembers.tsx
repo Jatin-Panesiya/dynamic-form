@@ -116,7 +116,6 @@ const AdditionalMembers = () => {
                 />
                 <Select
                   label="Role"
-                  placeholder="Select role"
                   data={["Admin", "Manager", "Staff"]}
                   value={member.role}
                   error={errors[index]?.role}
@@ -124,27 +123,9 @@ const AdditionalMembers = () => {
                 />
                 <MultiSelect
                   label="Location(s)"
-                  placeholder="Select locations"
                   data={locationOptions}
                   value={member.selectedLocations}
                   error={errors[index]?.selectedLocations}
-                  clearable
-                  searchable
-                  styles={{
-                    pill: {
-                      maxWidth: "100%",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    },
-                    input: {
-                      minHeight: "48px",
-                      overflow: "auto",
-                    },
-                    dropdown: {
-                      maxHeight: "200px",
-                      overflowY: "auto",
-                    },
-                  }}
                   onChange={(selectedValues) =>
                     handleMemberChange(
                       index,
