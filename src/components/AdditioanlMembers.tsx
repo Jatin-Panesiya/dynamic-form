@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { Button, TextInput, MultiSelect, Select } from "@mantine/core";
 import Heading from "../common/Heading";
 import Footer from "../common/Footer";
@@ -19,6 +19,7 @@ const AdditionalMembers = () => {
   const [errors, setErrors] = useState<Record<number, Record<string, string>>>(
     {}
   );
+  const lastMemberRef = useRef<HTMLDivElement | null>(null);
 
   const locationOptions = (
     (formData.locations as ILocationDetails[]) || []
@@ -56,6 +57,13 @@ const AdditionalMembers = () => {
       selectedFullLocations: [],
     };
     setFormData({ ...formData, members: [...members, newMember] });
+
+    setTimeout(() => {
+      lastMemberRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 100);
   };
 
   const removeMember = (index: number) => {
@@ -96,7 +104,11 @@ const AdditionalMembers = () => {
         <Heading text="Operation Hub: Team Member Access" />
         <div className="max-h-[calc(100vh-450px)] overflow-auto">
           {(members as IMember[]).map((member, index) => (
-            <div key={index} className="p-3 rounded-md my-5">
+            <div
+              key={index}
+              className="p-3 rounded-md my-5"
+              ref={index === members.length - 1 ? lastMemberRef : null}
+            >
               <div className="grid max-[450px]:grid-cols-1 max-[600px]:grid-cols-2 grid-cols-4 gap-x-5">
                 <TextInput
                   label="Staff Name"
