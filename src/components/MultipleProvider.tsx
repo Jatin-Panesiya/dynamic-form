@@ -138,27 +138,9 @@ const MultipleProvider = () => {
                 />
                 <MultiSelect
                   label="Location(s)"
-                  placeholder="Select all applicable"
                   data={locationOptions}
                   value={provider.selectedLocations}
                   error={errors[index]?.selectedLocations}
-                  clearable
-                  searchable
-                  styles={{
-                    pill: {
-                      maxWidth: "100%",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    },
-                    input: {
-                      minHeight: "48px",
-                      overflow: "auto",
-                    },
-                    dropdown: {
-                      maxHeight: "200px",
-                      overflowY: "auto",
-                    },
-                  }}
                   onChange={(selectedValues) =>
                     handleProviderChange(
                       index,
