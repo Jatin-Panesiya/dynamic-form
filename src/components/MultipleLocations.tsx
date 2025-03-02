@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useForm } from "@mantine/form";
 import Footer from "../common/Footer";
 import Heading from "../common/Heading";
@@ -21,6 +21,8 @@ const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const MultipleLocations: React.FC = () => {
   const { setStep, formData, setFormData } = useContext(AppContext);
   const locations: ILocationDetails[] = formData?.locations || [];
+
+  const locationRefs = useRef<HTMLDivElement[]>([]);
 
   const form = useForm<{ locations: ILocationDetails[] }>({
     initialValues: {
@@ -67,6 +69,14 @@ const MultipleLocations: React.FC = () => {
       state: "",
       zipCode: "",
     });
+
+    setTimeout(() => {
+      const lastIndex = form.values.locations.length;
+      const lastElement = locationRefs.current[lastIndex];
+      if (lastElement) {
+        lastElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100); // Small delay to ensure the DOM is updated before scrolling
   };
 
   const removeLocation = (index: number) => {
@@ -120,6 +130,9 @@ const MultipleLocations: React.FC = () => {
           {form.values.locations.map((_, index) => (
             <div
               key={index}
+              ref={(el) => {
+                locationRefs.current[index] = el as HTMLDivElement;
+              }}
               className="border border-gray-300 shadow-md p-3 rounded-md my-5"
             >
               <div className="grid max-[450px]:grid-cols-1 grid-cols-2 gap-x-5">

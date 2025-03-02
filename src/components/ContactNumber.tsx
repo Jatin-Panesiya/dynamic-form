@@ -31,7 +31,6 @@ const ContactNumber = () => {
             type="number"
             value={formData?.phone}
             error={errors?.phone}
-            placeholder="Please enter a valid phone number."
             onChange={(e) => {
               handleInputChange("phone", e.target.value);
               clearError("phone");
