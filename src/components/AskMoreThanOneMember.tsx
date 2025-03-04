@@ -22,6 +22,7 @@ const AskMoreThanOneMember = () => {
           <Button
             onClick={() => {
               handleMember(false);
+              setStep(11);
             }}
             variant="outline"
             className="!px-10 max-[450px]:!px-5 !text-lg !h-[52px]"
