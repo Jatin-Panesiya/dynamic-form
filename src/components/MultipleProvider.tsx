@@ -103,9 +103,9 @@ const MultipleProvider = () => {
 
   return (
     <div className="container-home">
-      <div className="px-10">
+      <div className="px-10 max-[450px]:px-3">
         <Heading text="Provider Details" />
-        <div className="text-gray-500 text-base text-center pb-3">
+        <div className="text-gray-500 text-base max-[450px]:text-sm text-center pb-3">
           If you have more than one provider working for your franchise, click
           "Add Another Provider" to add additional providers as needed.
         </div>

@@ -64,7 +64,7 @@ const Form = () => {
       </div>
 
       {/* Step Progress Text */}
-      <div className="text-center fixed max-[450px]:bottom-0 bottom-1 bg-black/20 text-white mt-2 px-5 py-1.5 rounded-md text-sm font-semibold">
+      <div className="text-center fixed bottom-1 bg-black/20 text-white mt-2 px-5 py-1.5 rounded-md text-sm font-semibold">
         {step} of {totalSteps}
       </div>
     </div>

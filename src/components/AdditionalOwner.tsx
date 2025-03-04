@@ -107,9 +107,9 @@ const AdditionalOwner = () => {
 
   return (
     <div className="container-home">
-      <div className="px-10">
+      <div className="px-10 max-[450px]:px-3">
         <Heading text="Additional Owner(s) Information" />
-        <div className="text-gray-500 text-base text-center pb-3">
+        <div className="text-gray-500 text-base max-[450px]:text-sm text-center pb-3">
           If there are multiple owners, please enter their details below. Click
           "Add More Owners" to include additional owners as needed.
         </div>

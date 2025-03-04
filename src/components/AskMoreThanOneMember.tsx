@@ -15,7 +15,7 @@ const AskMoreThanOneMember = () => {
 
   return (
     <div className="container-home">
-      <div className="px-10">
+      <div className="px-10 max-[450px]:px-3">
         <Heading text="Do you have Additional team members who need portal access?" />
 
         <div className="grid max-[450px]:grid-cols-1 grid-cols-2 items-center gap-5 my-7">

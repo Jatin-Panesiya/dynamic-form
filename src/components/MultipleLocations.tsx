@@ -120,9 +120,9 @@ const MultipleLocations: React.FC = () => {
 
   return (
     <div className="container-home">
-      <div className="px-10">
+      <div className="px-10 max-[450px]:px-3">
         <Heading text="Location Details" />
-        <div className="text-gray-500 text-base text-center pb-3">
+        <div className="text-gray-500 text-base max-[450px]:text-sm text-center pb-3">
           If you have multiple locations, please enter their details below.
         </div>
 
