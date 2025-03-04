@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import AppContext from "../context/AppContext";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { totalSteps } from "../hooks/useGetComponent";
@@ -9,6 +9,7 @@ interface IFooterProps {
 }
 
 const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
+  const [loading, setLoading] = useState(false);
   const { step, formData } = useContext(AppContext);
 
   const handleSubmitForm = async () => {
@@ -16,6 +17,7 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
       "https://script.google.com/macros/s/AKfycbwbTX0M4zWybNhYXuwTjQ2T8DMoE9UJHH1-oXfIxnl4AClCn8kQ2J1Gup5eXTsiu61j/exec";
 
     try {
+      setLoading(true);
       const response = await fetch(scriptURL, {
         method: "POST",
         mode: "no-cors", // Prevents CORS errors
@@ -30,6 +32,8 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("Error submitting form.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -57,12 +61,19 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
                 onClick={
                   step === totalSteps ? handleSubmitForm : handleNextStep
                 }
-                className="flex items-center gap-1 cursor-pointer jiggle-right"
+                disabled={loading}
+                className={`flex items-center gap-1 cursor-pointer jiggle-right ${
+                  loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               >
                 <div className="tracking-widest">
-                  {step === totalSteps ? "SUBMIT" : "NEXT"}
+                  {loading
+                    ? "Submitting..."
+                    : step === totalSteps
+                    ? "SUBMIT"
+                    : "NEXT"}
                 </div>
-                {step !== totalSteps && (
+                {!loading && step !== totalSteps && (
                   <FaArrowRight className="mt-0.5 mx-1 arrow-right" />
                 )}
               </button>
