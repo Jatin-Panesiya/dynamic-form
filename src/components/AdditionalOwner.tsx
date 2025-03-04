@@ -5,8 +5,7 @@ import { Button, TextInput } from "@mantine/core";
 import Footer from "../common/Footer";
 
 interface IOwnerDetails {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
   phone: string;
 }
@@ -22,8 +21,7 @@ const AdditionalOwner = () => {
   // Function to add a new owner
   const addNewOwner = () => {
     const newOwner: IOwnerDetails = {
-      firstName: "",
-      lastName: "",
+      fullName: "",
       email: "",
       phone: "",
     };
@@ -123,15 +121,17 @@ const AdditionalOwner = () => {
               ref={(el) => {
                 ownerRefs.current[index] = el;
               }}
-              className="border border-gray-300 shadow-md p-2 rounded-md my-5"
+              className="my-3"
             >
-              <div className="grid grid-cols-auto-fit gap-x-5 w-full">
+              <div className="grid sm:grid-cols-[1fr_1fr_1fr_50px] items-center gap-x-5 w-full">
                 {Object.keys(owner).map((key) => {
                   const field = key as keyof IOwnerDetails;
                   return (
                     <div key={field} className="w-full">
                       <TextInput
-                        label={field.replace(/([A-Z])/g, " $1")}
+                        label={field
+                          .replace(/([A-Z])/g, " $1")
+                          .replace(/^./, (str) => str.toUpperCase())}
                         value={owner[field]}
                         className="w-full"
                         onChange={(e) =>
@@ -142,19 +142,20 @@ const AdditionalOwner = () => {
                     </div>
                   );
                 })}
+                {owners.length > 1 && (
+                  <div className="flex justify-end w-full">
+                    <Button
+                      variant="outline"
+                      color="red"
+                      className="mt-8"
+                      onClick={() => removeOwner(index)}
+                    >
+                      <span className="sm:hidden">Remove Owner</span>
+                      <span className="hidden sm:inline">X</span>
+                    </Button>
+                  </div>
+                )}
               </div>
-              {owners.length > 1 && (
-                <div className="flex justify-end w-full">
-                  <Button
-                    variant="outline"
-                    color="red"
-                    className="mt-3"
-                    onClick={() => removeOwner(index)}
-                  >
-                    Remove Owner
-                  </Button>
-                </div>
-              )}
             </div>
           ))}
         </div>
