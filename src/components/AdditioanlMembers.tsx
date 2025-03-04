@@ -24,8 +24,8 @@ const AdditionalMembers = () => {
   const locationOptions = (
     (formData.locations as ILocationDetails[]) || []
   ).map((location) => ({
-    value: location.locationIdentifier,
-    label: `${location.locationName}, ${location.city}, ${location.state}`,
+    value: location?.streetAddress,
+    label: location?.streetAddress,
   }));
 
   const validateFields = () => {

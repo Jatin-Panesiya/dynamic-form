@@ -24,8 +24,8 @@ const MultipleProvider = () => {
   const locationOptions = (
     (formData.locations as ILocationDetails[]) || []
   ).map((location) => ({
-    value: location.locationIdentifier,
-    label: location.locationIdentifier,
+    value: location?.streetAddress,
+    label: location?.streetAddress,
   }));
 
   const validateFields = () => {
