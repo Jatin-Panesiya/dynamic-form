@@ -9,7 +9,29 @@ interface IFooterProps {
 }
 
 const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
-  const { step } = useContext(AppContext);
+  const { step, formData } = useContext(AppContext);
+
+  const handleSubmitForm = async () => {
+    const scriptURL =
+      "https://script.google.com/macros/s/AKfycbwbTX0M4zWybNhYXuwTjQ2T8DMoE9UJHH1-oXfIxnl4AClCn8kQ2J1Gup5eXTsiu61j/exec";
+
+    try {
+      const response = await fetch(scriptURL, {
+        method: "POST",
+        mode: "no-cors", // Prevents CORS errors
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      console.log("Data sent successfully!", response);
+      alert("Form submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Error submitting form.");
+    }
+  };
 
   return (
     <div>
@@ -27,15 +49,24 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
         </div>
 
         <div>
-          {step !== totalSteps && step !== 4 && step !== 9 && step !== 16 && (
-            <button
-              onClick={handleNextStep}
-              className="flex items-center gap-1 cursor-pointer jiggle-right"
-            >
-              <div className="tracking-widest">NEXT</div>
-              <FaArrowRight className="mt-0.5 mx-1 arrow-right" />
-            </button>
-          )}
+          {step !== totalSteps + 1 &&
+            step !== 4 &&
+            step !== 9 &&
+            step !== 16 && (
+              <button
+                onClick={
+                  step === totalSteps ? handleSubmitForm : handleNextStep
+                }
+                className="flex items-center gap-1 cursor-pointer jiggle-right"
+              >
+                <div className="tracking-widest">
+                  {step === totalSteps ? "SUBMIT" : "NEXT"}
+                </div>
+                {step !== totalSteps && (
+                  <FaArrowRight className="mt-0.5 mx-1 arrow-right" />
+                )}
+              </button>
+            )}
         </div>
       </div>
     </div>
