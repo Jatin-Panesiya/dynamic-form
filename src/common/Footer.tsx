@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import AppContext from "../context/AppContext";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { totalSteps } from "../hooks/useGetComponent";
+import { loadStripe } from "@stripe/stripe-js";
 
 interface IFooterProps {
   handleNextStep: () => void;
@@ -11,6 +12,40 @@ interface IFooterProps {
 const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
   const [loading, setLoading] = useState(false);
   const { step, formData } = useContext(AppContext);
+
+  const stripePromise = loadStripe(
+    "pk_live_51NJjPpD341iGIhAdQaGd2KMeGgaND4NynhvX8XezEwvGskZIEa3381zHJRfBBK9cYyoV6YN3XBAqanS6KFBtp4KU00U27Ple54"
+  );
+
+  const handleStripeCheckout = async () => {
+    setLoading(true);
+    const stripe = await stripePromise;
+
+    if (!stripe) {
+      alert("Stripe failed to load.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const { error } = await stripe.redirectToCheckout({
+        lineItems: [{ price: "price_1QzxPuD341iGIhAddqXu6mEN", quantity: 1 }],
+        mode: "payment",
+        successUrl: window.location.origin + "/success",
+        cancelUrl: window.location.origin + "/cancel",
+      });
+
+      if (error) {
+        console.error("Stripe error:", error);
+        alert("Payment failed. Try again.");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      alert("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmitForm = async () => {
     const scriptURL =
@@ -59,7 +94,7 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
             step !== 16 && (
               <button
                 onClick={
-                  step === totalSteps ? handleSubmitForm : handleNextStep
+                  step === totalSteps ? handleStripeCheckout : handleNextStep
                 }
                 disabled={loading}
                 className={`flex items-center gap-1 cursor-pointer jiggle-right ${
