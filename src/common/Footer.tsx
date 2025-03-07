@@ -11,7 +11,7 @@ interface IFooterProps {
 
 const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
   const [loading, setLoading] = useState(false);
-  const { step, formData } = useContext(AppContext);
+  const { step } = useContext(AppContext);
 
   const stripePromise = loadStripe(
     "pk_live_51NJjPpD341iGIhAdQaGd2KMeGgaND4NynhvX8XezEwvGskZIEa3381zHJRfBBK9cYyoV6YN3XBAqanS6KFBtp4KU00U27Ple54"
@@ -47,30 +47,30 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
     }
   };
 
-  const handleSubmitForm = async () => {
-    const scriptURL =
-      "https://script.google.com/macros/s/AKfycbwbTX0M4zWybNhYXuwTjQ2T8DMoE9UJHH1-oXfIxnl4AClCn8kQ2J1Gup5eXTsiu61j/exec";
+  // const handleSubmitForm = async () => {
+  //   const scriptURL =
+  //     "https://script.google.com/macros/s/AKfycbwbTX0M4zWybNhYXuwTjQ2T8DMoE9UJHH1-oXfIxnl4AClCn8kQ2J1Gup5eXTsiu61j/exec";
 
-    try {
-      setLoading(true);
-      const response = await fetch(scriptURL, {
-        method: "POST",
-        mode: "no-cors", // Prevents CORS errors
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+  //   try {
+  //     setLoading(true);
+  //     const response = await fetch(scriptURL, {
+  //       method: "POST",
+  //       mode: "no-cors", // Prevents CORS errors
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
 
-      console.log("Data sent successfully!", response);
-      alert("Form submitted successfully!");
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("Error submitting form.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     console.log("Data sent successfully!", response);
+  //     alert("Form submitted successfully!");
+  //   } catch (error) {
+  //     console.error("Error submitting form:", error);
+  //     alert("Error submitting form.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div>
