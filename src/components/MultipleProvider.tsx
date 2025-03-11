@@ -4,10 +4,10 @@ import Footer from "../common/Footer";
 import Heading from "../common/Heading";
 import AppContext from "../context/AppContext";
 import { ILocationDetails } from "./MultipleLocations";
+import { showToast } from "../common/toast";
 
 interface IProvider {
-  providerFirstName: string;
-  providerLastName: string;
+  providerFullName: string;
   email: string;
   selectedLocations: string[];
   selectedFullLocations: ILocationDetails[];
@@ -32,10 +32,8 @@ const MultipleProvider = () => {
     const newErrors: Record<number, Record<string, string>> = {};
     (providers as IProvider[]).forEach((provider, index) => {
       const providerErrors: Record<string, string> = {};
-      if (!provider.providerFirstName.trim())
-        providerErrors.providerFirstName = "First Name is required";
-      if (!provider.providerLastName.trim())
-        providerErrors.providerLastName = "Last Name is required";
+      if (!provider?.providerFullName?.trim())
+        providerErrors.providerFullName = "Name is required";
       if (!provider.email?.trim()) providerErrors.email = "Email is required";
       if (!provider.selectedLocations.length)
         providerErrors.selectedLocations = "At least one location is required";
@@ -91,15 +89,37 @@ const MultipleProvider = () => {
     setFormData({ ...formData, providers: updatedProviders });
   };
 
-  const handleNextStep = () => {
-    if (validateFields()) setStep(8);
-  };
-
   useEffect(() => {
     if (providers.length === 0) {
       addNewProvider();
     }
   }, []);
+
+  const handleNextStep = () => {
+    validateFields();
+
+    const errors: string[] = [];
+    console.log(errors);
+    (formData?.providers as IProvider[])?.forEach((location, index) => {
+      if (!location.providerFullName)
+        errors.push(
+          `Please enter the Provider FullName for Provider ${index + 1}`
+        );
+      if (!location.email)
+        errors.push(
+          `Please enter the Provider Email for Provider ${index + 1}`
+        );
+      if (!location.selectedLocations?.length)
+        errors.push(`Please enter Location for Provider ${index + 1}`);
+    });
+
+    if (errors.length > 0) {
+      showToast(errors[0], "error");
+      return;
+    }
+
+    setStep(7);
+  };
 
   return (
     <div className="container-home">
@@ -122,8 +142,8 @@ const MultipleProvider = () => {
               <div className="grid grid-cols-3 max-[450px]:grid-cols-1 max-[600px]:grid-cols-2 gap-x-5">
                 <TextInput
                   label="Full Name"
-                  value={provider.providerFirstName}
-                  error={errors[index]?.providerFirstName}
+                  value={provider.providerFullName}
+                  error={errors[index]?.providerFullName}
                   onChange={(e) =>
                     handleProviderChange(
                       index,

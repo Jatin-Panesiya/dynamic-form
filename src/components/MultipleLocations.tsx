@@ -5,6 +5,7 @@ import Heading from "../common/Heading";
 import AppContext from "../context/AppContext";
 import { Button, Select, TextInput } from "@mantine/core";
 import Autocomplete from "react-google-autocomplete";
+import { showToast } from "../common/toast";
 
 export interface ILocationDetails {
   locationName: string;
@@ -116,6 +117,36 @@ const MultipleLocations: React.FC = () => {
     form.setFieldValue(`locations.${index}.city`, city);
     form.setFieldValue(`locations.${index}.state`, state);
     form.setFieldValue(`locations.${index}.zipCode`, zipCode);
+  };
+
+  const handleNextStep = () => {
+    form.validate();
+    const errors: string[] = [];
+    form.values.locations.forEach((location, index) => {
+      if (!location.locationName)
+        errors.push(`Please enter the Location Name for Location ${index + 1}`);
+      if (!location.locationIdentifier)
+        errors.push(
+          `Please enter the Location Identifier for Location ${index + 1}`
+        );
+      if (!location.streetAddress)
+        errors.push(
+          `Please enter the Street Address for Location ${index + 1}`
+        );
+      if (!location.city)
+        errors.push(`Please enter the City for Location ${index + 1}`);
+      if (!location.state)
+        errors.push(`Please select the State for Location ${index + 1}`);
+      if (!/^[0-9]{5,6}$/.test(location.zipCode))
+        errors.push(`Please enter a valid Zip Code for Location ${index + 1}`);
+    });
+
+    if (errors.length > 0) {
+      showToast(errors[0], "error");
+      return;
+    }
+
+    setStep(7);
   };
 
   return (
@@ -266,10 +297,7 @@ const MultipleLocations: React.FC = () => {
       </div>
 
       <Footer
-        handleNextStep={() => {
-          if (form.validate().hasErrors) return;
-          setStep(7);
-        }}
+        handleNextStep={handleNextStep}
         handlePreviousStep={() => {
           if (formData.isSoleOwner) {
             setStep(4);
