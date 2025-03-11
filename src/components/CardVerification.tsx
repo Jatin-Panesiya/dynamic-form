@@ -9,7 +9,7 @@ const CardVerification = () => {
 
   return (
     <div className="container-home relative">
-      <Heading text="My Products" />
+      <Heading text="Card Verification" />
 
       <div className="absolute top-0 right-0 mt-5 mr-5">
         <div className="bg-blue-500 relative w-10 rounded-full p-3">
@@ -25,14 +25,16 @@ const CardVerification = () => {
         <div className="flex  max-[500px]:grid items-center gap-5 py-5 bg-slate-100">
           <img src="logo.png" className="w-16 ms-5" alt="logo" />
           <div className="px-5">
-            <div className="font-bold text-xl">Card Verification</div>
             <div>
               The purpose of this $1 charge is so that when you start to treat
               patients we'll be ready to go. Our system, at that point, collect
-              on a daily basis, based on the patients in your system.
+              on a daily basis, based on the patients in your system. Hit ‘Next’
+              to proceed.
             </div>
           </div>
-          <div className="pr-5 font-bold text-xl  max-[500px]:hidden">$1.00</div>
+          <div className="pr-5 font-bold text-xl  max-[500px]:hidden">
+            $1.00
+          </div>
         </div>
       </div>
       <div className="flex w-full justify-end px-5 items-center mb-5">

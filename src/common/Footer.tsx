@@ -105,7 +105,7 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
                   {loading
                     ? "Submitting..."
                     : step === totalSteps
-                    ? "SUBMIT"
+                    ? "NEXT"
                     : "NEXT"}
                 </div>
                 {!loading && step !== totalSteps && (
