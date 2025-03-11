@@ -15,11 +15,11 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
 
   const testPublicKey =
     "pk_test_51NJjPpD341iGIhAd2ohlo0nRAOcBWr00A02fnapdRExU6ipOVaa23aB82Q9viJvln19Zspo2CgpQ5f4moefbs1cS006iWOYmmV";
-  const livePublicKey =
-    "pk_live_51NJjPpD341iGIhAdQaGd2KMeGgaND4NynhvX8XezEwvGskZIEa3381zHJRfBBK9cYyoV6YN3XBAqanS6KFBtp4KU00U27Ple54";
+  // const livePublicKey =
+  //   "pk_live_51NJjPpD341iGIhAdQaGd2KMeGgaND4NynhvX8XezEwvGskZIEa3381zHJRfBBK9cYyoV6YN3XBAqanS6KFBtp4KU00U27Ple54";
 
   const testPriceId = "price_1R1XUWD341iG|hAdDxmYmcLz";
-  const livePriceId = "price_1QzxPuD341iGIhAddqXu6mEN";
+  // const livePriceId = "price_1QzxPuD341iGIhAddqXu6mEN";
 
   const stripePromise = loadStripe(testPublicKey);
 
