@@ -4,6 +4,7 @@ import { useState } from "react";
 import AppContext from "./context/AppContext";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 const App = () => {
   const [step, setStep] = useState(1);
@@ -14,6 +15,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Form />} />
+          <Route path="/success" element={<PaymentSuccess />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
