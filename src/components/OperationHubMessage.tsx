@@ -8,7 +8,7 @@ const OperationHubMessage = () => {
   return (
     <div className="container-home">
       <div className="max-h-[calc(100vh-150px)] max-[450px]:max-h-[calc(100vh-250px)] overflow-auto">
-        <div className="p-10 max-[450px]:!px-2 font-bold text-3xl max-[450px]:text-2xl">
+        <div className="p-10 max-[450px]:!px-2 font-bold text-3xl max-[450px]:text-xl">
           Introduction to the Operations Hub
         </div>
         <div className="max-h-[calc(100vh-450px)] overflow-auto rounded-md space-y-5 max-[450px]:px-5 px-10 mb-10">
