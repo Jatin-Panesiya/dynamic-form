@@ -118,7 +118,7 @@ const MultipleProvider = () => {
       return;
     }
 
-    setStep(7);
+    setStep(8);
   };
 
   return (
