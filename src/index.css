@@ -73,8 +73,32 @@
   color: #555555;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   display: none;
+} */
+
+/* Width & height of the scrollbar */
+::-webkit-scrollbar {
+  width: 3.5px;
+  height: 3.5px;
+}
+
+/* Track (background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 10px;
+  margin-top: 2px;
+}
+
+/* Handle (scroll indicator) */
+::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.667); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 128, 128, 0.818); 
 }
 
 .grid-cols-auto-fit {

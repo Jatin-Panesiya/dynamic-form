@@ -138,10 +138,12 @@ const MultipleLocations: React.FC = () => {
               <div className="grid max-[450px]:grid-cols-1 grid-cols-2 gap-x-5">
                 <TextInput
                   label="Location Name"
+                  placeholder="Pleasant Grove"
                   {...form.getInputProps(`locations.${index}.locationName`)}
                 />
                 <TextInput
                   label="Location Identifier"
+                  placeholder="UT007"
                   {...form.getInputProps(
                     `locations.${index}.locationIdentifier`
                   )}
