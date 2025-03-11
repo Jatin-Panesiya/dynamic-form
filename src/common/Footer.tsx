@@ -37,7 +37,7 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
       const { error } = await stripe.redirectToCheckout({
         lineItems: [{ price: testPriceId, quantity: 1 }],
         mode: "payment",
-        successUrl: window.location.origin + "/success",
+        successUrl: window.location.origin + "/payment-success",
         cancelUrl: window.location.origin + "/cancel",
       });
 
