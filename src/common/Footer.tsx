@@ -13,9 +13,15 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
   const [loading, setLoading] = useState(false);
   const { step } = useContext(AppContext);
 
-  const stripePromise = loadStripe(
-    "pk_live_51NJjPpD341iGIhAdQaGd2KMeGgaND4NynhvX8XezEwvGskZIEa3381zHJRfBBK9cYyoV6YN3XBAqanS6KFBtp4KU00U27Ple54"
-  );
+  const testPublicKey =
+    "pk_test_51NJjPpD341iGIhAd2ohlo0nRAOcBWr00A02fnapdRExU6ipOVaa23aB82Q9viJvln19Zspo2CgpQ5f4moefbs1cS006iWOYmmV";
+  const livePublicKey =
+    "pk_live_51NJjPpD341iGIhAdQaGd2KMeGgaND4NynhvX8XezEwvGskZIEa3381zHJRfBBK9cYyoV6YN3XBAqanS6KFBtp4KU00U27Ple54";
+
+  const testPriceId = "price_1R1XUWD341iG|hAdDxmYmcLz";
+  const livePriceId = "price_1QzxPuD341iGIhAddqXu6mEN";
+
+  const stripePromise = loadStripe(testPublicKey);
 
   const handleStripeCheckout = async () => {
     setLoading(true);
@@ -29,7 +35,7 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
 
     try {
       const { error } = await stripe.redirectToCheckout({
-        lineItems: [{ price: "price_1QzxPuD341iGIhAddqXu6mEN", quantity: 1 }],
+        lineItems: [{ price: testPriceId, quantity: 1 }],
         mode: "payment",
         successUrl: window.location.origin + "/success",
         cancelUrl: window.location.origin + "/cancel",
