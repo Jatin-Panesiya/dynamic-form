@@ -119,27 +119,15 @@ const MultipleProvider = () => {
               }}
               className="p-3 rounded-md my-5"
             >
-              <div className="grid grid-cols-4 max-[450px]:grid-cols-1 max-[600px]:grid-cols-2 gap-x-5">
+              <div className="grid grid-cols-3 max-[450px]:grid-cols-1 max-[600px]:grid-cols-2 gap-x-5">
                 <TextInput
-                  label="First Name"
+                  label="Full Name"
                   value={provider.providerFirstName}
                   error={errors[index]?.providerFirstName}
                   onChange={(e) =>
                     handleProviderChange(
                       index,
-                      "providerFirstName",
-                      e.target.value
-                    )
-                  }
-                />
-                <TextInput
-                  label="Last Name"
-                  value={provider.providerLastName}
-                  error={errors[index]?.providerLastName}
-                  onChange={(e) =>
-                    handleProviderChange(
-                      index,
-                      "providerLastName",
+                      "providerFullName",
                       e.target.value
                     )
                   }
