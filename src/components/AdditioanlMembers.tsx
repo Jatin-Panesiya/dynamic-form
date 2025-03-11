@@ -9,6 +9,7 @@ interface IMember {
   staffName: string;
   email: string;
   role: string;
+  primaryDuties: string;
   selectedLocations: string[];
   selectedFullLocations: ILocationDetails[];
 }
@@ -57,6 +58,10 @@ const AdditionalMembers = () => {
         memberErrors.role = "Please select a role from the list.";
       }
 
+      if (!member.primaryDuties.trim()) {
+        memberErrors.primaryDuties = "Primary Duties is required.";
+      }
+
       // Validate Selected Locations
       if (!member.selectedLocations.length) {
         memberErrors.selectedLocations =
@@ -75,6 +80,7 @@ const AdditionalMembers = () => {
       staffName: "",
       email: "",
       role: "",
+      primaryDuties: "",
       selectedLocations: [],
       selectedFullLocations: [],
     };
@@ -131,7 +137,7 @@ const AdditionalMembers = () => {
               className="p-3 rounded-md my-5"
               ref={index === members.length - 1 ? lastMemberRef : null}
             >
-              <div className="grid max-[450px]:grid-cols-1 max-[600px]:grid-cols-2 grid-cols-4 gap-x-5">
+              <div className="grid max-[450px]:grid-cols-1 max-[600px]:grid-cols-2 grid-cols-3 gap-x-5">
                 <TextInput
                   label="Staff Name"
                   value={member.staffName}
@@ -148,8 +154,16 @@ const AdditionalMembers = () => {
                     handleMemberChange(index, "email", e.target.value)
                   }
                 />
+                <TextInput
+                  label="Primary Duties"
+                  value={member.primaryDuties}
+                  error={errors[index]?.primaryDuties}
+                  onChange={(e) =>
+                    handleMemberChange(index, "primaryDuties", e.target.value)
+                  }
+                />
                 <Select
-                  label="Role"
+                  label="Permissions in HUB (Select One or More)"
                   data={["Admin", "Manager", "Staff"]}
                   value={member.role}
                   error={errors[index]?.role}
