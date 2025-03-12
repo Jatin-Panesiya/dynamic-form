@@ -12,11 +12,11 @@ const Form = () => {
 
   return (
     <div className="root">
-      <img
+      {/* <img
         src="./logo.png"
         className="w-[100px] h-[100px] absolute top-10 left-10"
         alt="Mantine logo"
-      />
+      /> */}
       <div className="relative z-10">{component}</div>
 
       {/* Stepper Component */}

@@ -23,7 +23,7 @@ const CardVerification = () => {
       <div className=" m-5 flex items-stretch">
         <div className="h- bg-blue-500 p-0.5"></div>
         <div className="flex  max-[500px]:grid items-center gap-5 py-5 bg-slate-100">
-          <img src="logo.png" className="w-16 ms-5" alt="logo" />
+          {/* <img src="logo.png" className="w-16 ms-5" alt="logo" /> */}
           <div className="px-5">
             <div>
               The purpose of this $1 charge is so that when you start to treat

@@ -23,12 +23,19 @@
 .root {
   background-image: url("/bg.jpg");
   background-size: cover; /* Ensure it covers the full area */
-  background-position: center;
+  background-position: top;
   height: 100dvh;
   width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 500px) {
+  .root {
+    background-image: url("/bg_mobile.jpg");
+
+  }
 }
 
 /* @media (max-width: 450px) {
