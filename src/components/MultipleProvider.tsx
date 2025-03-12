@@ -167,8 +167,7 @@ const MultipleProvider = () => {
                   label="Full Name"
                   value={provider.providerFullName}
                   error={errors[index]?.providerFullName}
-                  placeholder="e.g., John Doe
-"
+                  placeholder="e.g., John Doe"
                   onChange={(e) =>
                     handleProviderChange(
                       index,
@@ -191,7 +190,11 @@ const MultipleProvider = () => {
                   data={locationOptions}
                   value={provider.selectedLocations}
                   error={errors[index]?.selectedLocations}
-                  placeholder="Click to select the location(s)"
+                  placeholder={
+                    provider?.selectedLocations?.length
+                      ? ""
+                      : "Click to select the location(s)"
+                  }
                   onChange={(selectedValues) =>
                     handleProviderChange(
                       index,

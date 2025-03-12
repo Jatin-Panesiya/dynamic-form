@@ -178,7 +178,11 @@ const AdditionalMembers = () => {
                   data={locationOptions}
                   value={member.selectedLocations}
                   error={errors[index]?.selectedLocations}
-                  placeholder="Click to select the location(s)"
+                  placeholder={
+                    member?.selectedLocations?.length
+                      ? ""
+                      : "Click to select the location(s)"
+                  }
                   onChange={(selectedValues) =>
                     handleMemberChange(
                       index,
