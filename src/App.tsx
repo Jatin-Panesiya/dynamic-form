@@ -12,13 +12,11 @@ const App = () => {
 
   return (
     <AppContext.Provider value={{ step, setStep, formData, setFormData }}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/prime-iv-onboarding" element={<Form />} />
-          <Route path="/payment-success" element={<PaymentSuccess />} />
-          <Route path="*" element={<Navigate to="/prime-iv-onboarding" />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/prime-iv-onboarding" element={<Form />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="*" element={<Navigate to="/prime-iv-onboarding" />} />
+      </Routes>
       <ToastContainer
         style={{
           background: "transparent",
