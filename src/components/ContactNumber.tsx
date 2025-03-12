@@ -29,6 +29,7 @@ const ContactNumber: React.FC = () => {
       },
       validate: (value: string) => {
         const plainNumber = value.replace(/\D/g, ""); // Extract only digits
+        if (!plainNumber) return "Phone number is required."; // Explicitly check empty input
         return (
           plainNumber.length === 10 || "Phone number must be exactly 10 digits."
         );
@@ -66,7 +67,7 @@ const ContactNumber: React.FC = () => {
 
   const handleNextStep = () => {
     // Extract only numeric characters for validation
-    const rawPhone = formData.phone.replace(/\D/g, "");
+    const rawPhone = formData?.phone?.replace(/\D/g, "");
 
     const isValid = validateFields({ ...formData, phone: rawPhone }); // Validate first
 
