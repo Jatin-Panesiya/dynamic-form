@@ -169,12 +169,12 @@ const MultipleLocations: React.FC = () => {
               <div className="grid max-[450px]:grid-cols-1 grid-cols-2 gap-x-5">
                 <TextInput
                   label="Location Name"
-                  placeholder="Pleasant Grove"
+                  placeholder="e.g., Pleasant Grove"
                   {...form.getInputProps(`locations.${index}.locationName`)}
                 />
                 <TextInput
                   label="Location Identifier"
-                  placeholder="UT007"
+                  placeholder="e.g., UT007"
                   {...form.getInputProps(
                     `locations.${index}.locationIdentifier`
                   )}
@@ -195,23 +195,26 @@ const MultipleLocations: React.FC = () => {
                     componentRestrictions: { country: "us" },
                   }}
                   className="w-full p-2 border mantine-TextInput-input border-gray-300 rounded"
-                  placeholder=""
+                  placeholder="e.g., 73 Robert St"
                   {...form.getInputProps(`locations.${index}.streetAddress`)}
                 />
               </div>
               <TextInput
                 label="Street Address Line 2"
+                placeholder="e.g., Suite 200"
                 {...form.getInputProps(`locations.${index}.streetAddressLine2`)}
               />
 
               <div className="grid max-[450px]:grid-cols-1 grid-cols-2 gap-x-5">
                 <TextInput
                   label="City"
+                  placeholder="e.g., Salt Lake City"
                   {...form.getInputProps(`locations.${index}.city`)}
                 />
                 <Select
                   label="State"
                   {...form.getInputProps(`locations.${index}.state`)}
+                  placeholder="e.g., Utah"
                   data={[
                     "Alabama",
                     "Alaska",
@@ -269,6 +272,7 @@ const MultipleLocations: React.FC = () => {
 
               <TextInput
                 label="Zip Code"
+                placeholder="e.g., 84101"
                 {...form.getInputProps(`locations.${index}.zipCode`)}
               />
 

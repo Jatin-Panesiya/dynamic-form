@@ -167,6 +167,8 @@ const MultipleProvider = () => {
                   label="Full Name"
                   value={provider.providerFullName}
                   error={errors[index]?.providerFullName}
+                  placeholder="e.g., John Doe
+"
                   onChange={(e) =>
                     handleProviderChange(
                       index,
@@ -179,7 +181,7 @@ const MultipleProvider = () => {
                   label="Email Address"
                   value={provider.email}
                   error={errors[index]?.email}
-                  placeholder="example@primeivhydration.com"
+                  placeholder="e.g., johndoe@primeivhydration.com"
                   onChange={(e) =>
                     handleProviderChange(index, "email", e.target.value)
                   }
@@ -189,6 +191,7 @@ const MultipleProvider = () => {
                   data={locationOptions}
                   value={provider.selectedLocations}
                   error={errors[index]?.selectedLocations}
+                  placeholder="Click to select the location(s)"
                   onChange={(selectedValues) =>
                     handleProviderChange(
                       index,

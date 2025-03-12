@@ -141,6 +141,7 @@ const AdditionalMembers = () => {
                 <TextInput
                   label="Staff Name"
                   value={member.staffName}
+                  placeholder="e.g., John Doe"
                   error={errors[index]?.staffName}
                   onChange={(e) =>
                     handleMemberChange(index, "staffName", e.target.value)
@@ -150,6 +151,7 @@ const AdditionalMembers = () => {
                   label="Email"
                   value={member.email}
                   error={errors[index]?.email}
+                  placeholder="e.g.,  johndoe@primeivhydration.com"
                   onChange={(e) =>
                     handleMemberChange(index, "email", e.target.value)
                   }
@@ -158,6 +160,7 @@ const AdditionalMembers = () => {
                   label="Primary Duties"
                   value={member.primaryDuties}
                   error={errors[index]?.primaryDuties}
+                  placeholder="e.g., Assisting Patients, etc."
                   onChange={(e) =>
                     handleMemberChange(index, "primaryDuties", e.target.value)
                   }
@@ -166,6 +169,7 @@ const AdditionalMembers = () => {
                   label="Permissions in HUB (Select One or More)"
                   data={["Admin", "Manager", "Staff"]}
                   value={member.role}
+                  placeholder="Click to select the Permission(s)"
                   error={errors[index]?.role}
                   onChange={(value) => handleMemberChange(index, "role", value)}
                 />
@@ -174,6 +178,7 @@ const AdditionalMembers = () => {
                   data={locationOptions}
                   value={member.selectedLocations}
                   error={errors[index]?.selectedLocations}
+                  placeholder="Click to select the location(s)"
                   onChange={(selectedValues) =>
                     handleMemberChange(
                       index,

@@ -132,3 +132,7 @@
 .completed {
   color: black !important;
 }
+
+.mantine-MultiSelect-inputField{
+  height: 30px !important;
+}
