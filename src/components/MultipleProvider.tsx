@@ -28,25 +28,35 @@ const MultipleProvider = () => {
     label: location?.streetAddress,
   }));
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const validateFields = () => {
     const newErrors: Record<number, Record<string, string>> = {};
     (providers as IProvider[]).forEach((provider, index) => {
       const providerErrors: Record<string, string> = {};
+
       if (!provider?.providerFullName?.trim())
         providerErrors.providerFullName = "Name is required";
-      if (!provider.email?.trim()) providerErrors.email = "Email is required";
+
+      if (!provider.email?.trim()) {
+        providerErrors.email = "Email is required";
+      } else if (!emailRegex.test(provider.email)) {
+        providerErrors.email = "Enter a valid email address";
+      }
+
       if (!provider.selectedLocations.length)
         providerErrors.selectedLocations = "At least one location is required";
+
       if (Object.keys(providerErrors).length) newErrors[index] = providerErrors;
     });
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const addNewProvider = () => {
     const newProvider = {
-      providerFirstName: "",
-      providerLastName: "",
+      providerFullName: "",
       email: "",
       selectedLocations: [],
       selectedFullLocations: [],
@@ -68,6 +78,7 @@ const MultipleProvider = () => {
       (_, i) => i !== index
     );
     setFormData({ ...formData, providers: updatedProviders });
+
     const updatedErrors = { ...errors };
     delete updatedErrors[index];
     setErrors(updatedErrors);
@@ -87,6 +98,18 @@ const MultipleProvider = () => {
     }
 
     setFormData({ ...formData, providers: updatedProviders });
+
+    // Clear error when user starts typing
+    if (errors[index] && errors[index][field]) {
+      setErrors((prevErrors) => {
+        const updatedErrors = { ...prevErrors };
+        delete updatedErrors[index][field];
+        if (Object.keys(updatedErrors[index]).length === 0) {
+          delete updatedErrors[index];
+        }
+        return updatedErrors;
+      });
+    }
   };
 
   useEffect(() => {
@@ -156,6 +179,7 @@ const MultipleProvider = () => {
                   label="Email Address"
                   value={provider.email}
                   error={errors[index]?.email}
+                  placeholder="example@primeivhydration.com"
                   onChange={(e) =>
                     handleProviderChange(index, "email", e.target.value)
                   }

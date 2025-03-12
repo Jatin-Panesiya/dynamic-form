@@ -9,10 +9,13 @@ interface FormData {
 type ValidationRule = {
   required?: boolean;
   message?: string;
+  pattern?: {
+    value: RegExp;
+    message: string;
+  };
 };
 
 type ValidationRules<T> = Partial<Record<keyof T, ValidationRule>>;
-
 type Errors<T> = Partial<Record<keyof T, string>>;
 
 const useValidation = (rules: ValidationRules<FormData>) => {
@@ -25,12 +28,18 @@ const useValidation = (rules: ValidationRules<FormData>) => {
       const rule = rules[field as keyof FormData];
       const value = formData[field as keyof FormData];
 
+      // Required field validation
       if (
         rule?.required &&
         (!value || (typeof value === "string" && !value.trim()))
       ) {
         newErrors[field as keyof FormData] =
           rule.message || `${field} is required`;
+      }
+
+      // Pattern validation (for emails, phone numbers, etc.)
+      if (rule?.pattern && value && !rule.pattern.value.test(value)) {
+        newErrors[field as keyof FormData] = rule.pattern.message;
       }
     });
 
@@ -42,7 +51,11 @@ const useValidation = (rules: ValidationRules<FormData>) => {
     setErrors((prev) => ({ ...prev, [fieldName]: undefined }));
   };
 
-  return { errors, validateFields, clearError };
+  const setError = (fieldName: keyof FormData, errorMessage: string) => {
+    setErrors((prev) => ({ ...prev, [fieldName]: errorMessage }));
+  };
+
+  return { errors, validateFields, clearError, setError };
 };
 
 export default useValidation;

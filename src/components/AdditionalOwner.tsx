@@ -16,24 +16,19 @@ const AdditionalOwner = () => {
   const [errors, setErrors] = useState<Record<number, Partial<IOwnerDetails>>>(
     {}
   );
-  const ownerRefs = useRef<(HTMLDivElement | null)[]>([]); // Store references
+  const ownerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Function to add a new owner
   const addNewOwner = () => {
-    const newOwner: IOwnerDetails = {
-      fullName: "",
-      email: "",
-      phone: "",
-    };
+    const newOwner: IOwnerDetails = { fullName: "", email: "", phone: "" };
     setFormData({ ...formData, owners: [...owners, newOwner] });
 
     setTimeout(() => {
-      const lastIndex = owners.length; // Index of new owner
+      const lastIndex = owners.length;
       ownerRefs.current[lastIndex]?.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
-    }, 100); // Delay to ensure the DOM updates
+    }, 100);
   };
 
   const removeOwner = (index: number) => {
@@ -51,6 +46,16 @@ const AdditionalOwner = () => {
     field: keyof IOwnerDetails,
     value: string
   ) => {
+    if (field === "phone") {
+      value = value.replace(/\D/g, "").slice(0, 10); // Remove non-digits, limit to 10 digits
+      if (value.length === 10) {
+        value = `(${value.slice(0, 3)})-${value.slice(3, 6)}-${value.slice(
+          6,
+          10
+        )}`;
+      }
+    }
+
     const updatedOwners = [...owners];
     updatedOwners[index] = { ...updatedOwners[index], [field]: value };
     setFormData({ ...formData, owners: updatedOwners });
@@ -65,7 +70,15 @@ const AdditionalOwner = () => {
     let error = "";
     if (!value.trim()) {
       error = `${field.charAt(0).toUpperCase() + field.slice(1)} is required`;
+    } else if (
+      field === "email" &&
+      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)
+    ) {
+      error = "Enter a valid email address";
+    } else if (field === "phone" && value.replace(/\D/g, "").length !== 10) {
+      error = "Enter a valid 10-digit phone number";
     }
+
     setErrors((prevErrors) => ({
       ...prevErrors,
       [index]: { ...prevErrors[index], [field]: error },
@@ -84,6 +97,24 @@ const AdditionalOwner = () => {
           newErrors[index] = {
             ...newErrors[index],
             [field]: `${field.replace(/([A-Z])/g, " $1")} is required`,
+          };
+        } else if (
+          field === "email" &&
+          !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(owner[field])
+        ) {
+          isValid = false;
+          newErrors[index] = {
+            ...newErrors[index],
+            [field]: "Enter a valid email address",
+          };
+        } else if (
+          field === "phone" &&
+          owner[field].replace(/\D/g, "").length !== 10
+        ) {
+          isValid = false;
+          newErrors[index] = {
+            ...newErrors[index],
+            [field]: "Enter a valid 10-digit phone number",
           };
         }
       });
@@ -113,7 +144,6 @@ const AdditionalOwner = () => {
           If there are multiple owners, please enter their details below. Click
           "Add More Owners" to include additional owners as needed.
         </div>
-
         <div className="max-h-[calc(100vh-450px)] overflow-auto">
           {(owners as IOwnerDetails[]).map((owner, index) => (
             <div
@@ -134,6 +164,15 @@ const AdditionalOwner = () => {
                           .replace(/^./, (str) => str.toUpperCase())}
                         value={owner[field]}
                         className="w-full"
+                        placeholder={
+                          field === "fullName"
+                            ? "e.g., John Doe"
+                            : field === "email"
+                            ? "e.g., johndoe@primeivhydration.com"
+                            : field === "phone"
+                            ? "(XXX)-XXX-XXXX"
+                            : ""
+                        }
                         onChange={(e) =>
                           handleOwnerChange(index, field, e.target.value)
                         }
@@ -159,9 +198,8 @@ const AdditionalOwner = () => {
             </div>
           ))}
         </div>
-
         <Button
-          className="!px-10 !text-lg !h-[52px] !mb-5 max-[450px]:!px-5 mt-5 max-[450px]:!text-sm max-[450px]:!h-[40px]"
+          className="!px-10 !text-lg !h-[52px] !mb-5 mt-5"
           onClick={addNewOwner}
         >
           + Add More Owner(s)
