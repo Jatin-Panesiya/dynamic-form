@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import Form from "./pages/Form";
 import { useState } from "react";
 import AppContext from "./context/AppContext";
