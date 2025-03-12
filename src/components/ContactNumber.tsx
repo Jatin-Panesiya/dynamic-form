@@ -23,6 +23,10 @@ const ContactNumber: React.FC = () => {
     phone: {
       required: true,
       message: "Please enter a valid phone number.",
+      pattern: {
+        value: /^\d{10}$/, // Ensures exactly 10 digits
+        message: "Phone number must be exactly 10 digits.",
+      },
       validate: (value: string) => {
         const plainNumber = value.replace(/\D/g, ""); // Extract only digits
         return (
@@ -61,12 +65,16 @@ const ContactNumber: React.FC = () => {
   };
 
   const handleNextStep = () => {
-    const isValid = validateFields(formData); // Validate first
+    // Extract only numeric characters for validation
+    const rawPhone = formData.phone.replace(/\D/g, "");
+
+    const isValid = validateFields({ ...formData, phone: rawPhone }); // Validate first
 
     if (isValid) {
       setStep(3);
     }
   };
+  
 
   return (
     <div className="container-home">
