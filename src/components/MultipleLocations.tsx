@@ -152,9 +152,10 @@ const MultipleLocations: React.FC = () => {
   return (
     <div className="container-home">
       <div className="px-10 max-[450px]:px-3">
-        <Heading text="Location Details" />
+        <Heading text="Location(s) Information" />
         <div className="text-gray-500 text-base max-[450px]:text-sm text-center pb-3">
-          If you have multiple locations, please enter their details below.
+          Enter the details of the location. If you have multiple locations,
+          click '+Add More Location(s)' to include additional ones
         </div>
 
         <div className="max-h-[calc(100vh-450px)] overflow-auto">
