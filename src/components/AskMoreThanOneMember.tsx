@@ -16,7 +16,7 @@ const AskMoreThanOneMember = () => {
   return (
     <div className="container-home">
       <div className="px-10 max-[450px]:px-3">
-        <Heading text="Do you have Additional team members who need portal access?" />
+        <Heading text="Do you have additional team members who need operations hub portal access?" />
 
         <div className="grid max-[450px]:grid-cols-1 grid-cols-2 items-center gap-5 my-7">
           <Button

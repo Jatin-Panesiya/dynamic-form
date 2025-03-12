@@ -183,7 +183,7 @@ const MultipleLocations: React.FC = () => {
 
               <div>
                 <div className="mantine-TextInput-label font-semibold text-sm">
-                  Street Address
+                  Address Line 1
                 </div>
                 <Autocomplete
                   apiKey={GOOGLE_MAPS_API_KEY}
@@ -200,7 +200,7 @@ const MultipleLocations: React.FC = () => {
                 />
               </div>
               <TextInput
-                label="Street Address Line 2"
+                label="Address Line 2 (Suite, Unit, etc.)"
                 placeholder="e.g., Suite 200"
                 {...form.getInputProps(`locations.${index}.streetAddressLine2`)}
               />

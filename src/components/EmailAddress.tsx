@@ -47,7 +47,7 @@ const EmailAddress = () => {
   return (
     <div className="container-home">
       <div className="px-10">
-        <Heading text="Owner's Email Address" />
+        <Heading text="Franchise Owner's Email Address" />
         <div className="mb-5">
           <TextInput
             type="email"

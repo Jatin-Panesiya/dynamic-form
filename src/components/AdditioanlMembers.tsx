@@ -139,7 +139,7 @@ const AdditionalMembers = () => {
             >
               <div className="grid max-[450px]:grid-cols-1 max-[600px]:grid-cols-2 grid-cols-3 gap-x-5">
                 <TextInput
-                  label="Staff Name"
+                  label="Team Member's Name"
                   value={member.staffName}
                   placeholder="e.g., John Doe"
                   error={errors[index]?.staffName}
@@ -148,7 +148,7 @@ const AdditionalMembers = () => {
                   }
                 />
                 <TextInput
-                  label="Email"
+                  label="Team Member's Email"
                   value={member.email}
                   error={errors[index]?.email}
                   placeholder="e.g.,  johndoe@primeivhydration.com"
@@ -157,7 +157,7 @@ const AdditionalMembers = () => {
                   }
                 />
                 <TextInput
-                  label="Primary Duties"
+                  label="Team Member's Primary Duties"
                   value={member.primaryDuties}
                   error={errors[index]?.primaryDuties}
                   placeholder="e.g., Assisting Patients, etc."

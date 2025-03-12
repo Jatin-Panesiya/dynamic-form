@@ -25,7 +25,7 @@ const FullName = () => {
   return (
     <div className="container-home">
       <div className="px-10">
-        <Heading text="Owner's Full Name" />
+        <Heading text="Franchise Owner's Full Name" />
         <div className="mb-5">
           <TextInput
             value={formData?.fullName}

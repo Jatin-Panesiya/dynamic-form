@@ -75,12 +75,11 @@ const ContactNumber: React.FC = () => {
       setStep(3);
     }
   };
-  
 
   return (
     <div className="container-home">
       <div className="px-10">
-        <Heading text="Owner's Phone Number" />
+        <Heading text="Franchise Owner's Phone Number" />
         <div className="mb-5">
           <TextInput
             type="text"
