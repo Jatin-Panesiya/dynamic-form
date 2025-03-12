@@ -8,10 +8,10 @@ const OperationHubMessage = () => {
   return (
     <div className="container-home">
       <div className="max-h-[calc(100vh-150px)] max-[450px]:max-h-[calc(100vh-250px)] overflow-auto">
-        <div className="p-10 max-[450px]:!px-2 font-bold text-center text-3xl max-[450px]:text-xl">
+        <div className="p-10 py-7 max-[450px]:!px-2 font-bold text-center text-3xl max-[450px]:text-xl">
           Introduction to the Operations Hub
         </div>
-        <div className="max-h-[calc(100vh-450px)] overflow-auto rounded-md space-y-5 max-[450px]:px-5 px-10 mb-10">
+        <div className="max-h-[calc(100vh-450px)] overflow-auto rounded-md space-y-2 max-[450px]:px-5 px-10 mb-10">
           <div>
             The Operations Hub is your franchise’s all-in-one portal for
             managing daily operations with ease (its separate then provider
