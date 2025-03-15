@@ -72,7 +72,7 @@ const AdditionalOwner = () => {
       error = `${field.charAt(0).toUpperCase() + field.slice(1)} is required`;
     } else if (
       field === "email" &&
-      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)
+      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(?!co$)[a-zA-Z]{2,}$/.test(value)
     ) {
       error = "Enter a valid email address";
     } else if (field === "phone" && value.replace(/\D/g, "").length !== 10) {
@@ -85,14 +85,16 @@ const AdditionalOwner = () => {
     }));
   };
 
-  const validateAllOwners = () => {
+  const handleNext = () => {
     let isValid = true;
     const newErrors: Record<number, Partial<IOwnerDetails>> = {};
 
     (owners as IOwnerDetails[]).forEach((owner, index) => {
       Object.keys(owner).forEach((key) => {
         const field = key as keyof IOwnerDetails;
-        if (!owner[field].trim()) {
+        const value = owner[field].trim();
+
+        if (!value) {
           isValid = false;
           newErrors[index] = {
             ...newErrors[index],
@@ -100,32 +102,29 @@ const AdditionalOwner = () => {
           };
         } else if (
           field === "email" &&
-          !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(owner[field])
+          !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(?!co$)[a-zA-Z]{2,}$/.test(value)
         ) {
           isValid = false;
           newErrors[index] = {
             ...newErrors[index],
             [field]: "Enter a valid email address",
           };
-        } else if (
-          field === "phone" &&
-          owner[field].replace(/\D/g, "").length !== 10
-        ) {
-          isValid = false;
-          newErrors[index] = {
-            ...newErrors[index],
-            [field]: "Enter a valid 10-digit phone number",
-          };
+        } else if (field === "phone") {
+          const cleanedPhone = value.replace(/\D/g, ""); // Remove non-digits
+          if (cleanedPhone.length !== 10) {
+            isValid = false;
+            newErrors[index] = {
+              ...newErrors[index],
+              [field]: "Enter a valid 10-digit phone number",
+            };
+          }
         }
       });
     });
 
     setErrors(newErrors);
-    return isValid;
-  };
 
-  const handleNext = () => {
-    if (validateAllOwners()) {
+    if (isValid) {
       setStep(6);
     }
   };
