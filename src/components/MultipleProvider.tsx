@@ -102,7 +102,7 @@ const MultipleProvider = () => {
       const providerErrors: Record<string, string> = {};
 
       if (!provider.providerFullName?.trim()) {
-        providerErrors.providerFullName = "Name is required";
+        providerErrors.providerFullName = "Full name is required.";
 
         if (!firstErrorShown) {
           showToast(`Enter the full name for Provider ${index + 1}`, "error");
@@ -110,8 +110,26 @@ const MultipleProvider = () => {
         }
       }
 
+      if (
+        provider.providerFullName?.trim() &&
+        provider.providerFullName?.trim().length < 3
+      ) {
+        providerErrors.providerFullName =
+          "Full name should be at least 3 characters long.";
+
+        if (!firstErrorShown) {
+          showToast(
+            `Full name should be at least 3 characters long for Provider ${
+              index + 1
+            }`,
+            "error"
+          );
+          firstErrorShown = true;
+        }
+      }
+
       if (!provider.email?.trim()) {
-        providerErrors.email = "Email is required";
+        providerErrors.email = "Email address is required.";
 
         if (!firstErrorShown) {
           showToast(
@@ -121,7 +139,7 @@ const MultipleProvider = () => {
           firstErrorShown = true;
         }
       } else if (!emailRegex.test(provider.email)) {
-        providerErrors.email = "Enter a valid email address";
+        providerErrors.email = "Enter a valid email address.";
 
         if (!firstErrorShown) {
           showToast(
@@ -133,7 +151,7 @@ const MultipleProvider = () => {
       }
 
       if (!provider.selectedLocations.length) {
-        providerErrors.selectedLocations = "At least one location is required";
+        providerErrors.selectedLocations = "Select at least one location.";
 
         if (!firstErrorShown) {
           showToast(
@@ -157,7 +175,6 @@ const MultipleProvider = () => {
 
     setStep(8);
   };
-  
 
   return (
     <div className="container-home">

@@ -8,6 +8,11 @@ import { IProvider } from "./MultipleProvider";
 import Autocomplete from "react-google-autocomplete";
 import { GOOGLE_MAPS_API_KEY, ILocationDetails } from "./MultipleLocations";
 
+// BRITE Demonstration Kits
+// - At least one entry is required.
+// - Select the provider. 
+// - Select/Add the shipping location. 
+
 const Kits = () => {
   const { setStep, formData, setFormData } = useContext(AppContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
