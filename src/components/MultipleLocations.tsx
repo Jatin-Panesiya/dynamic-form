@@ -151,21 +151,17 @@ const MultipleLocations: React.FC = () => {
     const errors: string[] = [];
     form.values.locations.forEach((location, index) => {
       if (!location.locationName)
-        errors.push(`Please enter the Location Name for Location ${index + 1}`);
+        errors.push(`Enter the location name for Location ${index + 1}`);
       if (!location.locationIdentifier)
-        errors.push(
-          `Please enter the Location Identifier for Location ${index + 1}`
-        );
+        errors.push(`Enter the location identifier for Location ${index + 1}`);
       if (!location.streetAddress)
-        errors.push(
-          `Please enter the Street Address for Location ${index + 1}`
-        );
+        errors.push(`Enter the address line 1 for Location ${index + 1}`);
       if (!location.city)
-        errors.push(`Please enter the City for Location ${index + 1}`);
+        errors.push(`Enter the city for Location ${index + 1}`);
       if (!location.state)
-        errors.push(`Please select the State for Location ${index + 1}`);
+        errors.push(`Select the state for Location ${index + 1}`);
       if (!/^[0-9]{5,6}$/.test(location.zipCode))
-        errors.push(`Please enter a valid Zip Code for Location ${index + 1}`);
+        errors.push(`Enter the zip code for Location ${index + 1}`);
     });
 
     if (errors.length > 0) {
