@@ -25,8 +25,8 @@ const AdditionalMembers = () => {
   const locationOptions = (
     (formData.locations as ILocationDetails[]) || []
   ).map((location, index) => ({
-    value: `${location?.streetAddress}_${index}`,
-    label: `${location?.streetAddress}_${index}`,
+    value: `${location?.streetAddress} (Location ${index + 1})`,
+    label: `${location?.streetAddress} (Location ${index + 1})`,
   }));
 
   const addNewMember = () => {

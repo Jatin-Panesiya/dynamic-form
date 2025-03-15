@@ -24,8 +24,8 @@ const MultipleProvider = () => {
   const locationOptions = (
     (formData.locations as ILocationDetails[]) || []
   ).map((location, index) => ({
-    value: `${location?.streetAddress}_${index}`,
-    label: `${location?.streetAddress}_${index}`,
+    value: `${location?.streetAddress} (Location ${index + 1})`,
+    label: `${location?.streetAddress} (Location ${index + 1})`,
   }));
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(?!co$)[a-zA-Z]{2,}$/;

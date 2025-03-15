@@ -28,13 +28,13 @@ const Kits = () => {
   const locationOptions = (
     (formData.locations as ILocationDetails[]) || []
   ).map((location, index) => ({
-    value: `${location?.streetAddress}_${index}`,
-    label: `${location?.streetAddress}_${index}`,
+    value: `${location?.streetAddress} (Location ${index + 1})`,
+    label: `${location?.streetAddress} (Location ${index + 1})`,
   }));
 
   locationOptions.push({
     value: "add_new_location",
-    label: "+ Add New Location",
+    label: "Ship to a Different Address (Click to Enter)",
   });
 
   const handleLocationChange = (value: string | null) => {
@@ -88,11 +88,6 @@ const Kits = () => {
 
   const handleAddNewLocation = () => {
     const newErrors: { [key: string]: string } = {};
-
-    if (!newLocationObj?.locationName)
-      newErrors.locationName = "Location Name is required";
-    if (!newLocationObj?.locationIdentifier)
-      newErrors.locationIdentifier = "Location Identifier is required";
     if (!newLocationObj?.streetAddress)
       newErrors.streetAddress = "Street Address is required";
     if (!newLocationObj?.city) newErrors.city = "City is required";
@@ -125,27 +120,6 @@ const Kits = () => {
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)} opened={isModalOpen}>
           <div className="border border-gray-300 shadow-md p-3 rounded-md my-5">
-            <div className="grid max-[450px]:grid-cols-1 grid-cols-2 gap-x-5">
-              <TextInput
-                label="Location Name"
-                placeholder="e.g., Pleasant Grove"
-                value={newLocationObj?.locationName}
-                error={errors.locationName}
-                onChange={(e) => {
-                  handleLocalInputChange("locationName", e.target.value);
-                }}
-              />
-              <TextInput
-                label="Location Identifier"
-                placeholder="e.g., UT007"
-                value={newLocationObj?.locationIdentifier}
-                error={errors.locationIdentifier}
-                onChange={(e) => {
-                  handleLocalInputChange("locationIdentifier", e.target.value);
-                }}
-              />
-            </div>
-
             <div>
               <div className="mantine-TextInput-label font-semibold text-sm">
                 Address Line 1
