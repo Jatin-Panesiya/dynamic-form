@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import AppContext from "../context/AppContext";
 import Footer from "../common/Footer";
 import Heading from "../common/Heading";
@@ -45,6 +45,11 @@ const Kits = () => {
     null
   );
 
+  // Ref for the container that holds the kit entries.
+  const kitEntriesContainerRef = useRef<HTMLDivElement>(null);
+  // Ref to keep track of the previous kitEntries length
+  const prevKitEntriesLength = useRef<number>(kitEntries.length);
+
   // Whenever kitEntries changes, update formData
   useEffect(() => {
     setFormData((prev: any) => ({ ...prev, kits: kitEntries }));
@@ -67,6 +72,19 @@ const Kits = () => {
     );
     setShippingLocation(steetLocations ?? []);
   }, []);
+
+  // When kitEntries length increases, scroll the container to the bottom smoothly
+  useEffect(() => {
+    if (kitEntries.length > prevKitEntriesLength.current) {
+      if (kitEntriesContainerRef.current) {
+        kitEntriesContainerRef.current.scrollTo({
+          top: kitEntriesContainerRef.current.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+    }
+    prevKitEntriesLength.current = kitEntries.length;
+  }, [kitEntries]);
 
   const kitProviderOptions = ((formData.providers as IProvider[]) || []).map(
     (provider, index) => ({
@@ -323,7 +341,10 @@ const Kits = () => {
           Bi-est, Progesterone, Testosterone/DHEA (for women), and Testosterone
           (for men). These are provided at no cost to you.
         </div>
-        <div className="max-h-[calc(100vh-450px)] overflow-auto pr-3">
+        <div
+          ref={kitEntriesContainerRef}
+          className="max-h-[calc(100vh-450px)] overflow-auto pr-3"
+        >
           {kitEntries.map((entry, index) => (
             <div key={index} className=" p-3 rounded">
               <div
