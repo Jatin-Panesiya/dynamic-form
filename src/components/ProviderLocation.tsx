@@ -9,9 +9,9 @@ const ProviderLocation = () => {
   const { formData, setStep, setFormData } = useContext(AppContext);
 
   const locationOptions =
-    (formData.locations as ILocationDetails[])?.map((location) => ({
-      value: location.locationIdentifier,
-      label: `${location.locationName}, ${location.city}, ${location.state}`,
+    (formData.locations as ILocationDetails[])?.map((location, index) => ({
+      value: `${location?.streetAddress}_${index}`,
+      label: `${location?.streetAddress}_${index}`,
     })) || [];
 
   useEffect(() => {

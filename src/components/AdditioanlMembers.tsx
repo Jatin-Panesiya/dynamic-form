@@ -24,9 +24,9 @@ const AdditionalMembers = () => {
 
   const locationOptions = (
     (formData.locations as ILocationDetails[]) || []
-  ).map((location) => ({
-    value: location?.streetAddress,
-    label: location?.streetAddress,
+  ).map((location, index) => ({
+    value: `${location?.streetAddress}_${index}`,
+    label: `${location?.streetAddress}_${index}`,
   }));
 
   const validateFields = () => {
