@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useRef } from "react";
-import { Button, TextInput, MultiSelect, Select } from "@mantine/core";
+import { Button, TextInput, MultiSelect } from "@mantine/core";
 import Heading from "../common/Heading";
 import Footer from "../common/Footer";
 import AppContext from "../context/AppContext";
@@ -8,7 +8,7 @@ import { ILocationDetails } from "./MultipleLocations";
 interface IMember {
   staffName: string;
   email: string;
-  role: string;
+  roles: string[]; // Changed from `role: string`
   primaryDuties: string;
   selectedLocations: string[];
   selectedFullLocations: ILocationDetails[];
@@ -33,7 +33,7 @@ const AdditionalMembers = () => {
     const newMember: IMember = {
       staffName: "",
       email: "",
-      role: "",
+      roles: [],
       primaryDuties: "",
       selectedLocations: [],
       selectedFullLocations: [],
@@ -99,9 +99,9 @@ const AdditionalMembers = () => {
           "Enter a valid email address (e.g., example@mail.com).";
       }
 
-      // Validate Role
-      if (!member.role) {
-        memberErrors.role = "Please select a role from the list.";
+      // Validate Roles
+      if (!member.roles.length) {
+        memberErrors.roles = "Please select at least one role.";
       }
 
       // Validate Primary Duties
@@ -110,7 +110,7 @@ const AdditionalMembers = () => {
       }
 
       // Validate Selected Locations
-      if (!member.selectedLocations.length) {
+      if (!member.selectedLocations?.length) {
         memberErrors.selectedLocations =
           "Select at least one location to proceed.";
       }
@@ -167,14 +167,21 @@ const AdditionalMembers = () => {
                     handleMemberChange(index, "primaryDuties", e.target.value)
                   }
                 />
-                <Select
+                <MultiSelect
                   label="Permissions in HUB (Select One or More)"
-                  data={["Admin", "Manager", "Staff"]}
-                  value={member.role}
-                  placeholder="Click to select the Permission(s)"
-                  error={errors[index]?.role}
-                  onChange={(value) => handleMemberChange(index, "role", value)}
+                  data={["Assistant", "Finance", "Analyst"]}
+                  value={member.roles} // Updated from `member.role`
+                  placeholder={
+                    member?.roles?.length
+                      ? ""
+                      : "Click to select the Permission(s)"
+                  }
+                  error={errors[index]?.roles}
+                  onChange={(selectedRoles) =>
+                    handleMemberChange(index, "roles", selectedRoles)
+                  }
                 />
+
                 <MultiSelect
                   label="Location(s)"
                   data={locationOptions}
