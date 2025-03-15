@@ -48,11 +48,13 @@ const AdditionalOwner = () => {
   ) => {
     if (field === "phone") {
       value = value.replace(/\D/g, "").slice(0, 10); // Remove non-digits, limit to 10 digits
-      if (value.length === 10) {
-        value = `(${value.slice(0, 3)})-${value.slice(3, 6)}-${value.slice(
-          6,
-          10
-        )}`;
+
+      if (value.length >= 7) {
+        value = `(${value.slice(0, 3)})-${value.slice(3, 6)}-${value.slice(6)}`;
+      } else if (value.length >= 4) {
+        value = `(${value.slice(0, 3)})-${value.slice(3)}`;
+      } else if (value.length > 0) {
+        value = `(${value}`;
       }
     }
 
