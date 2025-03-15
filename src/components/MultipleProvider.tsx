@@ -98,6 +98,7 @@ const MultipleProvider = () => {
     const newErrors: Record<number, Record<string, string>> = {};
     let firstErrorShown = false;
 
+    // Validate individual provider fields
     (providers as IProvider[]).forEach((provider, index) => {
       const providerErrors: Record<string, string> = {};
 
@@ -164,6 +165,36 @@ const MultipleProvider = () => {
 
       if (Object.keys(providerErrors).length) {
         newErrors[index] = providerErrors;
+      }
+    });
+
+    // Check for duplicate provider names
+    const nameMap = new Map<string, number[]>();
+    (providers as IProvider[]).forEach((provider, index) => {
+      const name = provider.providerFullName?.trim();
+      if (name) {
+        if (!nameMap.has(name)) {
+          nameMap.set(name, []);
+        }
+        nameMap.get(name)?.push(index);
+      }
+    });
+
+    nameMap.forEach((indices, name) => {
+      if (indices.length > 1) {
+        indices.forEach((index) => {
+          newErrors[index] = {
+            ...newErrors[index],
+            providerFullName: "Duplicate provider name is not allowed.",
+          };
+        });
+        if (!firstErrorShown) {
+          showToast(
+            `Duplicate provider name '${name}' is not allowed.`,
+            "error"
+          );
+          firstErrorShown = true;
+        }
       }
     });
 

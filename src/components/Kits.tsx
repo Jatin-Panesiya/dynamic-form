@@ -87,9 +87,9 @@ const Kits = () => {
   }, [kitEntries]);
 
   const kitProviderOptions = ((formData.providers as IProvider[]) || []).map(
-    (provider, index) => ({
-      value: `${provider?.providerFullName}_${index}`,
-      label: `${provider?.providerFullName}_${index}`,
+    (provider) => ({
+      value: provider?.providerFullName,
+      label: provider?.providerFullName,
     })
   );
 
