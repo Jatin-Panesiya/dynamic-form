@@ -167,6 +167,8 @@ const AdditionalMembers = () => {
                     handleMemberChange(index, "primaryDuties", e.target.value)
                   }
                 />
+              </div>
+              <div className="grid max-[450px]:grid-cols-1 grid-cols-2 gap-5 mt-5">
                 <MultiSelect
                   label="Permissions in HUB (Select One or More)"
                   data={["Assistant", "Finance", "Analyst"]}
@@ -174,7 +176,7 @@ const AdditionalMembers = () => {
                   placeholder={
                     member?.roles?.length
                       ? ""
-                      : "Click to select the Permission(s)"
+                      : "Click to select the permission(s)"
                   }
                   error={errors[index]?.roles}
                   onChange={(selectedRoles) =>

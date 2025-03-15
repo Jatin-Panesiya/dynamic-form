@@ -155,7 +155,7 @@ const AdditionalOwner = () => {
               }}
               className="my-3"
             >
-              <div className="grid sm:grid-cols-[1fr_1fr_1fr_50px] items-center gap-x-5 w-full">
+              <div className="grid sm:grid-cols-[1fr_1fr_1fr_50px] items-center gap-x-2 w-full">
                 {Object.keys(owner).map((key) => {
                   const field = key as keyof IOwnerDetails;
                   return (
