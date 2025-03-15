@@ -130,7 +130,7 @@ const AdditionalMembers = () => {
     <div className="container-home">
       <div className="px-10 max-[450px]:px-3">
         <Heading text="Operation Hub: Team Member Access" />
-        <div className="max-h-[calc(100vh-450px)] overflow-auto">
+        <div className="max-h-[calc(100vh-450px)] overflow-auto pr-3">
           {(members as IMember[]).map((member, index) => (
             <div
               key={index}

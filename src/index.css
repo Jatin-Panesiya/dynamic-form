@@ -86,8 +86,8 @@
 
 /* Width & height of the scrollbar */
 ::-webkit-scrollbar {
-  width: 3.5px;
-  height: 3.5px;
+  width: 6px;
+  height: 6px;
 }
 
 /* Track (background) */

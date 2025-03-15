@@ -145,7 +145,7 @@ const AdditionalOwner = () => {
           owner's details below. If there are additional owners, click '+ Add
           More Franchise Owner(s)' to include them.
         </div>
-        <div className="max-h-[calc(100vh-450px)] overflow-auto">
+        <div className="max-h-[calc(100vh-450px)] overflow-auto pr-3">
           {(owners as IOwnerDetails[]).map((owner, index) => (
             <div
               key={index}

@@ -158,7 +158,7 @@ const MultipleLocations: React.FC = () => {
           click '+Add More Location(s)' to include additional ones
         </div>
 
-        <div className="max-h-[calc(100vh-450px)] overflow-auto">
+        <div className="max-h-[calc(100vh-450px)] overflow-auto pr-3">
           {form.values.locations.map((_, index) => (
             <div
               key={index}
