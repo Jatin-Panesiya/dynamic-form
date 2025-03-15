@@ -311,10 +311,11 @@ const MultipleLocations: React.FC = () => {
                   <Button
                     variant="outline"
                     color="red"
+                    size="xs"
                     className="mt-3"
                     onClick={() => removeLocation(index)}
                   >
-                    Remove Location
+                    Remove
                   </Button>
                 </div>
               )}

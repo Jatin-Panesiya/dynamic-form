@@ -150,6 +150,16 @@ const Kits = () => {
     setKitEntryErrors(newErrors);
   };
 
+  const handleRemoveKitEntry = (index: number) => {
+    // Remove the entry and its corresponding errors
+    const newEntries = [...kitEntries];
+    newEntries.splice(index, 1);
+    setKitEntries(newEntries);
+    const newErrors = [...kitEntryErrors];
+    newErrors.splice(index, 1);
+    setKitEntryErrors(newErrors);
+  };
+
   const handleAddNewLocation = () => {
     const newErrors: { [key: string]: string } = {};
     if (!newLocationObj?.streetAddress)
@@ -315,30 +325,51 @@ const Kits = () => {
         </div>
         <div className="max-h-[calc(100vh-450px)] overflow-auto pr-3">
           {kitEntries.map((entry, index) => (
-            <div key={index} className="grid grid-cols-2 gap-5 mb-4">
-              <Select
-                label="Provider"
-                placeholder="Provider"
-                value={entry.shippingProvider}
-                onChange={(value) =>
-                  handleKitEntryChange(index, "shippingProvider", value)
-                }
-                data={kitProviderOptions}
-                error={kitEntryErrors[index]?.shippingProvider}
-              />
-              <Select
-                label="Shipping Location"
-                placeholder="Shipping Location"
-                value={entry.shippingLocation}
-                onChange={(value) =>
-                  handleKitEntryChange(index, "shippingLocation", value)
-                }
-                data={[
-                  ...shippingLocation,
-                  "Ship to a Different Address (Click to Enter)",
-                ]}
-                error={kitEntryErrors[index]?.shippingLocation}
-              />
+            <div key={index} className=" p-3 rounded">
+              <div
+                className={`grid ${
+                  kitEntries.length > 1
+                    ? "sm:grid-cols-[1fr_1fr_70px]"
+                    : "grid-cols-2"
+                }  items-center gap-5`}
+              >
+                <Select
+                  label="Provider"
+                  placeholder="Provider"
+                  value={entry.shippingProvider}
+                  onChange={(value) =>
+                    handleKitEntryChange(index, "shippingProvider", value)
+                  }
+                  data={kitProviderOptions}
+                  error={kitEntryErrors[index]?.shippingProvider}
+                />
+                <Select
+                  label="Shipping Location"
+                  placeholder="Shipping Location"
+                  value={entry.shippingLocation}
+                  onChange={(value) =>
+                    handleKitEntryChange(index, "shippingLocation", value)
+                  }
+                  data={[
+                    ...shippingLocation,
+                    "Ship to a Different Address (Click to Enter)",
+                  ]}
+                  error={kitEntryErrors[index]?.shippingLocation}
+                />
+                {kitEntries.length > 1 && (
+                  <div className="text-right mt-2">
+                    <Button
+                      variant="outline"
+                      color="red"
+                      size="xs"
+                      className="mt-2.5"
+                      onClick={() => handleRemoveKitEntry(index)}
+                    >
+                      Remove
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>

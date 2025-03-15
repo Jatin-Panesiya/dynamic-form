@@ -243,10 +243,11 @@ const MultipleProvider = () => {
                   <Button
                     variant="outline"
                     color="red"
+                    size="xs"
                     className="mt-3"
                     onClick={() => removeProvider(index)}
                   >
-                    Remove Provider
+                    Remove
                   </Button>
                 </div>
               )}

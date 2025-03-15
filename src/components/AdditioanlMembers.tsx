@@ -259,10 +259,11 @@ const AdditionalMembers = () => {
                   <Button
                     variant="outline"
                     color="red"
+                    size="xs"
                     className="mt-3"
                     onClick={() => removeMember(index)}
                   >
-                    Remove Member
+                    Remove
                   </Button>
                 </div>
               )}

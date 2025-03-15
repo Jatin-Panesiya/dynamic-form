@@ -216,10 +216,11 @@ const AdditionalOwner = () => {
                     <Button
                       variant="outline"
                       color="red"
+                      size="xs"
                       className="mt-8"
                       onClick={() => removeOwner(index)}
                     >
-                      <span className="sm:hidden">Remove Owner</span>
+                      <span className="sm:hidden">Remove</span>
                       <span className="hidden sm:inline">X</span>
                     </Button>
                   </div>
