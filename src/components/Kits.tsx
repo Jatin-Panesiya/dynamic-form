@@ -27,6 +27,7 @@ const Kits = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [shippingLocation, setShippingLocation] = useState<string[]>([]);
   const [kitData, setKitData] = useState<IKitData>();
+  const [baseErrors, setBaseErrors] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     const steetLocations = formData?.locations?.map(
@@ -176,6 +177,18 @@ const Kits = () => {
     } as ILocationDetails);
   };
 
+  const handleNext = () => {
+    if (!formData?.shippingLocation) {
+      setBaseErrors({ shippingLocation: "Select/Add the shipping location." });
+      return;
+    }
+    if (!formData?.shippingProvider) {
+      setBaseErrors({ shippingProvider: "Select the provider." });
+      return;
+    }
+    setStep(9);
+  };
+
   return (
     <div className="container-home">
       {isModalOpen && (
@@ -264,6 +277,7 @@ const Kits = () => {
             value={formData?.shippingProvider}
             onChange={handleProviderChange}
             data={kitProviderOptions}
+            error={baseErrors.shippingProvider}
           />
           <Select
             label="Shipping Location"
@@ -274,6 +288,7 @@ const Kits = () => {
               ...shippingLocation,
               "Ship to a Different Address (Click to Enter)",
             ]}
+            error={baseErrors.shippingLocation}
           />
         </div>
         <Button className="!px-10 !text-lg !h-[52px] !mb-5 max-[450px]:!px-5 mt-5 max-[450px]:!text-sm max-[450px]:!h-[40px]">
@@ -281,7 +296,7 @@ const Kits = () => {
         </Button>
       </div>
       <Footer
-        handleNextStep={() => setStep(9)}
+        handleNextStep={handleNext}
         handlePreviousStep={() => setStep(7)}
       />
     </div>
