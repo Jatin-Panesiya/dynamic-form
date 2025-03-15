@@ -44,11 +44,11 @@ const MultipleLocations: React.FC = () => {
     validate: {
       locations: {
         locationName: (value: string) =>
-          !value ? "Location name is required" : null,
+          !value ? "Location name is required." : null,
 
         locationIdentifier: (value: string, values) => {
           if (!value) {
-            return "Identifier is required";
+            return "Location identifier is required.";
           }
 
           if (!values.locations || !Array.isArray(values.locations)) {
@@ -70,14 +70,14 @@ const MultipleLocations: React.FC = () => {
         },
 
         streetAddress: (value: string) =>
-          !value ? "Street address is required" : null,
+          !value ? "Address Line 1 is required." : null,
 
-        city: (value: string) => (!value ? "City is required" : null),
+        city: (value: string) => (!value ? "City is required." : null),
 
-        state: (value: string) => (!value ? "State is required" : null),
+        state: (value: string) => (!value ? "State is required." : null),
 
         zipCode: (value: string) =>
-          /^\d{5,6}$/.test(value) ? null : "Enter a valid Zip Code",
+          /^\d{5,6}$/.test(value) ? null : "Enter a valid ZIP Code.",
       },
     },
   });
