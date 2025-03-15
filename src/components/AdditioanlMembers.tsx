@@ -4,6 +4,7 @@ import Heading from "../common/Heading";
 import Footer from "../common/Footer";
 import AppContext from "../context/AppContext";
 import { ILocationDetails } from "./MultipleLocations";
+import { showToast } from "../common/toast";
 
 interface IMember {
   staffName: string;
@@ -74,6 +75,7 @@ const AdditionalMembers = () => {
 
   const handleNextStep = () => {
     const newErrors: Record<number, Record<string, string>> = {};
+    let firstErrorShown = false;
 
     (members as IMember[]).forEach((member, index) => {
       const memberErrors: Record<string, string> = {};
@@ -81,6 +83,13 @@ const AdditionalMembers = () => {
       // Validate Staff Name
       if (!member.staffName.trim()) {
         memberErrors.staffName = "Staff name is required.";
+        if (!firstErrorShown) {
+          showToast(
+            `Enter the team member's name for Team Member ${index + 1}`,
+            "error"
+          );
+          firstErrorShown = true;
+        }
       } else if (!/^[A-Za-z\s]+$/.test(member.staffName)) {
         memberErrors.staffName = "Staff name must contain only letters.";
       } else if (member.staffName.length < 3) {
@@ -94,31 +103,69 @@ const AdditionalMembers = () => {
       // Validate Email
       if (!member.email.trim()) {
         memberErrors.email = "Email is required.";
+        if (!firstErrorShown) {
+          showToast(
+            `Enter the team member's email for Team Member ${index + 1}`,
+            "error"
+          );
+          firstErrorShown = true;
+        }
       } else if (!emailRegex.test(member.email)) {
         memberErrors.email =
           "Enter a valid email address (e.g., example@mail.com).";
+        if (!firstErrorShown) {
+          showToast(
+            `Enter a valid email address for Team Member ${index + 1}`,
+            "error"
+          );
+          firstErrorShown = true;
+        }
       }
 
       // Validate Roles
       if (!member.roles.length) {
         memberErrors.roles = "Please select at least one role.";
+        if (!firstErrorShown) {
+          showToast(
+            `Select the permissions in the hub for Team Member ${index + 1}`,
+            "error"
+          );
+          firstErrorShown = true;
+        }
       }
 
       // Validate Primary Duties
       if (!member.primaryDuties.trim()) {
         memberErrors.primaryDuties = "Primary Duties is required.";
+        if (!firstErrorShown) {
+          showToast(
+            `Enter the team member's primary duties for Team Member ${
+              index + 1
+            }`,
+            "error"
+          );
+          firstErrorShown = true;
+        }
       }
 
       // Validate Selected Locations
       if (!member.selectedLocations?.length) {
         memberErrors.selectedLocations =
           "Select at least one location to proceed.";
+        if (!firstErrorShown) {
+          showToast(
+            `Select the location(s) for Team Member ${index + 1}`,
+            "error"
+          );
+          firstErrorShown = true;
+        }
       }
 
       if (Object.keys(memberErrors).length) newErrors[index] = memberErrors;
     });
 
     setErrors(newErrors);
+
     if (Object.keys(newErrors).length === 0) {
       setStep(12);
     }
