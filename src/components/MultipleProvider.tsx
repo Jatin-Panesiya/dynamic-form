@@ -96,22 +96,52 @@ const MultipleProvider = () => {
 
   const handleNextStep = () => {
     const newErrors: Record<number, Record<string, string>> = {};
+    let firstErrorShown = false;
 
     (providers as IProvider[]).forEach((provider, index) => {
       const providerErrors: Record<string, string> = {};
 
       if (!provider.providerFullName?.trim()) {
         providerErrors.providerFullName = "Name is required";
+
+        if (!firstErrorShown) {
+          showToast(`Enter the full name for Provider ${index + 1}`, "error");
+          firstErrorShown = true;
+        }
       }
 
       if (!provider.email?.trim()) {
         providerErrors.email = "Email is required";
+
+        if (!firstErrorShown) {
+          showToast(
+            `Enter the email address for Provider ${index + 1}`,
+            "error"
+          );
+          firstErrorShown = true;
+        }
       } else if (!emailRegex.test(provider.email)) {
         providerErrors.email = "Enter a valid email address";
+
+        if (!firstErrorShown) {
+          showToast(
+            `Enter a valid email address for Provider ${index + 1}`,
+            "error"
+          );
+          firstErrorShown = true;
+        }
       }
 
       if (!provider.selectedLocations.length) {
         providerErrors.selectedLocations = "At least one location is required";
+
+        if (!firstErrorShown) {
+          showToast(
+            `Select the location(s) for Provider ${index + 1}`,
+            "error"
+          );
+          firstErrorShown = true;
+        }
       }
 
       if (Object.keys(providerErrors).length) {
@@ -122,12 +152,12 @@ const MultipleProvider = () => {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) {
-      showToast("Please correct the errors before proceeding.", "error");
       return;
     }
 
     setStep(8);
   };
+  
 
   return (
     <div className="container-home">
