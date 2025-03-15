@@ -178,14 +178,20 @@ const Kits = () => {
   };
 
   const handleNext = () => {
+    let errors: any = {};
+
     if (!formData?.shippingLocation) {
-      setBaseErrors({ shippingLocation: "Select/Add the shipping location." });
-      return;
+      errors.shippingLocation = "Select/Add the shipping location.";
     }
     if (!formData?.shippingProvider) {
-      setBaseErrors({ shippingProvider: "Select the provider." });
+      errors.shippingProvider = "Select the provider.";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setBaseErrors(errors);
       return;
     }
+
     setStep(9);
   };
 
