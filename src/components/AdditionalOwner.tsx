@@ -3,6 +3,7 @@ import AppContext from "../context/AppContext";
 import Heading from "../common/Heading";
 import { Button, TextInput } from "@mantine/core";
 import Footer from "../common/Footer";
+import { showToast } from "../common/toast";
 
 interface IOwnerDetails {
   fullName: string;
@@ -36,6 +37,7 @@ const AdditionalOwner = () => {
       (_owner, i) => i !== index
     );
     setFormData({ ...formData, owners: updatedOwners });
+
     const updatedErrors = { ...errors };
     delete updatedErrors[index];
     setErrors(updatedErrors);
@@ -48,7 +50,6 @@ const AdditionalOwner = () => {
   ) => {
     if (field === "phone") {
       value = value.replace(/\D/g, "").slice(0, 10); // Remove non-digits, limit to 10 digits
-
       if (value.length >= 7) {
         value = `(${value.slice(0, 3)})-${value.slice(3, 6)}-${value.slice(6)}`;
       } else if (value.length >= 4) {
@@ -71,14 +72,19 @@ const AdditionalOwner = () => {
   ) => {
     let error = "";
     if (!value.trim()) {
-      error = `${field.charAt(0).toUpperCase() + field.slice(1)} is required`;
+      error = `Enter the ${
+        field === "fullName" ? "full name" : field
+      } of Owner ${index + 1}`;
     } else if (
       field === "email" &&
       !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(?!co$)[a-zA-Z]{2,}$/.test(value)
     ) {
-      error = "Enter a valid email address";
-    } else if (field === "phone" && value.replace(/\D/g, "").length !== 10) {
-      error = "Enter a valid 10-digit phone number";
+      error = `Enter a valid email address of Owner ${index + 1}`;
+    } else if (field === "phone") {
+      const cleanedPhone = value.replace(/\D/g, ""); // Remove non-digits
+      if (cleanedPhone.length !== 10) {
+        error = `Enter a valid phone number of Owner ${index + 1}`;
+      }
     }
 
     setErrors((prevErrors) => ({
@@ -90,6 +96,7 @@ const AdditionalOwner = () => {
   const handleNext = () => {
     let isValid = true;
     const newErrors: Record<number, Partial<IOwnerDetails>> = {};
+    let firstErrorShown = false;
 
     (owners as IOwnerDetails[]).forEach((owner, index) => {
       Object.keys(owner).forEach((key) => {
@@ -100,8 +107,20 @@ const AdditionalOwner = () => {
           isValid = false;
           newErrors[index] = {
             ...newErrors[index],
-            [field]: `${field.replace(/([A-Z])/g, " $1")} is required`,
+            [field]: `Enter the ${
+              field === "fullName" ? "full name" : field
+            } of Owner ${index + 1}`,
           };
+
+          if (!firstErrorShown) {
+            showToast(
+              `Enter the ${
+                field === "fullName" ? "full name" : field
+              } of Owner ${index + 1}`,
+              "error"
+            );
+            firstErrorShown = true;
+          }
         } else if (
           field === "email" &&
           !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(?!co$)[a-zA-Z]{2,}$/.test(value)
@@ -109,16 +128,32 @@ const AdditionalOwner = () => {
           isValid = false;
           newErrors[index] = {
             ...newErrors[index],
-            [field]: "Enter a valid email address",
+            [field]: `Enter a valid email address of Owner ${index + 1}`,
           };
+
+          if (!firstErrorShown) {
+            showToast(
+              `Enter a valid email address of Owner ${index + 1}`,
+              "error"
+            );
+            firstErrorShown = true;
+          }
         } else if (field === "phone") {
           const cleanedPhone = value.replace(/\D/g, ""); // Remove non-digits
           if (cleanedPhone.length !== 10) {
             isValid = false;
             newErrors[index] = {
               ...newErrors[index],
-              [field]: "Enter a valid 10-digit phone number",
+              [field]: `Enter a valid phone number of Owner ${index + 1}`,
             };
+
+            if (!firstErrorShown) {
+              showToast(
+                `Enter a valid phone number of Owner ${index + 1}`,
+                "error"
+              );
+              firstErrorShown = true;
+            }
           }
         }
       });
