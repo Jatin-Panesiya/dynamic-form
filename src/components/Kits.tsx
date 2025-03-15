@@ -1,17 +1,22 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "../context/AppContext";
 import Footer from "../common/Footer";
 import Heading from "../common/Heading";
 import { Button, Modal, Select, TextInput } from "@mantine/core";
-import useInputChange from "../hooks/useInputChange";
 import { IProvider } from "./MultipleProvider";
 import Autocomplete from "react-google-autocomplete";
 import { GOOGLE_MAPS_API_KEY, ILocationDetails } from "./MultipleLocations";
+import { stateData } from "../common/common.utils";
+import { showToast } from "../common/toast";
 
 // BRITE Demonstration Kits
-// - At least one entry is required.
-// - Select the provider. 
-// - Select/Add the shipping location. 
+// - Select the provider.
+// - Select/Add the shipping location.
+
+interface IKitData {
+  shippingProvider: string;
+  shippingLocation: string;
+}
 
 const Kits = () => {
   const { setStep, formData, setFormData } = useContext(AppContext);
@@ -20,8 +25,16 @@ const Kits = () => {
     null
   );
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [shippingLocation, setShippingLocation] = useState<string[]>([]);
+  const [kitData, setKitData] = useState<IKitData>();
 
-  const handleInputChange = useInputChange();
+  useEffect(() => {
+    const steetLocations = formData?.locations?.map(
+      (location: ILocationDetails) => location.streetAddress
+    );
+
+    setShippingLocation(steetLocations ?? []);
+  }, []);
 
   const kitProviderOptions = ((formData.providers as IProvider[]) || []).map(
     (provider, index) => ({
@@ -43,13 +56,37 @@ const Kits = () => {
   });
 
   const handleLocationChange = (value: string | null) => {
-    if (value === "add_new_location") {
+    if (value === "Ship to a Different Address (Click to Enter)") {
       setIsModalOpen(true);
-      handleInputChange("kitProviderShippingLocation", "");
     } else {
-      handleInputChange("kitProviderShippingLocation", value);
+      setFormData({ ...formData, shippingLocation: value });
+      setKitData({
+        shippingLocation: value ?? "",
+        shippingProvider: kitData?.shippingProvider ?? "",
+      });
     }
   };
+  const handleProviderChange = (value: string | null) => {
+    setFormData({ ...formData, shippingProvider: value });
+    setKitData({
+      shippingProvider: value ?? "",
+      shippingLocation: kitData?.shippingLocation ?? "",
+    });
+  };
+
+  useEffect(() => {
+    if (formData?.shippingFullLocations?.length > 0) {
+      const data = formData.shippingFullLocations.map(
+        (ele: any) => ele.streetAddress
+      );
+
+      // Avoid duplicates by filtering out addresses that are already present
+      setShippingLocation((prev) => {
+        const uniqueAddresses = [...new Set([...prev, ...data])];
+        return uniqueAddresses;
+      });
+    }
+  }, [formData?.shippingFullLocations]); // Removed `shippingLocation` from dependency array
 
   const handleAddressSelect = (place: any) => {
     const addressComponents = place.address_components;
@@ -103,13 +140,32 @@ const Kits = () => {
       setErrors(newErrors);
       return;
     }
-    setFormData({
-      ...formData,
-      locations: [
-        ...(formData.locations as ILocationDetails[]),
-        newLocationObj,
-      ],
-    });
+    if (!newLocationObj?.streetAddress) {
+      return;
+    }
+    if (shippingLocation.includes(newLocationObj?.streetAddress)) {
+      showToast("Location already exists", "error");
+      return;
+    }
+
+    if (formData.shippingFullLocations) {
+      setFormData({
+        ...formData,
+        shippingFullLocations: [
+          ...formData.shippingFullLocations,
+          newLocationObj,
+        ],
+        shippingLocation: newLocationObj?.streetAddress,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        shippingFullLocations: [newLocationObj],
+        shippingLocation: newLocationObj?.streetAddress,
+      });
+    }
+
+    setShippingLocation([...shippingLocation, newLocationObj?.streetAddress]);
     setIsModalOpen(false);
   };
 
@@ -171,58 +227,7 @@ const Kits = () => {
                   handleLocalInputChange("state", e);
                 }}
                 placeholder="e.g., Utah"
-                data={[
-                  "Alabama",
-                  "Alaska",
-                  "Arizona",
-                  "Arkansas",
-                  "California",
-                  "Colorado",
-                  "Connecticut",
-                  "Delaware",
-                  "Florida",
-                  "Georgia",
-                  "Hawaii",
-                  "Idaho",
-                  "Illinois",
-                  "Indiana",
-                  "Iowa",
-                  "Kansas",
-                  "Kentucky",
-                  "Louisiana",
-                  "Maine",
-                  "Maryland",
-                  "Massachusetts",
-                  "Michigan",
-                  "Minnesota",
-                  "Mississippi",
-                  "Missouri",
-                  "Montana",
-                  "Nebraska",
-                  "Nevada",
-                  "New Hampshire",
-                  "New Jersey",
-                  "New Mexico",
-                  "New York",
-                  "North Carolina",
-                  "North Dakota",
-                  "Ohio",
-                  "Oklahoma",
-                  "Oregon",
-                  "Pennsylvania",
-                  "Rhode Island",
-                  "South Carolina",
-                  "South Dakota",
-                  "Tennessee",
-                  "Texas",
-                  "Utah",
-                  "Vermont",
-                  "Virginia",
-                  "Washington",
-                  "West Virginia",
-                  "Wisconsin",
-                  "Wyoming",
-                ]}
+                data={stateData}
               />
             </div>
 
@@ -243,33 +248,36 @@ const Kits = () => {
         </Modal>
       )}
       <div className="px-10 max-[450px]:px-3">
-        <Heading text="Kits" />
+        <Heading text="BRITE Provider Demonstration Kits" />
         <div className="text-gray-500 text-base max-[450px]:text-sm text-center pb-3">
-          Enter the details of the provider working at your franchise. If you
-          have more than one provider, click '+ Add More Provider(s)' to include
-          additional providers.
+          Add provider(s) and their shipping location for the BRITE Provider
+          Kits. These kits, packaged in a BRITE shipping box, include a dose
+          determination card and four non-active 'hormone' prescriptions:
+          Bi-est, Progesterone, Testosterone/DHEA (for women), and Testosterone
+          (for men). These are provided at no cost to you.
         </div>
 
         <div className="grid grid-cols-2 gap-5">
           <Select
             label="Provider"
             placeholder="Provider"
-            value={formData?.kitProvider}
-            onChange={(e) => {
-              handleInputChange("kitProvider", e);
-            }}
+            value={formData?.shippingProvider}
+            onChange={handleProviderChange}
             data={kitProviderOptions}
           />
           <Select
             label="Shipping Location"
             placeholder="Shipping Location"
-            value={formData?.kitProviderShippingLocation}
+            value={formData?.shippingLocation}
             onChange={handleLocationChange} // Custom handler
-            data={locationOptions}
+            data={[
+              ...shippingLocation,
+              "Ship to a Different Address (Click to Enter)",
+            ]}
           />
         </div>
         <Button className="!px-10 !text-lg !h-[52px] !mb-5 max-[450px]:!px-5 mt-5 max-[450px]:!text-sm max-[450px]:!h-[40px]">
-          + Add
+          + Send Kits to Additional Provider(s)
         </Button>
       </div>
       <Footer
