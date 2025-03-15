@@ -29,52 +29,6 @@ const AdditionalMembers = () => {
     label: `${location?.streetAddress}_${index}`,
   }));
 
-  const validateFields = () => {
-    const newErrors: Record<number, Record<string, string>> = {};
-
-    (members as IMember[]).forEach((member, index) => {
-      const memberErrors: Record<string, string> = {};
-
-      // Validate Staff Name
-      if (!member.staffName.trim()) {
-        memberErrors.staffName = "Staff name is required.";
-      } else if (!/^[A-Za-z\s]+$/.test(member.staffName)) {
-        memberErrors.staffName = "Staff name must contain only letters.";
-      } else if (member.staffName.length < 3) {
-        memberErrors.staffName =
-          "Staff name must be at least 3 characters long.";
-      }
-
-      // Validate Email
-      if (!member.email.trim()) {
-        memberErrors.email = "Email is required.";
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(member.email)) {
-        memberErrors.email =
-          "Enter a valid email address (e.g., example@mail.com).";
-      }
-
-      // Validate Role
-      if (!member.role) {
-        memberErrors.role = "Please select a role from the list.";
-      }
-
-      if (!member.primaryDuties.trim()) {
-        memberErrors.primaryDuties = "Primary Duties is required.";
-      }
-
-      // Validate Selected Locations
-      if (!member.selectedLocations.length) {
-        memberErrors.selectedLocations =
-          "Select at least one location to proceed.";
-      }
-
-      if (Object.keys(memberErrors).length) newErrors[index] = memberErrors;
-    });
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   const addNewMember = () => {
     const newMember: IMember = {
       staffName: "",
@@ -119,7 +73,55 @@ const AdditionalMembers = () => {
   };
 
   const handleNextStep = () => {
-    if (validateFields()) setStep(11);
+    const newErrors: Record<number, Record<string, string>> = {};
+
+    (members as IMember[]).forEach((member, index) => {
+      const memberErrors: Record<string, string> = {};
+
+      // Validate Staff Name
+      if (!member.staffName.trim()) {
+        memberErrors.staffName = "Staff name is required.";
+      } else if (!/^[A-Za-z\s]+$/.test(member.staffName)) {
+        memberErrors.staffName = "Staff name must contain only letters.";
+      } else if (member.staffName.length < 3) {
+        memberErrors.staffName =
+          "Staff name must be at least 3 characters long.";
+      }
+
+      const emailRegex =
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(?!co$)[a-zA-Z]{2,}$/;
+
+      // Validate Email
+      if (!member.email.trim()) {
+        memberErrors.email = "Email is required.";
+      } else if (!emailRegex.test(member.email)) {
+        memberErrors.email =
+          "Enter a valid email address (e.g., example@mail.com).";
+      }
+
+      // Validate Role
+      if (!member.role) {
+        memberErrors.role = "Please select a role from the list.";
+      }
+
+      // Validate Primary Duties
+      if (!member.primaryDuties.trim()) {
+        memberErrors.primaryDuties = "Primary Duties is required.";
+      }
+
+      // Validate Selected Locations
+      if (!member.selectedLocations.length) {
+        memberErrors.selectedLocations =
+          "Select at least one location to proceed.";
+      }
+
+      if (Object.keys(memberErrors).length) newErrors[index] = memberErrors;
+    });
+
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length === 0) {
+      setStep(11);
+    }
   };
 
   useEffect(() => {

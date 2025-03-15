@@ -28,31 +28,7 @@ const MultipleProvider = () => {
     label: `${location?.streetAddress}_${index}`,
   }));
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  const validateFields = () => {
-    const newErrors: Record<number, Record<string, string>> = {};
-    (providers as IProvider[]).forEach((provider, index) => {
-      const providerErrors: Record<string, string> = {};
-
-      if (!provider?.providerFullName?.trim())
-        providerErrors.providerFullName = "Name is required";
-
-      if (!provider.email?.trim()) {
-        providerErrors.email = "Email is required";
-      } else if (!emailRegex.test(provider.email)) {
-        providerErrors.email = "Enter a valid email address";
-      }
-
-      if (!provider.selectedLocations.length)
-        providerErrors.selectedLocations = "At least one location is required";
-
-      if (Object.keys(providerErrors).length) newErrors[index] = providerErrors;
-    });
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(?!co$)[a-zA-Z]{2,}$/;
 
   const addNewProvider = () => {
     const newProvider = {
@@ -119,25 +95,34 @@ const MultipleProvider = () => {
   }, []);
 
   const handleNextStep = () => {
-    validateFields();
+    const newErrors: Record<number, Record<string, string>> = {};
 
-    const errors: string[] = [];
-    console.log(errors);
-    (formData?.providers as IProvider[])?.forEach((location, index) => {
-      if (!location.providerFullName)
-        errors.push(
-          `Please enter the Provider FullName for Provider ${index + 1}`
-        );
-      if (!location.email)
-        errors.push(
-          `Please enter the Provider Email for Provider ${index + 1}`
-        );
-      if (!location.selectedLocations?.length)
-        errors.push(`Please enter Location for Provider ${index + 1}`);
+    (providers as IProvider[]).forEach((provider, index) => {
+      const providerErrors: Record<string, string> = {};
+
+      if (!provider.providerFullName?.trim()) {
+        providerErrors.providerFullName = "Name is required";
+      }
+
+      if (!provider.email?.trim()) {
+        providerErrors.email = "Email is required";
+      } else if (!emailRegex.test(provider.email)) {
+        providerErrors.email = "Enter a valid email address";
+      }
+
+      if (!provider.selectedLocations.length) {
+        providerErrors.selectedLocations = "At least one location is required";
+      }
+
+      if (Object.keys(providerErrors).length) {
+        newErrors[index] = providerErrors;
+      }
     });
 
-    if (errors.length > 0) {
-      showToast(errors[0], "error");
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      showToast("Please correct the errors before proceeding.", "error");
       return;
     }
 

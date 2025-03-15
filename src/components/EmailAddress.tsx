@@ -10,13 +10,15 @@ const EmailAddress = () => {
   const handleInputChange = useInputChange();
   const { formData, setStep } = useContext(AppContext);
 
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(?!co$)[a-zA-Z]{2,}$/;
+
   // Validation rules
   const validationRules = {
     email: {
       required: true,
       message: "Email address is required.",
       pattern: {
-        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        value: emailRegex,
         message: "Enter a valid email address.",
       },
     },
