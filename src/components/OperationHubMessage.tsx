@@ -1,9 +1,18 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Footer from "../common/Footer";
 import AppContext from "../context/AppContext";
+import { showToast } from "../common/toast";
 
 const OperationHubMessage = () => {
   const { setStep } = useContext(AppContext);
+  const [tasks, setTasks] = useState({
+    admin: false,
+    patient: false,
+    finance: false,
+    support: false,
+  });
+
+  const allChecked = Object.values(tasks).every(Boolean);
 
   return (
     <div className="container-home">
@@ -14,14 +23,28 @@ const OperationHubMessage = () => {
         <div className="max-h-[calc(100vh-450px)] overflow-auto rounded-md space-y-2 max-[450px]:px-5 px-10 mb-10">
           <div>
             The Operations Hub is your franchise’s all-in-one portal for
-            managing daily operations with ease (its separate then provider
+            managing daily operations with ease (it's separate from the provider
             portal). It streamlines:
           </div>
-          <div>
-            ✅ Administrative tasks <br /> ✅ Patient management <br /> ✅
-            Financial tracking <br />
-            ✅ Support & Queries <br />
-          </div>
+          {Object.entries(tasks).map(([key, value]) => (
+            <div key={key} className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id={key}
+                checked={value}
+                onChange={() => setTasks({ ...tasks, [key]: !value })}
+              />
+              <label
+                htmlFor={key}
+                className="flex items-center gap-2 cursor-pointer text-lg"
+              >
+                {key === "admin" && "Administrative tasks"}
+                {key === "patient" && "Patient management"}
+                {key === "finance" && "Financial tracking"}
+                {key === "support" && "Support & Queries"}
+              </label>
+            </div>
+          ))}
           <div>
             As the franchise owner(s), you will automatically receive full
             access, including all roles and all locations under your franchise.
@@ -39,10 +62,12 @@ const OperationHubMessage = () => {
         </div>
       </div>
       <Footer
-        handleNextStep={() => setStep(9)}
-        handlePreviousStep={() => {
-          setStep(7);
+        handleNextStep={() => {
+          allChecked
+            ? setStep(9)
+            : showToast("Please check all the tasks", "error");
         }}
+        handlePreviousStep={() => setStep(7)}
       />
     </div>
   );
