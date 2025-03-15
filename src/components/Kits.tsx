@@ -18,6 +18,11 @@ interface IKitData {
   shippingLocation: string;
 }
 
+interface IKitEntryErrors {
+  shippingProvider?: string;
+  shippingLocation?: string;
+}
+
 const Kits = () => {
   const { setStep, formData, setFormData } = useContext(AppContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,14 +31,40 @@ const Kits = () => {
   );
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [shippingLocation, setShippingLocation] = useState<string[]>([]);
-  const [kitData, setKitData] = useState<IKitData>();
-  const [baseErrors, setBaseErrors] = useState<{ [key: string]: string }>({});
+  // Initialize kitEntries from formData.kits if exists, else default to one empty entry.
+  const [kitEntries, setKitEntries] = useState<IKitData[]>(() => {
+    return formData?.kits &&
+      Array.isArray(formData.kits) &&
+      formData.kits.length > 0
+      ? formData.kits
+      : [{ shippingProvider: "", shippingLocation: "" }];
+  });
+  const [kitEntryErrors, setKitEntryErrors] = useState<IKitEntryErrors[]>([{}]);
+  // Store the index of the kit entry that triggers the modal
+  const [modalTriggeredIndex, setModalTriggeredIndex] = useState<number | null>(
+    null
+  );
+
+  // Whenever kitEntries changes, update formData
+  useEffect(() => {
+    setFormData((prev: any) => ({ ...prev, kits: kitEntries }));
+  }, [kitEntries]);
+
+  // Also, if formData.kits changes externally (e.g., coming back to this step), update kitEntries.
+  useEffect(() => {
+    if (
+      formData?.kits &&
+      Array.isArray(formData.kits) &&
+      formData.kits.length > 0
+    ) {
+      setKitEntries(formData.kits);
+    }
+  }, [formData?.kits]);
 
   useEffect(() => {
     const steetLocations = formData?.locations?.map(
       (location: ILocationDetails) => location.streetAddress
     );
-
     setShippingLocation(steetLocations ?? []);
   }, []);
 
@@ -44,59 +75,12 @@ const Kits = () => {
     })
   );
 
-  const locationOptions = (
-    (formData.locations as ILocationDetails[]) || []
-  ).map((location) => ({
-    value: location?.locationIdentifier,
-    label: location?.streetAddress,
-  }));
-
-  locationOptions.push({
-    value: "add_new_location",
-    label: "Ship to a Different Address (Click to Enter)",
-  });
-
-  const handleLocationChange = (value: string | null) => {
-    if (value === "Ship to a Different Address (Click to Enter)") {
-      setIsModalOpen(true);
-    } else {
-      setFormData({ ...formData, shippingLocation: value });
-      setKitData({
-        shippingLocation: value ?? "",
-        shippingProvider: kitData?.shippingProvider ?? "",
-      });
-    }
-  };
-  const handleProviderChange = (value: string | null) => {
-    setFormData({ ...formData, shippingProvider: value });
-    setKitData({
-      shippingProvider: value ?? "",
-      shippingLocation: kitData?.shippingLocation ?? "",
-    });
-  };
-
-  useEffect(() => {
-    if (formData?.shippingFullLocations?.length > 0) {
-      const data = formData.shippingFullLocations.map(
-        (ele: any) => ele.streetAddress
-      );
-
-      // Avoid duplicates by filtering out addresses that are already present
-      setShippingLocation((prev) => {
-        const uniqueAddresses = [...new Set([...prev, ...data])];
-        return uniqueAddresses;
-      });
-    }
-  }, [formData?.shippingFullLocations]); // Removed `shippingLocation` from dependency array
-
   const handleAddressSelect = (place: any) => {
     const addressComponents = place.address_components;
-
     let streetAddress = "";
     let city = "";
     let state = "";
     let zipCode = "";
-
     addressComponents.forEach((component: any) => {
       if (component.types.includes("street_number")) {
         streetAddress = component.long_name;
@@ -114,7 +98,6 @@ const Kits = () => {
         zipCode = component.long_name;
       }
     });
-
     const newLocation = {
       locationName: "",
       locationIdentifier: "",
@@ -123,10 +106,48 @@ const Kits = () => {
       state,
       zipCode,
     };
-
     setNewLocationObj(newLocation);
-    const updatedLocations = [...(formData.locations as ILocationDetails[])];
-    updatedLocations.push(newLocation);
+  };
+
+  const handleLocalInputChange = (field: string, value: any) => {
+    setNewLocationObj({
+      ...newLocationObj,
+      [field]: value,
+    } as ILocationDetails);
+  };
+
+  const handleKitEntryChange = (
+    index: number,
+    field: keyof IKitData,
+    value: string | null
+  ) => {
+    if (
+      field === "shippingLocation" &&
+      value === "Ship to a Different Address (Click to Enter)"
+    ) {
+      setIsModalOpen(true);
+      setModalTriggeredIndex(index);
+      return;
+    }
+    const newEntries = [...kitEntries];
+    newEntries[index] = { ...newEntries[index], [field]: value || "" };
+    setKitEntries(newEntries);
+
+    const newErrors = [...kitEntryErrors];
+    if (!value) {
+      newErrors[index] = {
+        ...newErrors[index],
+        [field]:
+          field === "shippingProvider"
+            ? "Provider is required"
+            : "Shipping Location is required",
+      };
+    } else {
+      if (newErrors[index]) {
+        delete newErrors[index][field];
+      }
+    }
+    setKitEntryErrors(newErrors);
   };
 
   const handleAddNewLocation = () => {
@@ -167,31 +188,51 @@ const Kits = () => {
     }
 
     setShippingLocation([...shippingLocation, newLocationObj?.streetAddress]);
+
+    if (modalTriggeredIndex !== null && newLocationObj?.streetAddress) {
+      const updatedEntries = [...kitEntries];
+      updatedEntries[modalTriggeredIndex] = {
+        ...updatedEntries[modalTriggeredIndex],
+        shippingLocation: newLocationObj.streetAddress,
+      };
+      setKitEntries(updatedEntries);
+      const newKitErrors = [...kitEntryErrors];
+      if (newKitErrors[modalTriggeredIndex]) {
+        delete newKitErrors[modalTriggeredIndex].shippingLocation;
+      }
+      setKitEntryErrors(newKitErrors);
+      setModalTriggeredIndex(null);
+    }
     setIsModalOpen(false);
   };
 
-  const handleLocalInputChange = (field: string, value: any) => {
-    setNewLocationObj({
-      ...newLocationObj,
-      [field]: value,
-    } as ILocationDetails);
+  const handleAddKitEntry = () => {
+    setKitEntries([
+      ...kitEntries,
+      { shippingProvider: "", shippingLocation: "" },
+    ]);
+    setKitEntryErrors([...kitEntryErrors, {}]);
   };
 
   const handleNext = () => {
-    let errors: any = {};
-
-    if (!formData?.shippingLocation) {
-      errors.shippingLocation = "Select/Add the shipping location.";
-    }
-    if (!formData?.shippingProvider) {
-      errors.shippingProvider = "Select the provider.";
-    }
-
-    if (Object.keys(errors).length > 0) {
-      setBaseErrors(errors);
+    let hasError = false;
+    const newKitEntryErrors = kitEntries.map((entry) => {
+      const entryError: IKitEntryErrors = {};
+      if (!entry.shippingProvider) {
+        entryError.shippingProvider = "Select the provider.";
+        hasError = true;
+      }
+      if (!entry.shippingLocation) {
+        entryError.shippingLocation = "Select/Add the shipping location.";
+        hasError = true;
+      }
+      return entryError;
+    });
+    setKitEntryErrors(newKitEntryErrors);
+    if (hasError) {
       return;
     }
-
+    // formData.kits is already updated via the useEffect on kitEntries
     setStep(9);
   };
 
@@ -227,7 +268,6 @@ const Kits = () => {
                 handleLocalInputChange("streetAddressLine2", e.target.value);
               }}
             />
-
             <div className="grid max-[450px]:grid-cols-1 grid-cols-2 gap-x-5">
               <TextInput
                 value={newLocationObj?.city}
@@ -249,7 +289,6 @@ const Kits = () => {
                 data={stateData}
               />
             </div>
-
             <TextInput
               value={newLocationObj?.zipCode}
               label="Zip Code"
@@ -259,7 +298,6 @@ const Kits = () => {
               }}
               error={errors.zipCode}
             />
-
             <Button className="mt-5" onClick={handleAddNewLocation}>
               Add
             </Button>
@@ -275,29 +313,39 @@ const Kits = () => {
           Bi-est, Progesterone, Testosterone/DHEA (for women), and Testosterone
           (for men). These are provided at no cost to you.
         </div>
-
-        <div className="grid grid-cols-2 gap-5">
-          <Select
-            label="Provider"
-            placeholder="Provider"
-            value={formData?.shippingProvider}
-            onChange={handleProviderChange}
-            data={kitProviderOptions}
-            error={baseErrors.shippingProvider}
-          />
-          <Select
-            label="Shipping Location"
-            placeholder="Shipping Location"
-            value={formData?.shippingLocation}
-            onChange={handleLocationChange} // Custom handler
-            data={[
-              ...shippingLocation,
-              "Ship to a Different Address (Click to Enter)",
-            ]}
-            error={baseErrors.shippingLocation}
-          />
+        <div className="max-h-[calc(100vh-450px)] overflow-auto pr-3">
+          {kitEntries.map((entry, index) => (
+            <div key={index} className="grid grid-cols-2 gap-5 mb-4">
+              <Select
+                label="Provider"
+                placeholder="Provider"
+                value={entry.shippingProvider}
+                onChange={(value) =>
+                  handleKitEntryChange(index, "shippingProvider", value)
+                }
+                data={kitProviderOptions}
+                error={kitEntryErrors[index]?.shippingProvider}
+              />
+              <Select
+                label="Shipping Location"
+                placeholder="Shipping Location"
+                value={entry.shippingLocation}
+                onChange={(value) =>
+                  handleKitEntryChange(index, "shippingLocation", value)
+                }
+                data={[
+                  ...shippingLocation,
+                  "Ship to a Different Address (Click to Enter)",
+                ]}
+                error={kitEntryErrors[index]?.shippingLocation}
+              />
+            </div>
+          ))}
         </div>
-        <Button className="!px-10 !text-lg !h-[52px] !mb-5 max-[450px]:!px-5 mt-5 max-[450px]:!text-sm max-[450px]:!h-[40px]">
+        <Button
+          className="!px-10 !text-lg !h-[52px] !mb-5 max-[450px]:!px-5 mt-5 max-[450px]:!text-sm max-[450px]:!h-[40px]"
+          onClick={handleAddKitEntry}
+        >
           + Send Kits to Additional Provider(s)
         </Button>
       </div>
