@@ -82,7 +82,7 @@ const AdditionalMembers = () => {
 
       // Validate Staff Name
       if (!member.staffName.trim()) {
-        memberErrors.staffName = "Staff name is required.";
+        memberErrors.staffName = "Full name is required.";
         if (!firstErrorShown) {
           showToast(
             `Enter the team member's name for Team Member ${index + 1}`,
@@ -90,11 +90,17 @@ const AdditionalMembers = () => {
           );
           firstErrorShown = true;
         }
-      } else if (!/^[A-Za-z\s]+$/.test(member.staffName)) {
-        memberErrors.staffName = "Staff name must contain only letters.";
       } else if (member.staffName.length < 3) {
-        memberErrors.staffName =
-          "Staff name must be at least 3 characters long.";
+        memberErrors.staffName = "Full name must be at least 3 letters long.";
+        if (!firstErrorShown) {
+          showToast(
+            `Full name must be at least 3 letters long for Team Member ${
+              index + 1
+            }`,
+            "error"
+          );
+          firstErrorShown = true;
+        }
       }
 
       const emailRegex =
@@ -102,7 +108,7 @@ const AdditionalMembers = () => {
 
       // Validate Email
       if (!member.email.trim()) {
-        memberErrors.email = "Email is required.";
+        memberErrors.email = "Email address is required.";
         if (!firstErrorShown) {
           showToast(
             `Enter the team member's email for Team Member ${index + 1}`,
@@ -111,8 +117,7 @@ const AdditionalMembers = () => {
           firstErrorShown = true;
         }
       } else if (!emailRegex.test(member.email)) {
-        memberErrors.email =
-          "Enter a valid email address (e.g., example@mail.com).";
+        memberErrors.email = "Enter a valid email address.";
         if (!firstErrorShown) {
           showToast(
             `Enter a valid email address for Team Member ${index + 1}`,
@@ -124,7 +129,7 @@ const AdditionalMembers = () => {
 
       // Validate Roles
       if (!member.roles.length) {
-        memberErrors.roles = "Please select at least one role.";
+        memberErrors.roles = "Select the permissions in the hub.";
         if (!firstErrorShown) {
           showToast(
             `Select the permissions in the hub for Team Member ${index + 1}`,
@@ -136,7 +141,7 @@ const AdditionalMembers = () => {
 
       // Validate Primary Duties
       if (!member.primaryDuties.trim()) {
-        memberErrors.primaryDuties = "Primary Duties is required.";
+        memberErrors.primaryDuties = "Enter the primary duties.";
         if (!firstErrorShown) {
           showToast(
             `Enter the team member's primary duties for Team Member ${
@@ -150,8 +155,7 @@ const AdditionalMembers = () => {
 
       // Validate Selected Locations
       if (!member.selectedLocations?.length) {
-        memberErrors.selectedLocations =
-          "Select at least one location to proceed.";
+        memberErrors.selectedLocations = "Select the location(s)";
         if (!firstErrorShown) {
           showToast(
             `Select the location(s) for Team Member ${index + 1}`,
