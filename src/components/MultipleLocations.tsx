@@ -43,14 +43,40 @@ const MultipleLocations: React.FC = () => {
     },
     validate: {
       locations: {
-        locationName: (value) => (!value ? "Location name is required" : null),
-        locationIdentifier: (value) =>
-          !value ? "Identifier is required" : null,
-        streetAddress: (value) =>
+        locationName: (value: string) =>
+          !value ? "Location name is required" : null,
+
+        locationIdentifier: (value: string, values) => {
+          if (!value) {
+            return "Identifier is required";
+          }
+
+          if (!values.locations || !Array.isArray(values.locations)) {
+            return null;
+          }
+
+          const identifiers = values.locations.map(
+            (loc) => loc.locationIdentifier
+          );
+          const duplicateCount = identifiers.filter(
+            (id) => id === value
+          ).length;
+
+          if (duplicateCount > 1) {
+            return "Duplicate Location Identifier is not allowed";
+          }
+
+          return null;
+        },
+
+        streetAddress: (value: string) =>
           !value ? "Street address is required" : null,
-        city: (value) => (!value ? "City is required" : null),
-        state: (value) => (!value ? "State is required" : null),
-        zipCode: (value) =>
+
+        city: (value: string) => (!value ? "City is required" : null),
+
+        state: (value: string) => (!value ? "State is required" : null),
+
+        zipCode: (value: string) =>
           /^\d{5,6}$/.test(value) ? null : "Enter a valid Zip Code",
       },
     },
@@ -120,7 +146,8 @@ const MultipleLocations: React.FC = () => {
   };
 
   const handleNextStep = () => {
-    form.validate();
+    const isvalid = form.validate();
+
     const errors: string[] = [];
     form.values.locations.forEach((location, index) => {
       if (!location.locationName)
@@ -146,6 +173,12 @@ const MultipleLocations: React.FC = () => {
       return;
     }
 
+    if (isvalid.hasErrors) {
+      const errorArr = Object.values(isvalid.errors).map((error) => error);
+      console.log(errorArr, "====errorArr");
+      showToast(errorArr[0], "error");
+      return;
+    }
     setStep(7);
   };
 

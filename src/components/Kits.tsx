@@ -27,9 +27,9 @@ const Kits = () => {
 
   const locationOptions = (
     (formData.locations as ILocationDetails[]) || []
-  ).map((location, index) => ({
-    value: `${location?.streetAddress} (Location ${index + 1})`,
-    label: `${location?.streetAddress} (Location ${index + 1})`,
+  ).map((location) => ({
+    value: location?.locationIdentifier,
+    label: location?.streetAddress,
   }));
 
   locationOptions.push({
