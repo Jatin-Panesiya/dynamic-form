@@ -37,7 +37,6 @@ const OperationHubMessage = () => {
             access to one or more locations under your franchise. This keeps
             your team focused while maintaining security and efficiency.👥
           </div>
-          <div>Click Next to continue setting up your access.</div>
           <div className="flex items-center">
             <input
               type="checkbox"
