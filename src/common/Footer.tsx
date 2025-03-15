@@ -109,7 +109,7 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
               >
                 <div className="tracking-widest">
                   {loading
-                    ? "Submitting..."
+                    ? "Loading..."
                     : step === totalSteps
                     ? "NEXT"
                     : "NEXT"}
