@@ -157,8 +157,8 @@ const Kits = () => {
         ...newErrors[index],
         [field]:
           field === "shippingProvider"
-            ? "Provider is required"
-            : "Shipping Location is required",
+            ? "Select the provider."
+            : "Select/Add the shipping location.",
       };
     } else {
       if (newErrors[index]) {
@@ -244,20 +244,34 @@ const Kits = () => {
 
   const handleNext = () => {
     let hasError = false;
-    const newKitEntryErrors = kitEntries.map((entry) => {
+    let toastMessage = "";
+    const newKitEntryErrors = kitEntries.map((entry, index) => {
       const entryError: IKitEntryErrors = {};
       if (!entry.shippingProvider) {
+        // Error for select component remains plain text
         entryError.shippingProvider = "Select the provider.";
+        // Toast message includes entry number
+        if (!toastMessage) {
+          toastMessage = `Select a provider for Entry ${index + 1}`;
+        }
         hasError = true;
       }
       if (!entry.shippingLocation) {
         entryError.shippingLocation = "Select/Add the shipping location.";
+        if (!toastMessage) {
+          toastMessage = `Select/Add the shipping location for Entry ${
+            index + 1
+          }`;
+        }
         hasError = true;
       }
       return entryError;
     });
     setKitEntryErrors(newKitEntryErrors);
     if (hasError) {
+      if (toastMessage) {
+        showToast(toastMessage, "error");
+      }
       return;
     }
     // formData.kits is already updated via the useEffect on kitEntries
@@ -346,13 +360,13 @@ const Kits = () => {
           className="max-h-[calc(100vh-450px)] overflow-auto pr-3"
         >
           {kitEntries.map((entry, index) => (
-            <div key={index} className=" p-3 rounded">
+            <div key={index} className="p-3 rounded">
               <div
                 className={`grid ${
                   kitEntries.length > 1
                     ? "sm:grid-cols-[1fr_1fr_70px]"
                     : "grid-cols-2"
-                }  items-center gap-5`}
+                } items-center gap-5`}
               >
                 <Select
                   label="Provider"
