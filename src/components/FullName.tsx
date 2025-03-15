@@ -11,9 +11,16 @@ const FullName = () => {
   const { formData, setStep } = useContext(AppContext);
 
   const validationRules = {
-    fullName: { required: true, message: "Full name is required" },
+    fullName: {
+      required: true,
+      message: "Full name is required.",
+      pattern: {
+        value: /^[A-Za-z\s]{3,}$/, // Ensures at least 3 letters (including spaces)
+        message: "Full name must be at least 3 letters long.",
+      },
+    },
   };
-
+  
   const { errors, validateFields, clearError } = useValidation(validationRules);
 
   const handleNextStep = () => {

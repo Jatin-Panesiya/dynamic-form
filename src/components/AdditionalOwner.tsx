@@ -71,19 +71,23 @@ const AdditionalOwner = () => {
     value: string
   ) => {
     let error = "";
+
     if (!value.trim()) {
-      error = `Enter the ${
-        field === "fullName" ? "full name" : field
-      } of Owner ${index + 1}`;
+      error =
+        field === "fullName"
+          ? "Full name is required."
+          : field === "email"
+          ? "Email address is required."
+          : "Enter a valid phone number.";
     } else if (
       field === "email" &&
       !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(?!co$)[a-zA-Z]{2,}$/.test(value)
     ) {
-      error = `Enter a valid email address of Owner ${index + 1}`;
+      error = "Enter a valid email address.";
     } else if (field === "phone") {
-      const cleanedPhone = value.replace(/\D/g, ""); // Remove non-digits
+      const cleanedPhone = value.replace(/\D/g, "");
       if (cleanedPhone.length !== 10) {
-        error = `Enter a valid phone number of Owner ${index + 1}`;
+        error = "Phone number must be 10 digits.";
       }
     }
 
@@ -102,68 +106,57 @@ const AdditionalOwner = () => {
       Object.keys(owner).forEach((key) => {
         const field = key as keyof IOwnerDetails;
         const value = owner[field].trim();
+        let error = "";
 
-        if (!value) {
-          isValid = false;
-          newErrors[index] = {
-            ...newErrors[index],
-            [field]: `Enter the ${
-              field === "fullName" ? "full name" : field
-            } of Owner ${index + 1}`,
-          };
-
-          if (!firstErrorShown) {
-            showToast(
-              `Enter the ${
-                field === "fullName" ? "full name" : field
-              } of Owner ${index + 1}`,
-              "error"
-            );
-            firstErrorShown = true;
+        // Full Name Validation
+        if (field === "fullName") {
+          if (!value) {
+            error = "Full name is required.";
+          } else if (value.length < 3) {
+            error = "Full name must be at least 3 characters long.";
           }
-        } else if (
+        }
+
+        // Email Validation
+        else if (
           field === "email" &&
           !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(?!co$)[a-zA-Z]{2,}$/.test(value)
         ) {
+          error = value
+            ? "Enter a valid email address."
+            : "Email address is required.";
+        }
+
+        // Phone Number Validation
+        else if (field === "phone") {
+          const cleanedPhone = value.replace(/\D/g, "");
+          if (!cleanedPhone) {
+            error = "Enter a valid phone number.";
+          } else if (cleanedPhone.length !== 10) {
+            error = "Phone number must be 10 digits.";
+          }
+        }
+
+        if (error) {
           isValid = false;
-          newErrors[index] = {
-            ...newErrors[index],
-            [field]: `Enter a valid email address of Owner ${index + 1}`,
-          };
+          newErrors[index] = { ...newErrors[index], [field]: error };
 
           if (!firstErrorShown) {
             showToast(
-              `Enter a valid email address of Owner ${index + 1}`,
+              `${error.endsWith(".") ? error.slice(0, -1) : error} for Owner ${
+                index + 1
+              }.`,
               "error"
             );
-            firstErrorShown = true;
-          }
-        } else if (field === "phone") {
-          const cleanedPhone = value.replace(/\D/g, ""); // Remove non-digits
-          if (cleanedPhone.length !== 10) {
-            isValid = false;
-            newErrors[index] = {
-              ...newErrors[index],
-              [field]: `Enter a valid phone number of Owner ${index + 1}`,
-            };
 
-            if (!firstErrorShown) {
-              showToast(
-                `Enter a valid phone number of Owner ${index + 1}`,
-                "error"
-              );
-              firstErrorShown = true;
-            }
+            firstErrorShown = true;
           }
         }
       });
     });
 
     setErrors(newErrors);
-
-    if (isValid) {
-      setStep(6);
-    }
+    if (isValid) setStep(6);
   };
 
   useEffect(() => {

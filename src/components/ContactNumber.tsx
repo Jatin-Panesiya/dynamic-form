@@ -22,17 +22,15 @@ const ContactNumber: React.FC = () => {
   const validationRules = {
     phone: {
       required: true,
-      message: "Please enter a valid phone number.",
+      message: "Enter a valid phone number.",
       pattern: {
         value: /^\d{10}$/, // Ensures exactly 10 digits
-        message: "Phone number must be exactly 10 digits.",
+        message: "Phone number must be 10 digits.",
       },
       validate: (value: string) => {
         const plainNumber = value.replace(/\D/g, ""); // Extract only digits
         if (!plainNumber) return "Phone number is required."; // Explicitly check empty input
-        return (
-          plainNumber.length === 10 || "Phone number must be exactly 10 digits."
-        );
+        return plainNumber.length === 10 || "Phone number must be 10 digits.";
       },
     },
   };
