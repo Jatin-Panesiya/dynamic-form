@@ -118,8 +118,8 @@
   align-items: start; /* Ensures wrapped items start at the top */
 }
 
-.mantine-PillsInputField-field {
-  padding-top: 6px !important;
+.mantine-MultiSelect-pillsList{
+  padding-top: 5.5px !important;
 }
 
 .active {

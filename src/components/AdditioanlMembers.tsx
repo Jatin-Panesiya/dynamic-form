@@ -139,7 +139,7 @@ const AdditionalMembers = () => {
               className="p-3 rounded-md my-5"
               ref={index === members.length - 1 ? lastMemberRef : null}
             >
-              <div className="grid max-[450px]:grid-cols-1 max-[600px]:grid-cols-2 grid-cols-3 gap-x-5">
+              <div className="grid max-[450px]:grid-cols-1 max-[600px]:grid-cols-2 grid-cols-3 gap-5">
                 <TextInput
                   label="Team Member's Name"
                   value={member.staffName}
