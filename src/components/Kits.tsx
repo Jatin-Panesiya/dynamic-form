@@ -365,8 +365,8 @@ const Kits = () => {
                 className={`grid ${
                   kitEntries.length > 1
                     ? "sm:grid-cols-[1fr_1fr_70px]"
-                    : "grid-cols-2"
-                } items-center gap-5`}
+                    : "sm:grid-cols-2"
+                } items-center gap-5 gap-y-2`}
               >
                 <Select
                   label="Provider"
