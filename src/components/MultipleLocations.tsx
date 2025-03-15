@@ -17,7 +17,7 @@ export interface ILocationDetails {
   zipCode: string;
 }
 
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+export const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 const MultipleLocations: React.FC = () => {
   const { setStep, formData, setFormData } = useContext(AppContext);

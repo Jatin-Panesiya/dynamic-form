@@ -22,7 +22,7 @@ const AskMoreThanOneMember = () => {
           <Button
             onClick={() => {
               handleMember(false);
-              setStep(11);
+              setStep(12);
             }}
             variant="outline"
             className="!px-10 max-[450px]:!px-5 !text-lg !h-[52px]"
@@ -32,7 +32,7 @@ const AskMoreThanOneMember = () => {
           <Button
             onClick={() => {
               handleMember(true);
-              setStep(10);
+              setStep(11);
             }}
             variant="outline"
             className="!px-10 max-[450px]:!px-5 !text-lg !h-[52px]"
@@ -44,7 +44,7 @@ const AskMoreThanOneMember = () => {
       <Footer
         handleNextStep={() => {}}
         handlePreviousStep={() => {
-          setStep(8);
+          setStep(9);
         }}
       />
     </div>

@@ -11,6 +11,7 @@ import OperationHubMessage from "../components/OperationHubMessage";
 import AskMoreThanOneMember from "../components/AskMoreThanOneMember";
 import AdditioanlMembers from "../components/AdditioanlMembers";
 import CardVerification from "../components/CardVerification";
+import Kits from "../components/Kits";
 
 export const components: { [key: number]: JSX.Element } = {
   1: <FullName />,
@@ -20,10 +21,11 @@ export const components: { [key: number]: JSX.Element } = {
   5: <AdditionalOwner />,
   6: <MultipleLocations />,
   7: <MultipleProvider />,
-  8: <OperationHubMessage />,
-  9: <AskMoreThanOneMember />,
-  10: <AdditioanlMembers />,
-  11: <CardVerification />,
+  8: <Kits />,
+  9: <OperationHubMessage />,
+  10: <AskMoreThanOneMember />,
+  11: <AdditioanlMembers />,
+  12: <CardVerification />,
 };
 
 export const totalSteps = Object.keys(components).length;

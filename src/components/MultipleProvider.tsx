@@ -6,7 +6,7 @@ import AppContext from "../context/AppContext";
 import { ILocationDetails } from "./MultipleLocations";
 import { showToast } from "../common/toast";
 
-interface IProvider {
+export interface IProvider {
   providerFullName: string;
   email: string;
   selectedLocations: string[];

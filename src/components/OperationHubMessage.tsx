@@ -64,10 +64,10 @@ const OperationHubMessage = () => {
       <Footer
         handleNextStep={() => {
           allChecked
-            ? setStep(9)
+            ? setStep(10)
             : showToast("Please check all the tasks", "error");
         }}
-        handlePreviousStep={() => setStep(7)}
+        handlePreviousStep={() => setStep(8)}
       />
     </div>
   );
