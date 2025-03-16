@@ -67,11 +67,31 @@ const Kits = () => {
   }, [formData?.kits]);
 
   useEffect(() => {
-    const steetLocations = formData?.locations?.map(
-      (location: ILocationDetails) => location.streetAddress
+    // Get addresses from shippingFullLocations (if available)
+    const shippingFull = Array.isArray(formData?.shippingFullLocations)
+      ? formData.shippingFullLocations.map(
+          (location: ILocationDetails) => location?.streetAddress || ""
+        )
+      : [];
+    // Get addresses from locations (if available)
+    const locationAddresses = Array.isArray(formData?.locations)
+      ? formData.locations.map(
+          (location: ILocationDetails) => location?.streetAddress || ""
+        )
+      : [];
+
+    // Merge both arrays
+    const combinedAddresses = [...shippingFull, ...locationAddresses];
+
+    // Remove duplicates using a Set and filter out any empty strings
+    const uniqueAddresses = Array.from(new Set(combinedAddresses)).filter(
+      (address) => address !== ""
     );
-    setShippingLocation(steetLocations ?? []);
-  }, []);
+
+    setShippingLocation(uniqueAddresses);
+  }, [formData?.shippingFullLocations, formData?.locations]);
+  
+  
 
   // When kitEntries length increases, scroll the container to the bottom smoothly
   useEffect(() => {
