@@ -5,8 +5,7 @@ const PaymentSuccess = () => {
   const { formData, setFormData } = useContext(AppContext);
 
   const sendData = async () => {
-    const scriptURL =
-      "https://script.google.com/macros/s/AKfycbwbTX0M4zWybNhYXuwTjQ2T8DMoE9UJHH1-oXfIxnl4AClCn8kQ2J1Gup5eXTsiu61j/exec";
+    const scriptURL = import.meta.env.VITE_SCRIPT_URI;
 
     try {
       await fetch(scriptURL, {
@@ -17,9 +16,8 @@ const PaymentSuccess = () => {
         },
         body: JSON.stringify(formData),
       });
-
-      setFormData({});
-      sessionStorage.clear();
+      sessionStorage.setItem("isSuccess", "false");
+      sessionStorage.setItem("step", "1");
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("Error submitting form.");
@@ -31,6 +29,7 @@ const PaymentSuccess = () => {
   useEffect(() => {
     if (!isSuccess || isSuccess === "false") {
       window.location.href = "/prime-iv-onboarding";
+      setFormData({});
       sessionStorage.clear();
     } else {
       sendData();

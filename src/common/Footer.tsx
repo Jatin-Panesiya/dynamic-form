@@ -13,17 +13,16 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
   const [loading, setLoading] = useState(false);
   const { step } = useContext(AppContext);
 
-  const testPublicKey =
-    "pk_test_51NJjPpD341iGIhAd2ohlo0nRAOcBWr00A02fnapdRExU6ipOVaa23aB82Q9viJvln19Zspo2CgpQ5f4moefbs1cS006iWOYmmV";
+  const testPublicKey = import.meta.env.VITE_PUBLIC_KEY;
+  const testPriceId = import.meta.env.VITE_PRICE_ID;
   // const livePublicKey =
   //   "pk_live_51NJjPpD341iGIhAdQaGd2KMeGgaND4NynhvX8XezEwvGskZIEa3381zHJRfBBK9cYyoV6YN3XBAqanS6KFBtp4KU00U27Ple54";
-
-  const testPriceId = "price_1R1XUWD341iGIhAdDxmYmcLz";
   // const livePriceId = "price_1QzxPuD341iGIhAddqXu6mEN";
 
   const stripePromise = loadStripe(testPublicKey);
 
   const handleStripeCheckout = async () => {
+    sessionStorage.setItem("isSuccess", "true");
     setLoading(true);
     const stripe = await stripePromise;
 
@@ -44,9 +43,6 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
       if (error) {
         console.error("Stripe error:", error);
         alert("Payment failed. Try again.");
-        sessionStorage.setItem("isSuccess", "false");
-      } else {
-        sessionStorage.setItem("isSuccess", "true");
       }
     } catch (err) {
       console.error("Error:", err);
