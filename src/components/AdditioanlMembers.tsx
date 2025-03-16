@@ -183,6 +183,11 @@ const AdditionalMembers = () => {
     <div className="container-home">
       <div className="px-10 max-[450px]:px-3">
         <Heading text="Operation Hub: Team Member Access" />
+        <div className="text-gray-500 text-base max-[450px]:text-sm text-center pb-3">
+          Since you selected 'I have team members', enter the details of your
+          team members who will need access to the Operations Hub. Click '+ Add
+          More Member(s)' to include additional team members as needed.
+        </div>
         <div className="max-h-[calc(100vh-450px)] overflow-auto pr-3">
           {(members as IMember[]).map((member, index) => (
             <div
