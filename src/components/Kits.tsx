@@ -390,7 +390,7 @@ const Kits = () => {
               >
                 <Select
                   label="Provider"
-                  placeholder="Provider"
+                  placeholder="Click to select the provider."
                   value={entry.shippingProvider}
                   onChange={(value) =>
                     handleKitEntryChange(index, "shippingProvider", value)
@@ -400,7 +400,7 @@ const Kits = () => {
                 />
                 <Select
                   label="Shipping Location"
-                  placeholder="Shipping Location"
+                  placeholder="Click to select/add the shipping location."
                   value={entry.shippingLocation}
                   onChange={(value) =>
                     handleKitEntryChange(index, "shippingLocation", value)

@@ -39,7 +39,7 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
         successUrl: window.location.origin + "/payment-success",
         cancelUrl: window.location.origin + "/cancel",
       });
-
+      setLoading(false);
       if (error) {
         console.error("Stripe error:", error);
         alert("Payment failed. Try again.");
@@ -88,7 +88,7 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
                     ? "NEXT"
                     : "NEXT"}
                 </div>
-                {!loading && step !== totalSteps && (
+                {!loading && (
                   <FaArrowRight className="mt-0.5 mx-1 arrow-right" />
                 )}
               </button>

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import AppContext from "../context/AppContext";
 
 const PaymentSuccess = () => {
@@ -26,7 +26,12 @@ const PaymentSuccess = () => {
 
   const isSuccess = sessionStorage.getItem("isSuccess");
 
+  const hasRun = useRef(false);
+
   useEffect(() => {
+    if (hasRun.current) return;
+    hasRun.current = true;
+
     if (!isSuccess || isSuccess === "false") {
       window.location.href = "/prime-iv-onboarding";
       setFormData({});
@@ -34,7 +39,7 @@ const PaymentSuccess = () => {
     } else {
       sendData();
     }
-  }, []);
+  }, [isSuccess, setFormData, sendData]);
 
   return !isSuccess || isSuccess === "false" ? (
     <div>Wait...</div>
