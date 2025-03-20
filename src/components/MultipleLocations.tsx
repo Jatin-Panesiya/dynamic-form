@@ -179,10 +179,10 @@ const MultipleLocations: React.FC = () => {
   };
 
   return (
-    <div className="container-home">
+    <div className="container-home bg-main">
       <div className="px-10 max-[450px]:px-3">
         <Heading text="Location(s) Information" />
-        <div className="text-gray-500 text-base max-[450px]:text-sm text-center pb-3">
+        <div className="text-white text-base max-[450px]:text-sm text-center pb-3">
           Enter the details of the location. If you have multiple locations,
           click '+Add More Location(s)' to include additional ones
         </div>
@@ -194,7 +194,7 @@ const MultipleLocations: React.FC = () => {
               ref={(el) => {
                 locationRefs.current[index] = el as HTMLDivElement;
               }}
-              className="border border-gray-300 shadow-md p-3 rounded-md my-5"
+              className="p-3 container-card rounded-md my-5"
             >
               <div className="grid max-[450px]:grid-cols-1 grid-cols-2 gap-x-5">
                 <TextInput
@@ -312,7 +312,7 @@ const MultipleLocations: React.FC = () => {
                     variant="outline"
                     color="red"
                     size="xs"
-                    className="mt-3"
+                    className="mt-3 !bg-red-500 !text-white"
                     onClick={() => removeLocation(index)}
                   >
                     Remove
@@ -324,7 +324,7 @@ const MultipleLocations: React.FC = () => {
         </div>
 
         <Button
-          className="!px-10 !text-lg !h-[52px] !mb-5 max-[450px]:!px-5 mt-5 max-[450px]:!text-sm max-[450px]:!h-[40px]"
+          className="!px-10 !text-lg add-button !h-[52px] !mb-5 max-[450px]:!px-5 mt-5 max-[450px]:!text-sm max-[450px]:!h-[40px]"
           onClick={addNewLocation}
         >
           + Add More Location(s)

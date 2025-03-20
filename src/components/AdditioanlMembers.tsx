@@ -180,10 +180,10 @@ const AdditionalMembers = () => {
   }, []);
 
   return (
-    <div className="container-home">
+    <div className="container-home bg-main">
       <div className="px-10 max-[450px]:px-3">
         <Heading text="Operation Hub: Team Member Access" />
-        <div className="text-gray-500 text-base max-[450px]:text-sm text-center pb-3">
+        <div className="text-white text-base max-[450px]:text-sm text-center pb-3">
           Since you selected 'I have team members', enter the details of your
           team members who will need access to the Operations Hub. Click '+ Add
           More Member(s)' to include additional team members as needed.
@@ -192,7 +192,7 @@ const AdditionalMembers = () => {
           {(members as IMember[]).map((member, index) => (
             <div
               key={index}
-              className="p-3 rounded-md my-5"
+              className="p-3 rounded-md my-5 container-card"
               ref={index === members.length - 1 ? lastMemberRef : null}
             >
               <div className="grid max-[450px]:grid-cols-1 max-[600px]:grid-cols-2 grid-cols-3 gap-5">
@@ -265,7 +265,7 @@ const AdditionalMembers = () => {
                     variant="outline"
                     color="red"
                     size="xs"
-                    className="mt-3"
+                    className="mt-3 !bg-red-500 !text-white"
                     onClick={() => removeMember(index)}
                   >
                     Remove
@@ -276,7 +276,7 @@ const AdditionalMembers = () => {
           ))}
         </div>
         <Button
-          className="!px-10 !text-lg !h-[52px] !mb-5 max-[450px]:!px-5 mt-5 max-[450px]:!text-sm max-[450px]:!h-[40px]"
+          className="!px-10 add-button !text-lg !h-[52px] !mb-5 max-[450px]:!px-5 mt-5 max-[450px]:!text-sm max-[450px]:!h-[40px]"
           onClick={addNewMember}
         >
           + Add More Member(s)

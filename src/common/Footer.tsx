@@ -54,15 +54,15 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
 
   return (
     <div>
-      <div className="bg-[#4FB4A5] rounded-b-md text-white mb-5 w-full py-3 font-semibold flex justify-between px-5">
+      <div className="rounded-b-md text-white mb-5 w-full pb-3 font-semibold flex justify-between px-5">
         <div>
           {step !== 1 && (
             <button
               onClick={handlePreviousStep}
-              className="flex items-center gap-1 cursor-pointer jiggle-left"
+              className="flex items-center gap-1 cursor-pointer jiggle-left bg-[#4FB4A5] px-7 rounded-xl py-3"
             >
               <FaArrowLeft className="mt-0.5 mx-1 arrow-left" />
-              <div className="tracking-widest">PREVIOUS</div>
+              <div className="tracking-widest font-bold text-lg">PREVIOUS</div>
             </button>
           )}
         </div>
@@ -77,11 +77,11 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
                   step === totalSteps ? handleStripeCheckout : handleNextStep
                 }
                 disabled={loading}
-                className={`flex items-center gap-1 cursor-pointer jiggle-right ${
+                className={`flex bg-[#4FB4A5] px-7 rounded-xl py-3 items-center gap-1 cursor-pointer jiggle-right ${
                   loading ? "opacity-50 cursor-not-allowed" : ""
                 }`}
               >
-                <div className="tracking-widest">
+                <div className="tracking-widest  font-bold text-lg">
                   {loading
                     ? "Loading..."
                     : step === totalSteps

@@ -166,10 +166,10 @@ const AdditionalOwner = () => {
   }, []);
 
   return (
-    <div className="container-home">
+    <div className="container-home bg-main">
       <div className="px-10 max-[450px]:px-3">
         <Heading text="Additional Franchise Owner(s) Information" />
-        <div className="text-gray-500 text-base max-[450px]:text-sm text-center pb-3">
+        <div className="text-white text-base max-[450px]:text-sm text-center pb-3">
           Since you selected 'More Than One Owner,' please enter the second
           owner's details below. If there are additional owners, click '+ Add
           More Franchise Owner(s)' to include them.
@@ -183,11 +183,11 @@ const AdditionalOwner = () => {
               }}
               className="my-3"
             >
-              <div className="grid sm:grid-cols-[1fr_1fr_1fr_50px] items-center gap-x-2 w-full">
+              <div className="grid container-card sm:grid-cols-[1fr_1fr_1fr_50px] items-center gap-x-2 w-full">
                 {Object.keys(owner).map((key) => {
                   const field = key as keyof IOwnerDetails;
                   return (
-                    <div key={field} className="w-full">
+                    <div key={field} className="w-full ">
                       <TextInput
                         label={field
                           .replace(/([A-Z])/g, " $1")
@@ -217,11 +217,13 @@ const AdditionalOwner = () => {
                       variant="outline"
                       color="red"
                       size="xs"
-                      className="mt-8"
+                      className="mt-8 !bg-red-500 !text-white"
                       onClick={() => removeOwner(index)}
                     >
                       <span className="sm:hidden">Remove</span>
-                      <span className="hidden sm:inline">X</span>
+                      <span className="hidden sm:inline bg-red-500 text-white">
+                        X
+                      </span>
                     </Button>
                   </div>
                 )}
@@ -230,7 +232,7 @@ const AdditionalOwner = () => {
           ))}
         </div>
         <Button
-          className="!px-10 !text-lg !h-[52px] !mb-5 mt-5"
+          className="!px-10 !text-lg !h-[52px] !mb-5 mt-5 add-button"
           onClick={addNewOwner}
         >
           + Add More Franchise Owner(s)

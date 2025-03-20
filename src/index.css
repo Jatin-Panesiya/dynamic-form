@@ -34,7 +34,6 @@
 @media (max-width: 500px) {
   .root {
     background-image: url("/bg_mobile.jpg");
-
   }
 }
 
@@ -92,20 +91,20 @@
 
 /* Track (background) */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
   border-radius: 10px;
   margin-top: 2px;
 }
 
 /* Handle (scroll indicator) */
 ::-webkit-scrollbar-thumb {
-  background: #4fb4a5; 
+  background: #4fb4a5;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #4fb4a5; 
+  background: #4fb4a5;
 }
 
 .grid-cols-auto-fit {
@@ -118,7 +117,7 @@
   align-items: start; /* Ensures wrapped items start at the top */
 }
 
-.mantine-MultiSelect-pillsList{
+.mantine-MultiSelect-pillsList {
   padding-top: 5.5px !important;
 }
 
@@ -133,6 +132,37 @@
   color: black !important;
 }
 
-.mantine-MultiSelect-inputField{
+.mantine-MultiSelect-inputField {
   height: 30px !important;
+}
+
+.bg-main {
+  background-color: #222722 !important;
+  color: white !important;
+}
+
+.container-card {
+  background-color: white;
+  color: black;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.mantine-InputWrapper-label {
+  color: black !important;
+  margin-top: 0px !important;
+}
+
+.mantine-Input-input,.mantine-TextInput-input {
+  background-color: #e5e7ea !important;
+}
+
+.add-button {
+  background-color: transparent !important;
+  border-color: #45bda6 !important;
+  color: #45bda6 !important;
+  border-width: 3px !important;
+}
+.add-button:hover {
+  background-color: #45bda70f !important;
 }

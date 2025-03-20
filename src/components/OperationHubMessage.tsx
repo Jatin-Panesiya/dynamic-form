@@ -8,7 +8,7 @@ const OperationHubMessage = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
-    <div className="container-home">
+    <div className="container-home bg-main">
       <div className="max-h-[calc(100vh-150px)] max-[450px]:max-h-[calc(100vh-250px)] overflow-auto pr-3">
         <div className="p-10 py-7 max-[450px]:!px-2 font-bold text-center text-3xl max-[450px]:text-xl">
           Introduction to the Operations Hub
@@ -20,9 +20,22 @@ const OperationHubMessage = () => {
             portal). It streamlines:
           </div>
           <div>
-            ✅ Administrative tasks <br /> ✅ Patient management <br /> ✅
-            Financial tracking <br />
-            ✅ Support & Queries <br />
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 bg-white p-1.5 rounded-full" />
+              Administrative tasks
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 bg-white p-1.5 rounded-full" />
+              Patient management
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 bg-white p-1.5 rounded-full" />
+              Financial tracking
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 bg-white p-1.5 rounded-full" />
+              Support & Queries
+            </div>
           </div>
           <div>
             As the franchise owner(s), you will automatically receive full

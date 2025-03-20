@@ -299,7 +299,7 @@ const Kits = () => {
   };
 
   return (
-    <div className="container-home">
+    <div className="container-home bg-main">
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)} opened={isModalOpen}>
           <div className="border border-gray-300 shadow-md p-3 rounded-md my-5">
@@ -368,7 +368,7 @@ const Kits = () => {
       )}
       <div className="px-10 max-[450px]:px-3">
         <Heading text="BRITE Provider Demonstration Kits" />
-        <div className="text-gray-500 text-base max-[450px]:text-sm text-center pb-3">
+        <div className="text-white text-base max-[450px]:text-sm text-center pb-3">
           Add provider(s) and their shipping location for the BRITE Provider
           Kits. These kits, packaged in a BRITE shipping box, include a dose
           determination card and four non-active 'hormone' prescriptions:
@@ -380,7 +380,7 @@ const Kits = () => {
           className="max-h-[calc(100vh-450px)] overflow-auto pr-3"
         >
           {kitEntries.map((entry, index) => (
-            <div key={index} className="p-3 rounded">
+            <div key={index} className="p-3 rounded container-card my-5">
               <div
                 className={`grid ${
                   kitEntries.length > 1
@@ -417,7 +417,7 @@ const Kits = () => {
                       variant="outline"
                       color="red"
                       size="xs"
-                      className="mt-2.5"
+                      className="mt-2.5 !bg-red-500 !text-white"
                       onClick={() => handleRemoveKitEntry(index)}
                     >
                       Remove
@@ -429,7 +429,7 @@ const Kits = () => {
           ))}
         </div>
         <Button
-          className="!px-10 !text-lg !h-[52px] !mb-5 max-[450px]:!px-5 mt-5 max-[450px]:!text-sm max-[450px]:!h-[40px]"
+          className="!px-10 add-button !text-lg !h-[52px] !mb-5 max-[450px]:!px-5 mt-5 max-[450px]:!text-sm max-[450px]:!h-[40px]"
           onClick={handleAddKitEntry}
         >
           + Send Kits to Additional Provider(s)

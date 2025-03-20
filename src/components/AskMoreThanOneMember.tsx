@@ -14,7 +14,7 @@ const AskMoreThanOneMember = () => {
   };
 
   return (
-    <div className="container-home">
+    <div className="container-home bg-main">
       <div className="px-10 max-[450px]:px-3">
         <Heading text="Do you have additional team members who need operations hub portal access?" />
 
@@ -25,7 +25,7 @@ const AskMoreThanOneMember = () => {
               setStep(12);
             }}
             variant="outline"
-            className="!px-10 max-[450px]:!px-5 !text-lg !h-[52px]"
+            className="!px-10 add-button max-[450px]:!px-5 !text-lg !h-[52px]"
           >
             It's just me
           </Button>
@@ -35,7 +35,7 @@ const AskMoreThanOneMember = () => {
               setStep(11);
             }}
             variant="outline"
-            className="!px-10 max-[450px]:!px-5 !text-lg !h-[52px]"
+            className="!px-10 add-button max-[450px]:!px-5 !text-lg !h-[52px]"
           >
             I have team members
           </Button>

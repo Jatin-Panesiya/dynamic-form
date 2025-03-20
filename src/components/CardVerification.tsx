@@ -8,21 +8,19 @@ const CardVerification = () => {
   const { formData, setStep } = useContext(AppContext);
 
   return (
-    <div className="container-home relative">
+    <div className="container-home relative bg-main">
       <Heading text="Card Verification" />
 
       <div className="absolute top-0 right-0 mt-5 mr-5">
-        <div className="bg-blue-500 relative w-10 rounded-full p-3">
+        <div className="bg-[#45bda6] relative w-10 rounded-full p-3">
           <FaShoppingCart color="white" />
-          <span className="absolute top-0 right-0 bg-red-500 rounded-full text-white w-4 h-4 flex items-center justify-center text-xs">
-            1
-          </span>
+          <span className="absolute top-1.5 right-1 bg-red-500 rounded-full text-white w-2 h-2 flex items-center justify-center text-xs"></span>
         </div>
       </div>
 
       <div className=" m-5 flex items-stretch">
-        <div className="h- bg-blue-500 p-0.5"></div>
-        <div className="flex  max-[500px]:grid items-center gap-5 py-5 bg-slate-100">
+        <div className="h- bg-[#e5e7ea] p-0.5"></div>
+        <div className="flex  max-[500px]:grid items-center gap-5 py-5 bg-white !text-black">
           {/* <img src="logo.png" className="w-16 ms-5" alt="logo" /> */}
           <div className="px-5">
             <div>

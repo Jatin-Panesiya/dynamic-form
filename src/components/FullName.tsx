@@ -30,7 +30,7 @@ const FullName = () => {
   };
 
   return (
-    <div className="container-home">
+    <div className="container-home bg-main">
       <div className="px-10">
         <Heading text="Franchise Owner's Full Name" />
         <div className="mb-5">
