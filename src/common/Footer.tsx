@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "../context/AppContext";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { totalSteps } from "../hooks/useGetComponent";
@@ -12,6 +12,10 @@ interface IFooterProps {
 const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
   const [loading, setLoading] = useState(false);
   const { step } = useContext(AppContext);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   const testPublicKey = import.meta.env.VITE_PUBLIC_KEY;
   const testPriceId = import.meta.env.VITE_PRICE_ID;
