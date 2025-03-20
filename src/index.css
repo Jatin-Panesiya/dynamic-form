@@ -85,20 +85,20 @@
 
 /* Width & height of the scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
   height: 6px;
 }
 
 /* Track (background) */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #737475;
   border-radius: 10px;
   margin-top: 2px;
 }
 
 /* Handle (scroll indicator) */
 ::-webkit-scrollbar-thumb {
-  background: #4fb4a5;
+  background: white;
   border-radius: 10px;
 }
 
