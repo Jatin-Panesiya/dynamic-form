@@ -32,10 +32,7 @@ const App = () => {
         <Route path="*" element={<Navigate to="/prime-iv-onboarding" />} />
       </Routes>
       <ToastContainer
-        style={{
-          background: "transparent",
-          marginLeft: "130px",
-        }}
+        className="custom-toast-container"
         toastStyle={{
           padding: "20px",
         }}

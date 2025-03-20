@@ -170,3 +170,17 @@
 #RFS-Connector {
   border-color: #FFFFFF !important;
 }
+
+/* toastStyles.css */
+.custom-toast-container {
+  background: transparent;
+  /* Default margin for larger screens */
+  margin-left: 130px;
+}
+
+/* Adjust margin for mobile devices */
+@media (max-width: 768px) {
+  .custom-toast-container {
+    margin-left: 0; /* or adjust accordingly */
+  }
+}
