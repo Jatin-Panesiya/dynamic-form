@@ -232,7 +232,7 @@ const AdditionalOwner = () => {
           ))}
         </div>
         <Button
-          className="!px-10 !text-lg !h-[52px] !mb-5 mt-5 add-button"
+          className="sm:!px-10 !text-lg !h-[52px] !mb-5 mt-5 add-button"
           onClick={addNewOwner}
         >
           + Add More Franchise Owner(s)

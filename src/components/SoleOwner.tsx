@@ -16,7 +16,7 @@ const SoleOwner = () => {
   return (
     <div className="container-home bg-main">
       <Heading text="Are you the sole owner, or is there more than one owner?" />
-      <div className="grid grid-cols-2 max-w-[650px] mx-auto max-[450px]:grid gap-y-2 items-center gap-x-5 my-5 justify-center">
+      <div className="grid sm:grid-cols-2 max-w-[650px] mx-auto max-[450px]:grid gap-y-2 items-center gap-x-5 my-5 justify-center">
         <Button
           onClick={() => {
             handleOwnerType(true);

@@ -25,10 +25,10 @@ const Form = () => {
           activeStep={step - 1} // Convert step to 0-based index
           className="absolute bottom-6 w-screen max-w-[1150px] flex justify-center"
           styleConfig={{
-            activeBgColor: "#007BFF", // Green for active step
+            activeBgColor: "#666666", // Green for active step
             fontWeight: "bold",
-            completedBgColor: "#4CAF50", // Green for completed steps
-            inactiveBgColor: "#007BFF", // Blue for incomplete steps
+            completedBgColor: "#45bda6", // Green for completed steps
+            inactiveBgColor: "#666666", // Blue for incomplete steps
             activeTextColor: "white",
             completedTextColor: "white",
             inactiveTextColor: "white",

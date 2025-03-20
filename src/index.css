@@ -166,3 +166,7 @@
 .add-button:hover {
   background-color: #45bda70f !important;
 }
+
+#RFS-Connector {
+  border-color: #FFFFFF !important;
+}
