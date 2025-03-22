@@ -15,7 +15,20 @@ const Footer = ({ handleNextStep, handlePreviousStep }: IFooterProps) => {
 
   useEffect(() => {
     setLoading(false);
+  
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        setLoading(false);
+      }
+    };
+  
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+  
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
+  
 
   const testPublicKey = import.meta.env.VITE_PUBLIC_KEY;
   const testPriceId = import.meta.env.VITE_PRICE_ID;
