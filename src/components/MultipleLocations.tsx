@@ -183,8 +183,7 @@ const MultipleLocations: React.FC = () => {
       <div className="px-10 max-[450px]:px-3">
         <Heading text="Location(s) Information" />
         <div className="text-white text-base max-[450px]:text-sm text-center pb-3">
-          Enter the details of the location. If you have multiple locations,
-          click '+Add More Location(s)' to include additional ones
+          For multiple locations, click "+ Add Additional Location(s)."
         </div>
 
         <div className="max-h-[calc(100vh-450px)] overflow-auto pr-3">
