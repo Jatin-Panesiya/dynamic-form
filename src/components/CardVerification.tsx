@@ -24,10 +24,7 @@ const CardVerification = () => {
           {/* <img src="logo.png" className="w-16 ms-5" alt="logo" /> */}
           <div className="px-5">
             <div>
-              The purpose of this $1 charge is so that when you start to treat
-              patients we'll be ready to go. Our system, at that point, collect
-              on a daily basis, based on the patients in your system. Hit ‘Next’
-              to proceed.
+            The purpose of this $1 charge is so that when you start to treat patients we'll be ready to go. Our system, at that point, will collect on a daily basis, based on the patients in your system. Hit ‘Next’ to proceed.
             </div>
           </div>
           <div className="pr-5 font-bold text-xl  max-[500px]:hidden">
