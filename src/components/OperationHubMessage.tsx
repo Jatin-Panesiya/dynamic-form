@@ -15,7 +15,9 @@ const OperationHubMessage = () => {
         </div>
         <div className="max-h-[calc(100vh-450px)] overflow-auto rounded-md space-y-2 max-[450px]:px-5 px-10 mb-10">
           <div>
-          The Operations Hub is your franchise’s all-in-one portal (its separate then provider portal) for managing daily operations including:
+            The Operations Hub is your franchise’s all-in-one portal (its
+            separate from provider portal) for managing daily operations
+            including:
           </div>
           <div>
             <div className="flex items-center gap-2">
@@ -36,10 +38,15 @@ const OperationHubMessage = () => {
             </div>
           </div>
           <div>
-          As the franchise owner(s), you will automatically receive full access, including all roles and all locations under your franchise.
+            As the franchise owner(s), you will automatically receive full
+            access, including all roles and all locations under your franchise.
           </div>
           <div>
-          If you have additional team members, such as assistants or accountants, you can grant them specific access according to their roles. Each team member can be assigned the roles of Assistant, Finance, and/or Analyst and can be provided access to specific franchise locations as needed.
+            If you have additional team members, such as assistants or
+            accountants, you can grant them specific access according to their
+            roles. Each team member can be assigned the roles of Assistant,
+            Finance, and/or Analyst and can be provided access to specific
+            franchise locations as needed.
           </div>
           <div className="flex items-center">
             <input
@@ -52,7 +59,8 @@ const OperationHubMessage = () => {
               }}
             />
             <label htmlFor="checkbox" className="ml-2 mt-1 cursor-pointer">
-            I acknowledge that I have read and understand the purpose of the Operations Hub for managing my franchise operations.
+              I acknowledge that I have read and understand the purpose of the
+              Operations Hub for managing my franchise operations.
             </label>
           </div>
         </div>
